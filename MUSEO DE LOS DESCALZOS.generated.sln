@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin", "Admin\Admin.csproj", "{E6D32C2C-5C65-4B2D-8E3C-47921BA21ABE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MUSEODESCALZOS", "usuario\MUSEODESCALZOS.csproj", "{56F3C272-45D8-4333-B351-7D772438FDC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6D32C2C-5C65-4B2D-8E3C-47921BA21ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6D32C2C-5C65-4B2D-8E3C-47921BA21ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6D32C2C-5C65-4B2D-8E3C-47921BA21ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6D32C2C-5C65-4B2D-8E3C-47921BA21ABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F3C272-45D8-4333-B351-7D772438FDC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F3C272-45D8-4333-B351-7D772438FDC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F3C272-45D8-4333-B351-7D772438FDC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F3C272-45D8-4333-B351-7D772438FDC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BEC6ACF5-5B2E-41D0-A510-789883F432CC}
+	EndGlobalSection
+EndGlobal
