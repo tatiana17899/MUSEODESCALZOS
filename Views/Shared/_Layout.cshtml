@@ -18,7 +18,7 @@
 </head>
 <body>
     <div>
-        <div class="mb-5">
+        <main class="mb-5">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
                     <a class="navbar-brand ms-3" href="#">MUSEO DE LOS DESCALZOS</a>
@@ -67,19 +67,18 @@
                     </div>
                 </div>
             </nav>
-            <main role="main" class="pb-3">
+            <div role="main">
                 @RenderBody()
-            </main>
-            <footer class="text-center">
+            </div>
+        </main>
+        <footer class="text-center">
                 <h3>Visitanos en</h3>
                 <p>Alameda de los Descalzos, Rímac 15093</p>
                 <p>Email:museodescalzos@gmail.com</p>
                 <p class="copyright">
                 © 2024 Museo de los Descalzos. Todos los derechos reservados.
                 </p>
-            </footer>
-        </div>
-
+        </footer>
     </div>
     <!--
     <header>
