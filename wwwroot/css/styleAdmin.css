@@ -1,0 +1,43 @@
+#sidebar {
+  background-color: #1d3860;
+  color: white;
+}
+#contenido {
+  background-color: #f3f3f3;
+}
+.nav-link {
+  color: white;
+}
+.sidebar-hidden {
+  transform: translateX(-100%);
+}
+.icon {
+  font-size: 30px;
+}
+
+.sidebar-show {
+  transform: translateX(0);
+}
+
+.content {
+  padding: 2rem;
+  transition: padding 0.3s ease;
+}
+
+.content.sidebar-hidden {
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    z-index: 1000;
+    transform: translateX(-100%);
+  }
+  .sidebar-show {
+    transform: translateX(0);
+  }
+  .content {
+    padding: 1rem;
+  }
+}
