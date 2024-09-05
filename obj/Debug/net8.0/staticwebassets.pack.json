@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\MUSEODESCALZOS.bundle.scp.css"
     },
     {
+      "Id": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MuseoDescalzos\\wwwroot\\css\\index.css",
+      "PackagePath": "staticwebassets\\css\\index.css"
+    },
+    {
       "Id": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MuseoDescalzos\\wwwroot\\css\\style.css",
       "PackagePath": "staticwebassets\\css\\style.css"
     },
@@ -15,6 +19,10 @@
     {
       "Id": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MuseoDescalzos\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MuseoDescalzos\\wwwroot\\img\\imagen.jpg",
+      "PackagePath": "staticwebassets\\img\\imagen.jpg"
     },
     {
       "Id": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MuseoDescalzos\\wwwroot\\js\\site.js",
