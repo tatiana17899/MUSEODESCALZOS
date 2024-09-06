@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MuseoDescalzos.Controllers
 {
-    [Route("[controller]")]
+    
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;
