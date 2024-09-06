@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "yjUh3g2q9xOJBmQXUDxL1iSHWhDhRx5zREFKaa27g48=",
+  "Hash": "LV+1D5yf+qEQmpy2dCJwbifeDgMREXEWlAcJpKw591Y=",
   "Source": "MUSEODESCALZOS",
   "BasePath": "_content/MUSEODESCALZOS",
   "Mode": "Default",
@@ -1212,6 +1212,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\index.css"
+    },
+    {
+      "Identity": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MuseoDescalzos\\wwwroot\\css\\indexAdmin.css",
+      "SourceId": "MUSEODESCALZOS",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MuseoDescalzos\\wwwroot\\",
+      "BasePath": "_content/MUSEODESCALZOS",
+      "RelativePath": "css/indexAdmin.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\indexAdmin.css"
     },
     {
       "Identity": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MuseoDescalzos\\wwwroot\\css\\style.css",
