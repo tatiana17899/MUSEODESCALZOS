@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "obQOJiZ8f+DqZyvfQRL0FcHG/1dRNYDXjJ4nCh1WPlw=",
+  "Hash": "ZcNP7Wh2iEQ+W/rQZtvjZ2xrulIBkdjpW5Pgxf8yK0U=",
   "Source": "MUSEODESCALZOS",
   "BasePath": "_content/MUSEODESCALZOS",
   "Mode": "Default",
@@ -1307,6 +1307,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\imagen.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\meli0\\OneDrive\\Documents\\GitHub\\MUSEODESCALZOS\\wwwroot\\img\\Tatagod.png",
+      "SourceId": "MUSEODESCALZOS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\meli0\\OneDrive\\Documents\\GitHub\\MUSEODESCALZOS\\wwwroot\\",
+      "BasePath": "_content/MUSEODESCALZOS",
+      "RelativePath": "img/Tatagod.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\Tatagod.png"
     },
     {
       "Identity": "C:\\Users\\meli0\\OneDrive\\Documents\\GitHub\\MUSEODESCALZOS\\wwwroot\\js\\site.js",
