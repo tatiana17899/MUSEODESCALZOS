@@ -1,0 +1,63 @@
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="main-content">
+    <h1>Perfil</h1>
+    <div class="profile-container">
+        <img src="/img/Tatagod.png" alt="Profile Picture" class="profile-picture">
+        <div class="edit-icon">
+            <i class="fas fa-pen-to-square"></i> <!-- Ícono de FontAwesome -->
+        </div>
+    </div>
+
+    <form class="profile-form">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" value="Tatiana Mercedes">
+        </div>
+
+        <div class="form-group">
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" value="Suarez Rosas">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" value="tatianasuarezrosas332@gmail.com">
+        </div>
+
+        <div class="form-group">
+            <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fecha-nacimiento" value="2004-11-17">
+        </div>
+
+        <div class="form-group">
+            <label for="documento">N° Documento:</label>
+            <input type="text" id="documento" value="75087302">
+        </div>
+
+        <div class="form-group">
+            <label for="provincia">Provincia:</label>
+            <input type="text" id="provincia" value="Lima">
+        </div>
+
+        <div class="form-group">
+            <label for="distrito">Distrito:</label>
+            <input type="text" id="distrito" value="La Molina">
+        </div>
+
+        <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" value="Calle Cruz del Sur 170 dpt 301, Portada del Sol">
+        </div>
+
+        <div class="form-group">
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" value="********">
+            <span class="toggle-password">👁️</span>
+        </div>
+
+        <button type="submit" class="save-button">Guardar</button>
+    </form>
+</div>

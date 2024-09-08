@@ -1,0 +1,106 @@
+#sidebar {
+  background-color: #1d3860;
+  color: white;
+}
+#contenido {
+  background-color: #f3f3f3;
+}
+.nav-link {
+  color: white;
+}
+.sidebar-hidden {
+  transform: translateX(-100%);
+}
+.icon {
+  font-size: 30px;
+}
+
+.sidebar-show {
+  transform: translateX(0);
+}
+
+.content {
+  padding: 2rem;
+  transition: padding 0.3s ease;
+}
+
+.content.sidebar-hidden {
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    z-index: 1000;
+    transform: translateX(-100%);
+  }
+  .sidebar-show {
+    transform: translateX(0);
+  }
+  .content {
+    padding: 1rem;
+  }
+}
+
+/*profile*/
+.main-content {
+  padding: 40px;
+  width: 100%;
+  background-color: #f4f4f4;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.edit-icon {
+  margin-left: -30px;
+  cursor: pointer;
+}
+
+.profile-form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.toggle-password {
+  cursor: pointer;
+  position: absolute;
+  margin-left: -30px;
+  margin-top: -25px;
+}
+
+.save-button {
+  background-color: #2563eb;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
