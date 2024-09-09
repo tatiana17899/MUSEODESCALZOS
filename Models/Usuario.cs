@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using System.ComponentModel.DataAnnotations.Schema;
 namespace MuseoDescalzos.Models
 {
+    [Table("tb_Usuario")]
     public class Usuario
     {
         public int IDUsuario { get; set; }
