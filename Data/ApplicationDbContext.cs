@@ -10,16 +10,16 @@ public class ApplicationDbContext : IdentityDbContext
     {
     }
     
-    public DbSet<MUSEODESCALZOS.Actividades> DataActividades { get;set; }
-    public DbSet<MUSEODESCALZOS.Alquiler> DataAlquiler { get;set; }
-    public DbSet<MUSEODESCALZOS.Calificación_Noticia> DataCalificación_Noticia { get;set; }
-    public DbSet<MUSEODESCALZOS.Cliente> DataCliente { get;set; }
-    public DbSet<MUSEODESCALZOS.Evento> DataEvento { get;set; }
-    public DbSet<MUSEODESCALZOS.Guía> DataGuía { get;set; }
-    public DbSet<MUSEODESCALZOS.Imagen_Alquiler> DataImagen_Alquiler { get;set; }
-    public DbSet<MUSEODESCALZOS.Noticia> DataNoticia { get;set; }
-    public DbSet<MUSEODESCALZOS.PedidoAlquiler> DataPedidoAlquiler { get;set; }
-    public DbSet<MUSEODESCALZOS.PedidoEvento> DataPedidoEvento { get;set; }
-    public DbSet<MUSEODESCALZOS.PedidoVisita> DataPedidoVisita { get;set; }
-    public DbSet<MUSEODESCALZOS.Usuario > DataUsuario { get;set; }
+    public DbSet<MuseoDescalzos.Models.Actividades> DataActividades { get;set; }
+    public DbSet<MuseoDescalzos.Models.Alquiler> DataAlquiler { get;set; }
+    public DbSet<MuseoDescalzos.Models.Calificación_Noticia> DataCalificación_Noticia { get;set; }
+    public DbSet<MuseoDescalzos.Models.Cliente> DataCliente { get;set; }
+    public DbSet<MuseoDescalzos.Models.Evento> DataEvento { get;set; }
+    public DbSet<MuseoDescalzos.Models.Guía> DataGuía { get;set; }
+    public DbSet<MuseoDescalzos.Models.Imagen_Alquiler> DataImagen_Alquiler { get;set; }
+    public DbSet<MuseoDescalzos.Models.Noticia> DataNoticia { get;set; }
+    public DbSet<MuseoDescalzos.Models.PedidoAlquiler> DataPedidoAlquiler { get;set; }
+    public DbSet<MuseoDescalzos.Models.PedidoEvento> DataPedidoEvento { get;set; }
+    public DbSet<MuseoDescalzos.Models.PedidoVisita> DataPedidoVisita { get;set; }
+    public DbSet<MuseoDescalzos.Models.Usuario > DataUsuario { get;set; }
 }

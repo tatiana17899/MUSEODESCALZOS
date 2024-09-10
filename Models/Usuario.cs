@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 namespace MuseoDescalzos.Models
 {
     [Table("tb_Usuario")]
     public class Usuario
     {
-        public int IDUsuario { get; set; }
+        [Key] 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long IDUsuario { get; set; }
+
         public string? usuario { get; set; }
         public string? Email { get; set; }
         public string? Contraseña { get; set; }
