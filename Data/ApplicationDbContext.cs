@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace MUSEODESCALZOS.Data;
+namespace MuseoDescalzos.Data;
 
 public class ApplicationDbContext : IdentityDbContext
 {
