@@ -5,10 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
-using MuseoDescalzos.Data;
-using MuseoDescalzos.Models;
-
+using MUSEODESCALZOS.Data;
 namespace MuseoDescalzos.Controllers
 {
     
@@ -25,8 +22,18 @@ namespace MuseoDescalzos.Controllers
 
         public IActionResult Index()
         {
-            
-            return View();
+            var alquileresCount = _context.DataPedidoAlquiler.Count();
+            var visitasCount = _context.DataPedidoVisita.Count();
+            var eventosCount = _context.DataPedidoEvento.Count(); 
+
+            var model = new DashboardViewModel
+            {
+                CantidadAlquileres = alquileresCount,
+                CantidadVisitas = visitasCount,
+                CantidadEventos = eventosCount
+            };
+
+            return View(model);
 
         }
         public IActionResult Profile()
@@ -39,5 +46,11 @@ namespace MuseoDescalzos.Controllers
         {
             return View("Error!");
         }
+    }
+    public class DashboardViewModel
+    {
+        public int CantidadAlquileres { get; set; }
+        public int CantidadVisitas { get; set; }
+        public int CantidadEventos { get; set; }
     }
 }
