@@ -52,23 +52,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tb_Actividades",
-                columns: table => new
-                {
-                    IDActividades = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Hora_Inicial = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Hora_Final = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Actividad = table.Column<string>(type: "text", nullable: true),
-                    IDGuía = table.Column<int>(type: "integer", nullable: false),
-                    IDEvento = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tb_Actividades", x => x.IDActividades);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "tb_Alquiler",
                 columns: table => new
                 {
@@ -84,44 +67,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tb_Alquiler", x => x.IDAlquileres);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tb_Calificacion",
-                columns: table => new
-                {
-                    IDCalifNoticia = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    IDCalifcacion = table.Column<int>(type: "integer", nullable: false),
-                    IDNoticia = table.Column<int>(type: "integer", nullable: false),
-                    IDUsuario = table.Column<int>(type: "integer", nullable: false),
-                    Tipo = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tb_Calificacion", x => x.IDCalifNoticia);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tb_Cliente",
-                columns: table => new
-                {
-                    IDCliente = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nombres = table.Column<string>(type: "text", nullable: true),
-                    Apellidos = table.Column<string>(type: "text", nullable: true),
-                    TipoDoc = table.Column<string>(type: "text", nullable: true),
-                    NumDoc = table.Column<string>(type: "text", nullable: true),
-                    Pais = table.Column<string>(type: "text", nullable: true),
-                    NumTarjeta = table.Column<string>(type: "text", nullable: true),
-                    Titular = table.Column<string>(type: "text", nullable: true),
-                    FechaNacimiento = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    IDUsuario = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tb_Cliente", x => x.IDCliente);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,62 +120,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tb_Noticia", x => x.IDNoticia);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tb_PedidoAlquiler",
-                columns: table => new
-                {
-                    IDPedidoAlq = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    IDCliente = table.Column<int>(type: "integer", nullable: false),
-                    IDAlquiler = table.Column<int>(type: "integer", nullable: false),
-                    Fecha = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Hora_Inicio = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Hora_Fin = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CantPersona = table.Column<int>(type: "integer", nullable: false),
-                    PrecioTotal = table.Column<decimal>(type: "numeric", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tb_PedidoAlquiler", x => x.IDPedidoAlq);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tb_PedidoEvento",
-                columns: table => new
-                {
-                    IDPedidoEvento = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    IDCliente = table.Column<int>(type: "integer", nullable: false),
-                    IDEvento = table.Column<int>(type: "integer", nullable: false),
-                    Detalle = table.Column<string>(type: "text", nullable: true),
-                    Cantidad = table.Column<int>(type: "integer", nullable: false),
-                    PrecioUnitario = table.Column<decimal>(type: "numeric", nullable: false),
-                    PrecioTotal = table.Column<decimal>(type: "numeric", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tb_PedidoEvento", x => x.IDPedidoEvento);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tb_PedidoVisita",
-                columns: table => new
-                {
-                    IDPedidoVisit = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    IDCliente = table.Column<int>(type: "integer", nullable: false),
-                    Detalle = table.Column<string>(type: "text", nullable: true),
-                    Cantidad = table.Column<int>(type: "integer", nullable: false),
-                    PrecioUnitario = table.Column<decimal>(type: "numeric", nullable: false),
-                    Fecha = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    PrecioTotal = table.Column<decimal>(type: "numeric", nullable: false),
-                    IDGuia = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tb_PedidoVisita", x => x.IDPedidoVisit);
                 });
 
             migrationBuilder.CreateTable(
@@ -363,19 +252,202 @@ namespace MUSEODESCALZOS.Data.Migrations
                 {
                     IDimgAlquiler = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    IDAlquiler = table.Column<int>(type: "integer", nullable: false),
+                    IDAlquiler = table.Column<long>(type: "bigint", nullable: false),
                     Rutalmagen = table.Column<string>(type: "text", nullable: true),
-                    Nombrelmagen = table.Column<string>(type: "text", nullable: true),
-                    AlquilerIDAlquileres = table.Column<long>(type: "bigint", nullable: true)
+                    Nombrelmagen = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tb_ImagenAlquiler", x => x.IDimgAlquiler);
                     table.ForeignKey(
-                        name: "FK_tb_ImagenAlquiler_tb_Alquiler_AlquilerIDAlquileres",
-                        column: x => x.AlquilerIDAlquileres,
+                        name: "FK_tb_ImagenAlquiler_tb_Alquiler_IDAlquiler",
+                        column: x => x.IDAlquiler,
                         principalTable: "tb_Alquiler",
-                        principalColumn: "IDAlquileres");
+                        principalColumn: "IDAlquileres",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_Actividades",
+                columns: table => new
+                {
+                    IDActividades = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Hora_Inicial = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Hora_Final = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Actividad = table.Column<string>(type: "text", nullable: true),
+                    GuíaIDGuía = table.Column<long>(type: "bigint", nullable: true),
+                    IDEvento = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_Actividades", x => x.IDActividades);
+                    table.ForeignKey(
+                        name: "FK_tb_Actividades_tb_Evento_IDEvento",
+                        column: x => x.IDEvento,
+                        principalTable: "tb_Evento",
+                        principalColumn: "IDEvento",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tb_Actividades_tb_Guía_GuíaIDGuía",
+                        column: x => x.GuíaIDGuía,
+                        principalTable: "tb_Guía",
+                        principalColumn: "IDGuía");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_Calificacion",
+                columns: table => new
+                {
+                    IDCalifNoticia = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IDCalifcacion = table.Column<long>(type: "bigint", nullable: false),
+                    calificación_NoticiaIDCalifNoticia = table.Column<long>(type: "bigint", nullable: true),
+                    IDNoticia = table.Column<long>(type: "bigint", nullable: false),
+                    IDUsuario = table.Column<long>(type: "bigint", nullable: false),
+                    Tipo = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_Calificacion", x => x.IDCalifNoticia);
+                    table.ForeignKey(
+                        name: "FK_tb_Calificacion_tb_Calificacion_calificación_NoticiaIDCalif~",
+                        column: x => x.calificación_NoticiaIDCalifNoticia,
+                        principalTable: "tb_Calificacion",
+                        principalColumn: "IDCalifNoticia");
+                    table.ForeignKey(
+                        name: "FK_tb_Calificacion_tb_Noticia_IDNoticia",
+                        column: x => x.IDNoticia,
+                        principalTable: "tb_Noticia",
+                        principalColumn: "IDNoticia",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tb_Calificacion_tb_Usuario_IDUsuario",
+                        column: x => x.IDUsuario,
+                        principalTable: "tb_Usuario",
+                        principalColumn: "IDUsuario",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_Cliente",
+                columns: table => new
+                {
+                    IDCliente = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nombres = table.Column<string>(type: "text", nullable: true),
+                    Apellidos = table.Column<string>(type: "text", nullable: true),
+                    TipoDoc = table.Column<string>(type: "text", nullable: true),
+                    NumDoc = table.Column<string>(type: "text", nullable: true),
+                    Pais = table.Column<string>(type: "text", nullable: true),
+                    NumTarjeta = table.Column<string>(type: "text", nullable: true),
+                    Titular = table.Column<string>(type: "text", nullable: true),
+                    FechaNacimiento = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IDUsuario = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_Cliente", x => x.IDCliente);
+                    table.ForeignKey(
+                        name: "FK_tb_Cliente_tb_Usuario_IDUsuario",
+                        column: x => x.IDUsuario,
+                        principalTable: "tb_Usuario",
+                        principalColumn: "IDUsuario",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_PedidoAlquiler",
+                columns: table => new
+                {
+                    IDPedidoAlq = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IDCliente = table.Column<long>(type: "bigint", nullable: false),
+                    IDAlquiler = table.Column<long>(type: "bigint", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Hora_Inicio = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Hora_Fin = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CantPersona = table.Column<int>(type: "integer", nullable: false),
+                    PrecioTotal = table.Column<decimal>(type: "numeric", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_PedidoAlquiler", x => x.IDPedidoAlq);
+                    table.ForeignKey(
+                        name: "FK_tb_PedidoAlquiler_tb_Alquiler_IDAlquiler",
+                        column: x => x.IDAlquiler,
+                        principalTable: "tb_Alquiler",
+                        principalColumn: "IDAlquileres",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tb_PedidoAlquiler_tb_Cliente_IDCliente",
+                        column: x => x.IDCliente,
+                        principalTable: "tb_Cliente",
+                        principalColumn: "IDCliente",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_PedidoEvento",
+                columns: table => new
+                {
+                    IDPedidoEvento = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IDCliente = table.Column<long>(type: "bigint", nullable: false),
+                    IDEvento = table.Column<long>(type: "bigint", nullable: false),
+                    Detalle = table.Column<string>(type: "text", nullable: true),
+                    Cantidad = table.Column<int>(type: "integer", nullable: false),
+                    PrecioUnitario = table.Column<decimal>(type: "numeric", nullable: false),
+                    PrecioTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_PedidoEvento", x => x.IDPedidoEvento);
+                    table.ForeignKey(
+                        name: "FK_tb_PedidoEvento_tb_Cliente_IDCliente",
+                        column: x => x.IDCliente,
+                        principalTable: "tb_Cliente",
+                        principalColumn: "IDCliente",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tb_PedidoEvento_tb_Evento_IDEvento",
+                        column: x => x.IDEvento,
+                        principalTable: "tb_Evento",
+                        principalColumn: "IDEvento",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_PedidoVisita",
+                columns: table => new
+                {
+                    IDPedidoVisit = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IDCliente = table.Column<long>(type: "bigint", nullable: false),
+                    Detalle = table.Column<string>(type: "text", nullable: true),
+                    Cantidad = table.Column<int>(type: "integer", nullable: false),
+                    PrecioUnitario = table.Column<decimal>(type: "numeric", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PrecioTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    IDGuía = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_PedidoVisita", x => x.IDPedidoVisit);
+                    table.ForeignKey(
+                        name: "FK_tb_PedidoVisita_tb_Cliente_IDCliente",
+                        column: x => x.IDCliente,
+                        principalTable: "tb_Cliente",
+                        principalColumn: "IDCliente",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tb_PedidoVisita_tb_Guía_IDGuía",
+                        column: x => x.IDGuía,
+                        principalTable: "tb_Guía",
+                        principalColumn: "IDGuía",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -416,9 +488,75 @@ namespace MUSEODESCALZOS.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_ImagenAlquiler_AlquilerIDAlquileres",
+                name: "IX_tb_Actividades_GuíaIDGuía",
+                table: "tb_Actividades",
+                column: "GuíaIDGuía");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_Actividades_IDEvento",
+                table: "tb_Actividades",
+                column: "IDEvento");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_Calificacion_calificación_NoticiaIDCalifNoticia",
+                table: "tb_Calificacion",
+                column: "calificación_NoticiaIDCalifNoticia");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_Calificacion_IDNoticia",
+                table: "tb_Calificacion",
+                column: "IDNoticia",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_Calificacion_IDUsuario",
+                table: "tb_Calificacion",
+                column: "IDUsuario",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_Cliente_IDUsuario",
+                table: "tb_Cliente",
+                column: "IDUsuario",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_ImagenAlquiler_IDAlquiler",
                 table: "tb_ImagenAlquiler",
-                column: "AlquilerIDAlquileres");
+                column: "IDAlquiler");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_PedidoAlquiler_IDAlquiler",
+                table: "tb_PedidoAlquiler",
+                column: "IDAlquiler",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_PedidoAlquiler_IDCliente",
+                table: "tb_PedidoAlquiler",
+                column: "IDCliente");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_PedidoEvento_IDCliente",
+                table: "tb_PedidoEvento",
+                column: "IDCliente");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_PedidoEvento_IDEvento",
+                table: "tb_PedidoEvento",
+                column: "IDEvento",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_PedidoVisita_IDCliente",
+                table: "tb_PedidoVisita",
+                column: "IDCliente");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_PedidoVisita_IDGuía",
+                table: "tb_PedidoVisita",
+                column: "IDGuía",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -446,19 +584,7 @@ namespace MUSEODESCALZOS.Data.Migrations
                 name: "tb_Calificacion");
 
             migrationBuilder.DropTable(
-                name: "tb_Cliente");
-
-            migrationBuilder.DropTable(
-                name: "tb_Evento");
-
-            migrationBuilder.DropTable(
-                name: "tb_Guía");
-
-            migrationBuilder.DropTable(
                 name: "tb_ImagenAlquiler");
-
-            migrationBuilder.DropTable(
-                name: "tb_Noticia");
 
             migrationBuilder.DropTable(
                 name: "tb_PedidoAlquiler");
@@ -470,16 +596,28 @@ namespace MUSEODESCALZOS.Data.Migrations
                 name: "tb_PedidoVisita");
 
             migrationBuilder.DropTable(
-                name: "tb_Usuario");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "tb_Noticia");
+
+            migrationBuilder.DropTable(
                 name: "tb_Alquiler");
+
+            migrationBuilder.DropTable(
+                name: "tb_Evento");
+
+            migrationBuilder.DropTable(
+                name: "tb_Cliente");
+
+            migrationBuilder.DropTable(
+                name: "tb_Guía");
+
+            migrationBuilder.DropTable(
+                name: "tb_Usuario");
         }
     }
 }

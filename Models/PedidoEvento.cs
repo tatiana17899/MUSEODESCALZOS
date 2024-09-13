@@ -13,12 +13,16 @@ namespace MuseoDescalzos.Models
         [Key] 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long IDPedidoEvento { get; set; }
-
-        public int IDCliente { get; set; }
-        public int IDEvento { get; set; }
+        [ForeignKey("Cliente")]
+        public long IDCliente { get; set; }
+        public Cliente Cliente { get; set; } = default!;
+        [ForeignKey("Evento")]
+        public long IDEvento { get; set; }
+        public Evento Evento { get; set; } = default!;
         public string? Detalle { get; set; }
         public int Cantidad { get; set; }
         public decimal PrecioUnitario { get; set; }
         public decimal PrecioTotal { get; set; }
+        public DateTime Fecha { get; set; } 
     }
 }

@@ -13,7 +13,6 @@ namespace MuseoDescalzos.Models
         [Key] 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long IDCliente { get; set; }
-
         public string? Nombres { get; set; }
         public string? Apellidos{ get; set; }
         public string? TipoDoc { get; set; }
@@ -23,6 +22,11 @@ namespace MuseoDescalzos.Models
         public string? Titular { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public DateTime FechaRegistro { get; set; }
-        public int IDUsuario { get; set; }
+        [ForeignKey("Usuario")]
+        public long IDUsuario { get; set; }
+        public Usuario? Usuario { get; set; }
+        public ICollection<PedidoEvento>? PedidoEvento { get; set; }
+        public ICollection<PedidoAlquiler>? PedidoAlquiler { get; set; }
+        public ICollection<PedidoVisita>? PedidoVisita { get; set; }
     }
 }

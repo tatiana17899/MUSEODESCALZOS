@@ -13,9 +13,13 @@ namespace MuseoDescalzos.Models
         [Key] 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long IDPedidoAlq { get; set; }
+        [ForeignKey("Cliente")]
+        public long IDCliente { get; set; }
+        public Cliente Cliente { get; set; } = default!;
 
-        public int IDCliente { get; set; }
-        public int IDAlquiler { get; set; }
+        [ForeignKey("Alquiler")]
+        public long IDAlquiler { get; set; }
+        public Alquiler Alquiler { get; set; } = default!;
         public DateTime Fecha { get; set; }
         public DateTime Hora_Inicio { get; set; }
         public DateTime Hora_Fin { get; set; }

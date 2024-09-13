@@ -13,10 +13,15 @@ namespace MuseoDescalzos.Models
         [Key] 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long IDCalifNoticia { get; set; }
-
-        public int IDCalifcacion { get; set; }
-        public int IDNoticia { get; set; }
-        public int IDUsuario { get; set; }
+        [ForeignKey("Califcacion")]
+        public long IDCalifcacion { get; set; }
+        public Calificación_Noticia? calificación_Noticia { get; set; }= default!;
+        [ForeignKey("Noticia")]
+        public long IDNoticia { get; set; }
+        public Noticia? Noticia { get; set; }= default!;
+        [ForeignKey("Usuario")]
+        public long  IDUsuario { get; set; }
+        public Usuario? Usuario { get; set; }= default!;
         public string? Tipo { get; set; }
 
     }

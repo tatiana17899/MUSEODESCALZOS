@@ -13,8 +13,9 @@ namespace MuseoDescalzos.Models
         [Key] 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long IDimgAlquiler { get; set; }
-
-        public int IDAlquiler { get; set; }
+        [ForeignKey("Alquiler")]
+        public long IDAlquiler { get; set; }
+        public Alquiler? Alquiler { get; set; }= default!;
         public string? Rutalmagen { get; set; }
         public string? Nombrelmagen { get; set; }
     }

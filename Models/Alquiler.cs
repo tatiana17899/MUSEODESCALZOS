@@ -22,5 +22,6 @@ namespace MuseoDescalzos.Models
         public bool Disponible { get; set; }
 
         public List<Imagen_Alquiler> Imagenes { get; set; } = new List<Imagen_Alquiler>();
+        public PedidoAlquiler PedidoAlquiler { get; set; } = default!;
     }
 }

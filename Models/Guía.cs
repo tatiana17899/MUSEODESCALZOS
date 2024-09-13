@@ -19,5 +19,7 @@ namespace MuseoDescalzos.Models
         public string? Email { get; set; }
         public string? TipPago { get; set; }
         public decimal Sueldo { get; set; }
+        public PedidoVisita PedidoVisita { get; set; } = default!;
+         public ICollection<Actividades>? Actividades { get; set; }
     }
 }

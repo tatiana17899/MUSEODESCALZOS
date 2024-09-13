@@ -16,7 +16,11 @@ namespace MuseoDescalzos.Models
         public DateTime Hora_Inicial { get; set; }
         public DateTime Hora_Final { get; set; }
         public string? Actividad { get; set; }
-        public int IDGuía { get; set; }
-        public int IDEvento { get; set; }
+        public Guía? Guía { get; set; } = default!;
+
+        [ForeignKey("Evento")]
+        public long IDEvento { get; set; }
+        public Evento? Evento { get; set; } = default!;
+
     }
 }
