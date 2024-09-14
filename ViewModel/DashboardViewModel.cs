@@ -13,5 +13,8 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
         public int CantidadEventos { get; set; }
          public FormAdminViewModel FormAdmin { get; set; } = new FormAdminViewModel();
         public List<VentaBase> ListVenta { get; set; } = new List<VentaBase>();
+        public int Mes { get; set; } 
+        public int Ano { get; set; }
+        
     }
 }
