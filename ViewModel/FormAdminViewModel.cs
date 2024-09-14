@@ -10,6 +10,6 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
     {
         public DateTime? FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; }
-        public string TipVenta { get; set; }
+        public string? TipVenta { get; set; }
     }
 }

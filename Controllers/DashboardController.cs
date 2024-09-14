@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Syncfusion.EJ2.Charts;
 using MUSEODESCALZOS.Data;
 using MuseoDescalzos.Models;
 using MUSEO_DE_LOS_DESCALZOS.ViewModel;
+using Microsoft.EntityFrameworkCore;
 namespace MUSEO_DE_LOS_DESCALZOS.Controllers
 {
    
@@ -116,6 +118,7 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
             return View("Index", viewModel);
         }
 
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -17,7 +17,6 @@ namespace MuseoDescalzos.Models
         public string? Email { get; set; }
         public string? Contraseña { get; set; }
         public string? Reestablecer { get; set; }
-        public string? Nombrelmagen { get; set; }
         public string? Rutalmagen { get; set; }
         public Cliente Cliente { get; set; } = default!;
         public Calificación_Noticia Calificación_Noticia { get; set; } = default!;

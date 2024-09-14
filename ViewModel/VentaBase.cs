@@ -10,7 +10,7 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
     {
         public long Id { get; set; }
         public DateTime Fecha { get; set; }
-        public string Tipo { get; set; }
+        public string? Tipo { get; set; }
         public decimal Monto { get; set; }
     } 
 }

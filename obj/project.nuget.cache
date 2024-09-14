@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3gjq9ngNTYE=",
+  "dgSpecHash": "/pOlyLbpJF0=",
   "success": true,
   "projectFilePath": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MUSEODESCALZOS.csproj",
   "expectedPackageFiles": [
@@ -47,8 +47,11 @@
     "C:\\Users\\tatia\\.nuget\\packages\\microsoft.io.recyclablememorystream\\3.0.0\\microsoft.io.recyclablememorystream.3.0.0.nupkg.sha512",
     "C:\\Users\\tatia\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
     "C:\\Users\\tatia\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\tatia\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512",
     "C:\\Users\\tatia\\.nuget\\packages\\npgsql\\8.0.3\\npgsql.8.0.3.nupkg.sha512",
     "C:\\Users\\tatia\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.4\\npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512",
+    "C:\\Users\\tatia\\.nuget\\packages\\syncfusion.ej2.aspnet.core\\26.2.14\\syncfusion.ej2.aspnet.core.26.2.14.nupkg.sha512",
+    "C:\\Users\\tatia\\.nuget\\packages\\syncfusion.licensing\\26.2.14\\syncfusion.licensing.26.2.14.nupkg.sha512",
     "C:\\Users\\tatia\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",
     "C:\\Users\\tatia\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\tatia\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",

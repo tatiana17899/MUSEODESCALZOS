@@ -17,6 +17,5 @@ namespace MuseoDescalzos.Models
         public long IDAlquiler { get; set; }
         public Alquiler? Alquiler { get; set; }= default!;
         public string? Rutalmagen { get; set; }
-        public string? Nombrelmagen { get; set; }
     }
 }
