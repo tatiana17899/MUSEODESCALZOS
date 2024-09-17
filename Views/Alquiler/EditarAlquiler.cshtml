@@ -1,0 +1,53 @@
+@model MuseoDescalzos.Models.Alquiler
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<form asp-action="EditarAlquiler" asp-area="Alquiler" method="post">
+    <input type="hidden" asp-for="IdAlquiler">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label>Titulo:</label>
+                <input asp-for="Titulo" type="text" class="form-control required" placeholder="Escribe el titulo"
+                    tabindex="1">
+            </div>
+            <div class="form-group">
+                <label>Descripcion:</label>
+                <input asp-for="Descripcion" type="text" class="form-control required"
+                    placeholder="Escribe la Descripcion" tabindex="2">
+            </div>
+            <div class="form-group">
+                <label>Capacidad:</label>
+                <input asp-for="Capacidad" type="text" class="form-control required" placeholder="Escribe la Capacidad"
+                    tabindex="3">
+            </div>
+            <div class="form-group">
+                <label>Caracteristicas:</label>
+                <input asp-for="Caracteristicas" type="text" class="form-control required"
+                    placeholder="Escribe las Caracteristicas" tabindex="3">
+            </div>
+            <div class="form-group">
+                <label>Hora_Disponible:</label>
+                <input asp-for="Hora_Disponible" type="text" class="form-control required"
+                    placeholder="Escribe la Hora Disponible" tabindex="3">
+            </div>
+            <div class="form-group">
+                <label>Disponible:</label>
+                <input asp-for="Disponible" type="text" class="form-control required"
+                    placeholder="Escribe la disponiblidad" tabindex="3">
+            </div>
+            <div class="form-group">
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </div>
+            <div class="card-footer">
+                <center>
+                    <button type="submit" class="btn btn-warning">Actualizar alquiler</button>
+                    <a asp-action="Index" asp-controller="Alquiler" class="btn btn-secondary">Cancelar</a>
+                </center>
+            </div>
+        </div>
+    </div>
+</form>
