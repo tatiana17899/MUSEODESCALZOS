@@ -1,0 +1,49 @@
+@model List<MuseoDescalzos.Models.Alquiler>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <a asp-action="CrearAlquiler" asp-controller="Alquiler" class="btn btn-success">Crear alquiler</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Titulo</td>
+                    <td>Descripcion</td>
+                    <td>Capacidad</td>
+                    <td>Caracteristicas</td>
+                    <td>Hora_Disponible</td>
+                    <td>Disponible</td>
+                    <td>Imagen</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Titulo</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.Capacidad</td>
+                        <td>@item.Caracteristicas</td>
+                        <td>@item.Hora_Disponible</td>
+                        <td>@item.Disponible</td>
+                        <td>
+                            <a asp-action="EditarAlquiler" asp-controller="Alquiler"
+                                asp-route-id="@item.IdAlquiler">Editar</a>
+                            <a asp-action="EliminarAlquiler" asp-controller="Alquiler"
+                                asp-route-id="@item.IdAlquiler">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
