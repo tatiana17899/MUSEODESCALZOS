@@ -21,5 +21,7 @@ namespace MuseoDescalzos.Models
         public decimal Sueldo { get; set; }
         public PedidoVisita PedidoVisita { get; set; } = default!;
          public ICollection<Actividades>? Actividades { get; set; }
+        public bool Disponible { get; set; } 
+        public ICollection<Tarea>? Tareas { get; set; }
     }
 }
