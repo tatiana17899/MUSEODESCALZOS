@@ -99,6 +99,23 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        public IActionResult AsignarTarea(long guiaId, string descripcion)
+        {
+            var guia = _context.DataGuía.FirstOrDefault(g => g.IDGuía == guiaId);
+            if (guia != null)
+            {
+                var tarea = new Tarea
+                {
+                    GuíaID = guiaId,
+                    Descripción = descripcion
+                };
+                _context.DataTareas.Add(tarea);
+                _context.SaveChanges();
+                TempData["Message"] = "Tarea asignada exitosamente.";
+            }
+            return RedirectToAction("Index");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

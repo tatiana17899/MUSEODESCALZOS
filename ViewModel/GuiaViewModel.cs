@@ -10,5 +10,6 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
     {
         public Guía? FormGuia { get; set; }
         public List<Guía>? ListGuía { get; set; }
+        public List<Tarea> ListaTareas { get; set; } = new List<Tarea>();
     }
 }

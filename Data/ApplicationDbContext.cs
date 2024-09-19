@@ -22,4 +22,5 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<MuseoDescalzos.Models.PedidoEvento> DataPedidoEvento { get;set; }
     public DbSet<MuseoDescalzos.Models.PedidoVisita> DataPedidoVisita { get;set; }
     public DbSet<MuseoDescalzos.Models.Usuario > DataUsuario { get;set; }
+    public DbSet<MuseoDescalzos.Models.Tarea > DataTareas { get;set; }
 }
