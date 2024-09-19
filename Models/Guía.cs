@@ -20,6 +20,9 @@ namespace MuseoDescalzos.Models
         public string? TipPago { get; set; }
         public decimal Sueldo { get; set; }
         public PedidoVisita PedidoVisita { get; set; } = default!;
-         public ICollection<Actividades>? Actividades { get; set; }
+        public ICollection<Actividades>? Actividades { get; set; }
+        public bool Disponible { get; set; } 
+        public ICollection<Tarea>? Tareas { get; set; }
+
     }
 }
