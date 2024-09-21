@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\css\\styleAdmin.css"
     },
     {
+      "Id": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\wwwroot\\css\\visita.css",
+      "PackagePath": "staticwebassets\\css\\visita.css"
+    },
+    {
       "Id": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },

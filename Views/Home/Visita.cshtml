@@ -1,0 +1,120 @@
+@{
+    ViewData["Title"] = "Visita";
+}
+<link rel="stylesheet" href="~/css/visita.css" asp-append-version="true" />
+<div>
+    <header class="position-relative">
+          <img src="~/img/imagen.jpg" alt="Museo" class="img-fluid w-100"  style="height: 300px; object-fit: cover;" />
+          <div
+            class="position-absolute top-50 start-50 translate-middle text-center text-white"
+          >
+            <div
+              class="header-content d-flex translate-middle text-center text-white"
+            >
+              <h1>PLANEA TU VISITA</h1>
+              <div class="circle"></div>
+            </div>
+          </div>
+        </header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <div class="container justify-content-center">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">HORARIO</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">TARIFAS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">CÓMO LLEGAR</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">SERVICIOS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">PROTOCOLO</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <section class="bg text-center py-4 texto">
+          <div class="container">
+            <p class="lead">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id
+              risus tincidunt, posuere massa ut, molestie mauris.
+            </p>
+          </div>
+        </section>
+        <section class="py-4">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6">
+                <img src="~/img/imagen.jpg" alt="Museo" class="img-fluid w-100" />
+              </div>
+              <div class="col-lg-6 bg-dark text-white p-4">
+                <h4>¡ABRIMOS TODOS LOS DÍAS!</h4>
+                <p>
+                  Lunes a domingo de 9:00 a.m. a 7:00 p.m.<br />
+                  Horario reducido: 24, 25, 31 de diciembre y 1 de enero de
+                  10:00 a.m. a 6:00 p.m.
+                </p>
+                <a href="#" class="btn btn-danger mb-3">COMPRAR ENTRADAS</a>
+                <p>
+                  <small
+                    >*Es importante para universitarios o estudiantes contar con
+                    un carnet</small
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="py-4">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-6">
+                <h6>TARIFAS:</h6>
+                <ul class="list-group">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Entrada General
+                    <span class="bg">$90.00</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Entrada General
+                    <span class="bg">$90.00</span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    Entrada General
+                    <span class="bg">$90.00</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <h5>SERVICIOS</h5>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id
+                  risus tincidunt, posuere massa ut, molestie mauris.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id
+                  risus tincidunt, posuere massa ut, molestie mauris.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+</div>
+@section scripts{
+    <script>
+        $("#blogCarousel").carousel({
+            interval: 5000,
+        });
+    </script>
+}
