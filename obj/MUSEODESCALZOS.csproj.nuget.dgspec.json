@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MUSEODESCALZOS.csproj": {}
+    "C:\\Users\\benji\\Documents\\2024 - II\\PROGRAMACION 1\\proyFinal\\MUSEODESCALZOS\\MUSEODESCALZOS.csproj": {}
   },
   "projects": {
-    "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MUSEODESCALZOS.csproj": {
+    "C:\\Users\\benji\\Documents\\2024 - II\\PROGRAMACION 1\\proyFinal\\MUSEODESCALZOS\\MUSEODESCALZOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MUSEODESCALZOS.csproj",
+        "projectUniqueName": "C:\\Users\\benji\\Documents\\2024 - II\\PROGRAMACION 1\\proyFinal\\MUSEODESCALZOS\\MUSEODESCALZOS.csproj",
         "projectName": "MUSEODESCALZOS",
-        "projectPath": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\MUSEODESCALZOS.csproj",
-        "packagesPath": "C:\\Users\\tatia\\.nuget\\packages\\",
-        "outputPath": "D:\\CARPETA TATIANA\\CURSOS UNIVERSIDAD\\6TO CICLO\\PROGRAMACIÓN 1\\MUSEO DE LOS DESCALZOS\\obj\\",
+        "projectPath": "C:\\Users\\benji\\Documents\\2024 - II\\PROGRAMACION 1\\proyFinal\\MUSEODESCALZOS\\MUSEODESCALZOS.csproj",
+        "packagesPath": "C:\\Users\\benji\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\benji\\Documents\\2024 - II\\PROGRAMACION 1\\proyFinal\\MUSEODESCALZOS\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\tatia\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\benji\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -91,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
