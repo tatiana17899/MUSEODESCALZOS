@@ -9,7 +9,7 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MUSEODESCALZOS
 build_property.RootNamespace = MUSEODESCALZOS
-build_property.ProjectDir = C:\Users\benji\Documents\2024 - II\PROGRAMACION 1\proyFinal\MUSEODESCALZOS\
+build_property.ProjectDir = D:\CARPETA TATIANA\CURSOS UNIVERSIDAD\6TO CICLO\PROGRAMACIÓN 1\MUSEO DE LOS DESCALZOS\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
@@ -42,12 +42,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/benji/Documents/2024 - II/PROGRAMACION 1/proyFinal/MUSEODESCALZOS/Views/Home/Index.cshtml]
+[D:/CARPETA TATIANA/CURSOS UNIVERSIDAD/6TO CICLO/PROGRAMACIÓN 1/MUSEO DE LOS DESCALZOS/Views/Guia/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3VpYVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CARPETA TATIANA/CURSOS UNIVERSIDAD/6TO CICLO/PROGRAMACIÓN 1/MUSEO DE LOS DESCALZOS/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/benji/Documents/2024 - II/PROGRAMACION 1/proyFinal/MUSEODESCALZOS/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+[D:/CARPETA TATIANA/CURSOS UNIVERSIDAD/6TO CICLO/PROGRAMACIÓN 1/MUSEO DE LOS DESCALZOS/Views/Home/Visita.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxWaXNpdGEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/CARPETA TATIANA/CURSOS UNIVERSIDAD/6TO CICLO/PROGRAMACIÓN 1/MUSEO DE LOS DESCALZOS/Views/Noticias/CadaNoticia.cshtml]
