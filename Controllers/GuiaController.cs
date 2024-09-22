@@ -5,11 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
+
 using MUSEODESCALZOS.Data;
 using MUSEO_DE_LOS_DESCALZOS.ViewModel;
 using MuseoDescalzos.Models;
+using Microsoft.AspNetCore.Authorization;
+
 namespace MUSEO_DE_LOS_DESCALZOS.Controllers
 {
+    [Authorize]
     public class GuiaController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -55,7 +63,7 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
             return Json(guia);
         }
         [HttpPost]
-        public IActionResult Guardar(GuiaViewModel viewModel)
+        public async Task<IActionResult> Guardar(GuiaViewModel viewModel)
         {
             if(viewModel.FormGuia.IDGuía == 0){
                 var nuevaGuia = new Guía
@@ -66,9 +74,12 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                     TipPago = viewModel.FormGuia.TipPago,
                     Sueldo = viewModel.FormGuia.Sueldo,
                     PedidoVisita = viewModel.FormGuia.PedidoVisita,
-                    Actividades = viewModel.FormGuia.Actividades
+                    Actividades = viewModel.FormGuia.Actividades,
+                    ContraseñaGenerada = Guía.GenerarContraseña()
                 };
                 _context.DataGuía.Add(nuevaGuia);
+                await _context.SaveChangesAsync();
+                await EnviarCorreoContraseña(nuevaGuia.Email, nuevaGuia.ContraseñaGenerada);
             }
              else
             {
@@ -89,13 +100,30 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        private async Task EnviarCorreoContraseña(string email, string contraseña)
+        {
+            var mensaje = new MimeMessage();
+            mensaje.From.Add(new MailboxAddress("Administrador", "tu_email@gmail.com"));
+            mensaje.To.Add(new MailboxAddress("", email));
+            mensaje.Subject = "Tu contraseña de acceso";
+            mensaje.Body = new TextPart("plain")
+            {
+                Text = $"Hola,\n\nTu contraseña generada es: {contraseña}\n\nSaludos!"
+            };
+
+            using var cliente = new SmtpClient();
+            await cliente.ConnectAsync("smtp.tu_email.com", 587, SecureSocketOptions.StartTls);
+            await cliente.AuthenticateAsync("tu_email@gmail.com", "tu_contraseña");
+            await cliente.SendAsync(mensaje);
+            await cliente.DisconnectAsync(true);
+        }
         [HttpPost]
         public IActionResult Eliminar(int id){
             var guia = _context.DataGuía.FirstOrDefault(gu => gu.IDGuía == id);
             if (guia != null){
                  _context.Remove(guia);
                 _context.SaveChanges();
-                TempData["Message"] = "Se ha eliminado la mascota.";
+                TempData["Message"] = "Se ha eliminado la guia.";
             }
             return RedirectToAction(nameof(Index));
         }

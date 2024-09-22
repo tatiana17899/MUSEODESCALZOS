@@ -25,5 +25,13 @@ namespace MuseoDescalzos.Models
         public bool Disponible { get; set; } 
         public ICollection<Tarea>? Tareas { get; set; }
 
+        public static string GenerarContraseña(int longitud = 8)
+        {
+            const string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(caracteres, longitud).Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
     }
+    
 }
