@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
 {
-    public class IniciarSesionAdminViewModel
+    public class PasswordResetRequestViewModel
     {
         public string? Email { get; set; }
-        public string? Contraseña { get; set; }
-        
     }
 }

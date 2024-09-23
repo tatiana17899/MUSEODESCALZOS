@@ -33,9 +33,9 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var administrador = _context.DataAdministrador.FirstOrDefault(a => a.Email == model.Email && a.Contraseña == model.Contraseña);
+                var administrador = _context.DataAdministrador.FirstOrDefault(a => a.Email == model.Email);
 
-                if (administrador != null)
+                if (administrador != null && administrador.VerifyPassword(model.Contraseña))
                 {
                     var claims = new List<Claim>
                     {
@@ -43,20 +43,21 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                         new Claim("FullName", administrador.Nombres + " " + administrador.Apellidos),
                         new Claim(ClaimTypes.Role, "Administrador")
                     };
+
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
-                    return Json(new { success = true, redirectUrl = Url.Action("Index", "Dashboard") }); // Retorna un JSON si es correcto
+                    return Json(new { success = true, redirectUrl = Url.Action("Index", "Dashboard") });
                 }
-                
-                // Si las credenciales son incorrectas
+
                 return Json(new { success = false, message = "Email o contraseña incorrectos." });
             }
 
-            return View("Index", model); 
+            return View("Index", model);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Logout()
