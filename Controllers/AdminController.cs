@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MUSEODESCALZOS.Data;
-using OfficeOpenXml;
-using System.Dynamic;
 using MuseoDescalzos.Models;
 using Microsoft.EntityFrameworkCore;
+
 namespace MuseoDescalzos.Controllers
 {
     public class AdminController : Controller
@@ -22,16 +21,28 @@ namespace MuseoDescalzos.Controllers
             _context = context;
             _logger = logger;
         }
+
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Profile(long id) 
         {
-            
-            return View();
+            var administrador = _context.DataAdministrador.Find(id); 
+            if (administrador == null)
+            {
+                return NotFound(); 
+            }
+            return View(administrador); 
         }
 
-        public IActionResult Profile()
+        [HttpPost]
+        public IActionResult UpdateProfile(Administrador administrador) 
         {
-            return View();
+            if (ModelState.IsValid) 
+            {
+                _context.DataAdministrador.Update(administrador); 
+                _context.SaveChanges(); 
+                return RedirectToAction("Profile", new { id = administrador.IDAdministrador }); 
+            }
+            return View(administrador); 
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -40,4 +51,4 @@ namespace MuseoDescalzos.Controllers
             return View("Error!");
         }
     }
-}   
+}

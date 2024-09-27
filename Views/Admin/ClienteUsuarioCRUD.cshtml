@@ -5,10 +5,14 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<head> 
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+</head>
+
 <h2>@ViewData["Title"]</h2>
 
 <h3>Clientes</h3>
-<table class="table">
+<table id="clientesTable" class="table display">
     <thead>
         <tr>
             <th>ID</th>
@@ -43,15 +47,12 @@
 </table>
 
 <h3>Usuarios</h3>
-<table class="table">
+<table id="usuariosTable" class="table display">
     <thead>
         <tr>
             <th>ID</th>
             <th>Usuario</th>
             <th>Email</th>
-            <th>Contraseña</th>
-            <th>Reestablecer</th>
-            <th>Ruta Imagen</th>
         </tr>
     </thead>
     <tbody>
@@ -61,10 +62,17 @@
                 <td>@usuario.IDUsuario</td>
                 <td>@usuario.usuario</td>
                 <td>@usuario.Email</td>
-                <td>@usuario.Contraseña</td>
-                <td>@usuario.Reestablecer</td>
-                <td>@usuario.Rutalmagen</td>
             </tr>
         }
     </tbody>
 </table>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#clientesTable').DataTable();
+        $('#usuariosTable').DataTable();
+    });
+</script>

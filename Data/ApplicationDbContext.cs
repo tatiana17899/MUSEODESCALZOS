@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace MUSEODESCALZOS.Data;
@@ -22,4 +22,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<MuseoDescalzos.Models.PedidoEvento> DataPedidoEvento { get;set; }
     public DbSet<MuseoDescalzos.Models.PedidoVisita> DataPedidoVisita { get;set; }
     public DbSet<MuseoDescalzos.Models.Usuario > DataUsuario { get;set; }
+    public DbSet<MuseoDescalzos.Models.Administrador> DataAdministrador { get; set; }
+
 }

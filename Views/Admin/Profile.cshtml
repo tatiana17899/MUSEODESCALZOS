@@ -1,3 +1,4 @@
+@model MuseoDescalzos.Models.Administrador
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -5,56 +6,58 @@
 <div class="main-content">
     <h1>Perfil</h1>
     <div class="profile-container">
-        <img src="/img/Tatagod.png" alt="Profile Picture" class="profile-picture">
+        <img src="@Model.Imagen" alt="Profile Picture" class="profile-picture">
         <div class="edit-icon">
             <i class="fas fa-pen-to-square"></i> <!-- Ícono de FontAwesome -->
         </div>
     </div>
 
-    <form class="profile-form">
+    <form class="profile-form" method="post" asp-action="UpdateProfile">
+        <input type="hidden" asp-for="IDAdministrador" />
+
         <div class="form-group">
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" value="Tatiana Mercedes">
+            <input type="text" id="nombre" asp-for="Nombres" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="apellidos">Apellidos:</label>
-            <input type="text" id="apellidos" value="Suarez Rosas">
+            <input type="text" id="apellidos" asp-for="Apellidos" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" value="tatianasuarezrosas332@gmail.com">
+            <input type="email" id="email" asp-for="Email" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
-            <input type="date" id="fecha-nacimiento" value="2004-11-17">
+            <input type="date" id="fecha-nacimiento" asp-for="FechaNacimiento" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="documento">N° Documento:</label>
-            <input type="text" id="documento" value="75087302">
+            <input type="text" id="documento" asp-for="NumDoc" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="provincia">Provincia:</label>
-            <input type="text" id="provincia" value="Lima">
+            <input type="text" id="provincia" asp-for="Provincia" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="distrito">Distrito:</label>
-            <input type="text" id="distrito" value="La Molina">
+            <input type="text" id="distrito" asp-for="Distrito" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="direccion">Dirección:</label>
-            <input type="text" id="direccion" value="Calle Cruz del Sur 170 dpt 301, Portada del Sol">
+            <input type="text" id="direccion" asp-for="Direccion" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="contrasena">Contraseña:</label>
-            <input type="password" id="contrasena" value="********">
+            <input type="password" id="contrasena" asp-for="Contraseña" class="form-control" />
             <span class="toggle-password">👁️</span>
         </div>
 

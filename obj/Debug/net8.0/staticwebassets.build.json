@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZcNP7Wh2iEQ+W/rQZtvjZ2xrulIBkdjpW5Pgxf8yK0U=",
+  "Hash": "jVDXK4jM2cBLHwgAYmYyXDJDcvveJeOp3d1NBFV20gE=",
   "Source": "MUSEODESCALZOS",
   "BasePath": "_content/MUSEODESCALZOS",
   "Mode": "Default",
@@ -1231,6 +1231,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\indexAdmin.css"
+    },
+    {
+      "Identity": "C:\\Users\\meli0\\OneDrive\\Documents\\GitHub\\MUSEODESCALZOS\\wwwroot\\css\\noticias.css",
+      "SourceId": "MUSEODESCALZOS",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\meli0\\OneDrive\\Documents\\GitHub\\MUSEODESCALZOS\\wwwroot\\",
+      "BasePath": "_content/MUSEODESCALZOS",
+      "RelativePath": "css/noticias.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\noticias.css"
     },
     {
       "Identity": "C:\\Users\\meli0\\OneDrive\\Documents\\GitHub\\MUSEODESCALZOS\\wwwroot\\css\\style.css",

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MuseoDescalzos.Models
 {
@@ -18,6 +16,8 @@ namespace MuseoDescalzos.Models
         public string? Descripción { get; set; }
         public string? Rutalmagen { get; set; }
         public DateTime FechaPublicación { get; set; }
-        public Calificación_Noticia Calificación_Noticia { get; set; } = default!;
+
+        // Relación con Calificación_Noticia
+        public ICollection<Calificación_Noticia>? Calificaciones { get; set; } = new List<Calificación_Noticia>();
     }
 }
