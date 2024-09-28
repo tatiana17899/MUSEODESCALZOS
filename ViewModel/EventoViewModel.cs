@@ -14,5 +14,7 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
         public int Cantidad { get; set; }
         public decimal PrecioUnitario { get; set; }
 
+        public Evento? FormEvento { get; set; }
+        public List<Evento>? ListEvento { get; set; }
     }
 }
