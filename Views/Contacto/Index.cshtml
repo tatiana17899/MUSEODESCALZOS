@@ -1,0 +1,55 @@
+@using MUSEO_DE_LOS_DESCALZOS.ViewModel
+@model ContactoViewModel
+@{
+    ViewData["Title"] = "Contacto";
+}
+
+<div class="container d-flex align-items-center justify-content-center vh-100 mt-5">
+    <div class="card max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <h2 class="text-2xl font-bold text-black dark:text-white text-center mb-5 m-4">Formulario de Contacto</h2>
+        <form id="contactForm" asp-controller="Contacto" asp-action="Enviar" method="post" class="m-4">
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300" for="nombre">Nombres:</label>
+                <div class="mt-1">
+                    <input asp-for="FormContacto.Name" class="block w-100 p-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-input dark:text-white" placeholder="Ingrese su nombre" required />
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300" for="correo">Correo Electrónico:</label>
+                <div class="mt-1">
+                    <input asp-for="FormContacto.Email" class="mt-1 block w-100 p-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-input dark:text-white" placeholder="Ingrese su correo" required />
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-zinc-700 dark:text-zinc-300" for="mensaje">Mensaje:</label>
+                <div class="mt-1">
+                    <textarea asp-for="FormContacto.Message" class="mt-1 block w-100 p-2 border border-zinc-300 rounded-md dark:border-zinc-600 dark:bg-input dark:text-white" rows="4" placeholder="Escriba su mensaje" required></textarea>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="w-100 bg-black text-white p-2 rounded-lg hover:bg-zinc-800">Enviar</button>
+            </div>
+        </form>
+        <h1>@ViewData["Message"]</h1>
+    </div>
+</div>
+
+@section scripts {
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('contactForm').onsubmit = function(event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: "¡Registrado!",
+            text: "Tu mensaje ha sido enviado correctamente.",
+            icon: "success",
+            confirmButtonText: "Aceptar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.submit(); 
+            }
+        });
+    };
+</script>
+}
