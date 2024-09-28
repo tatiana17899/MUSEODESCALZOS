@@ -59,6 +59,7 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
         }
 
 
+
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
