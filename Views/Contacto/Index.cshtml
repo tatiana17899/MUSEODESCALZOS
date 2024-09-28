@@ -8,22 +8,23 @@
     <div>
         <h1 class="text-center mb-4 mt-4">Formulario de contacto</h1>
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-6">
                 <form id="contactForm" asp-controller="Contacto" asp-action="Enviar" method="post">
                     <div class="form-group">
-                        <label asp-for="FormContacto.Name" class="control-label"></label>
-                        <input asp-for="FormContacto.Name" class="form-control" required />
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="FormContacto.Email" class="control-label"></label>
-                        <input asp-for="FormContacto.Email" class="form-control" required />
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="FormContacto.Message" class="control-label"></label>
-                        <textarea asp-for="FormContacto.Message" class="form-control" required></textarea>
-                    </div>
+                    <label asp-for="FormContacto.Name" class="control-label"></label>
+                    <input asp-for="FormContacto.Name" class="form-control w-90" required />
+                </div>
+                <div class="form-group">
+                    <label asp-for="FormContacto.Email" class="control-label"></label>
+                    <input asp-for="FormContacto.Email" class="form-control w-100" required />
+                </div>
+                <div class="form-group">
+                    <label asp-for="FormContacto.Message" class="control-label"></label>
+                    <textarea asp-for="FormContacto.Message" class="form-control w-100" required></textarea>
+                </div>
+
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary mt-3">Enviar</button>
+                        <button type="submit" style="background-color: black; color: white;" class="btn mt-3">Enviar</button>
                     </div>
                 </form>
                 <h1>@ViewData["Message"]</h1>
@@ -38,9 +39,8 @@
 
 <script>
     document.getElementById('contactForm').onsubmit = function(event) {
-        event.preventDefault(); // Prevenir el envío normal del formulario
+        event.preventDefault();
 
-        // Mostrar SweetAlert
         Swal.fire({
             title: "¡Registrado!",
             text: "Tu mensaje ha sido enviado correctamente.",
@@ -48,9 +48,8 @@
             confirmButtonText: "Aceptar"
         }).then((result) => {
             if (result.isConfirmed) {
-                // Si el usuario acepta, envía el formulario
-                this.submit(); // Enviar el formulario
-            }
+              
+                this.submit(); 
         });
     };
 </script>
