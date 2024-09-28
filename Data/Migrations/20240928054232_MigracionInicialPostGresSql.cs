@@ -52,6 +52,45 @@ namespace MUSEODESCALZOS.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "t_contacto",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Message = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_t_contacto", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_Admin",
+                columns: table => new
+                {
+                    IDAdministrador = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nombres = table.Column<string>(type: "text", nullable: true),
+                    Apellidos = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    FechaNacimiento = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    NumDoc = table.Column<string>(type: "text", nullable: true),
+                    Distrito = table.Column<string>(type: "text", nullable: true),
+                    Provincia = table.Column<string>(type: "text", nullable: true),
+                    Direccion = table.Column<string>(type: "text", nullable: true),
+                    Contraseña = table.Column<string>(type: "text", nullable: true),
+                    Imagen = table.Column<string>(type: "text", nullable: true),
+                    PasswordResetToken = table.Column<string>(type: "text", nullable: true),
+                    ResetTokenExpiration = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_Admin", x => x.IDAdministrador);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tb_Alquiler",
                 columns: table => new
                 {
@@ -98,7 +137,9 @@ namespace MUSEODESCALZOS.Data.Migrations
                     Apellidos = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: true),
                     TipPago = table.Column<string>(type: "text", nullable: true),
-                    Sueldo = table.Column<decimal>(type: "numeric", nullable: false)
+                    Sueldo = table.Column<decimal>(type: "numeric", nullable: false),
+                    ContraseñaGenerada = table.Column<string>(type: "text", nullable: true),
+                    Disponible = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -113,7 +154,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Titulo = table.Column<string>(type: "text", nullable: true),
                     Descripción = table.Column<string>(type: "text", nullable: true),
-                    Nombrelmagen = table.Column<string>(type: "text", nullable: true),
                     Rutalmagen = table.Column<string>(type: "text", nullable: true),
                     FechaPublicación = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -132,7 +172,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                     Email = table.Column<string>(type: "text", nullable: true),
                     Contraseña = table.Column<string>(type: "text", nullable: true),
                     Reestablecer = table.Column<string>(type: "text", nullable: true),
-                    Nombrelmagen = table.Column<string>(type: "text", nullable: true),
                     Rutalmagen = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -253,8 +292,7 @@ namespace MUSEODESCALZOS.Data.Migrations
                     IDimgAlquiler = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     IDAlquiler = table.Column<long>(type: "bigint", nullable: false),
-                    Rutalmagen = table.Column<string>(type: "text", nullable: true),
-                    Nombrelmagen = table.Column<string>(type: "text", nullable: true)
+                    Rutalmagen = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -293,6 +331,26 @@ namespace MUSEODESCALZOS.Data.Migrations
                         column: x => x.GuíaIDGuía,
                         principalTable: "tb_Guía",
                         principalColumn: "IDGuía");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_Tarea",
+                columns: table => new
+                {
+                    IDTarea = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    GuíaID = table.Column<long>(type: "bigint", nullable: false),
+                    Descripción = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_Tarea", x => x.IDTarea);
+                    table.ForeignKey(
+                        name: "FK_tb_Tarea_tb_Guía_GuíaID",
+                        column: x => x.GuíaID,
+                        principalTable: "tb_Guía",
+                        principalColumn: "IDGuía",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -557,6 +615,11 @@ namespace MUSEODESCALZOS.Data.Migrations
                 table: "tb_PedidoVisita",
                 column: "IDGuía",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_Tarea_GuíaID",
+                table: "tb_Tarea",
+                column: "GuíaID");
         }
 
         /// <inheritdoc />
@@ -578,7 +641,13 @@ namespace MUSEODESCALZOS.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "t_contacto");
+
+            migrationBuilder.DropTable(
                 name: "tb_Actividades");
+
+            migrationBuilder.DropTable(
+                name: "tb_Admin");
 
             migrationBuilder.DropTable(
                 name: "tb_Calificacion");
@@ -594,6 +663,9 @@ namespace MUSEODESCALZOS.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "tb_PedidoVisita");
+
+            migrationBuilder.DropTable(
+                name: "tb_Tarea");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

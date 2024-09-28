@@ -289,6 +289,9 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.Property<string>("NumDoc")
                         .HasColumnType("text");
 
+                    b.Property<string>("PasswordResetToken")
+                        .HasColumnType("text");
+
                     b.Property<string>("Provincia")
                         .HasColumnType("text");
 
@@ -297,7 +300,7 @@ namespace MUSEODESCALZOS.Data.Migrations
 
                     b.HasKey("IDAdministrador");
 
-                    b.ToTable("tb_Administrador");
+                    b.ToTable("tb_Admin");
                 });
 
             modelBuilder.Entity("MuseoDescalzos.Models.Alquiler", b =>

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MUSEODESCALZOS.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240928015309_AddAdministradorAndContactoTables")]
-    partial class AddAdministradorAndContactoTables
+    [Migration("20240928063352_hash")]
+    partial class hash
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -292,6 +292,9 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.Property<string>("NumDoc")
                         .HasColumnType("text");
 
+                    b.Property<string>("PasswordResetToken")
+                        .HasColumnType("text");
+
                     b.Property<string>("Provincia")
                         .HasColumnType("text");
 
@@ -300,7 +303,7 @@ namespace MUSEODESCALZOS.Data.Migrations
 
                     b.HasKey("IDAdministrador");
 
-                    b.ToTable("tb_Administrador");
+                    b.ToTable("tb_Admin");
                 });
 
             modelBuilder.Entity("MuseoDescalzos.Models.Alquiler", b =>

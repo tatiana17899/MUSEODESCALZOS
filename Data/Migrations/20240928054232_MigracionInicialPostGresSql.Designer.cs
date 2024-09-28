@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MUSEODESCALZOS.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240922024458_Addalquiler")]
-    partial class Addalquiler
+    [Migration("20240928054232_MigracionInicialPostGresSql")]
+    partial class MigracionInicialPostGresSql
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -292,12 +292,18 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.Property<string>("NumDoc")
                         .HasColumnType("text");
 
+                    b.Property<string>("PasswordResetToken")
+                        .HasColumnType("text");
+
                     b.Property<string>("Provincia")
                         .HasColumnType("text");
 
+                    b.Property<DateTime?>("ResetTokenExpiration")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("IDAdministrador");
 
-                    b.ToTable("tb_Administrador");
+                    b.ToTable("tb_Admin");
                 });
 
             modelBuilder.Entity("MuseoDescalzos.Models.Alquiler", b =>
@@ -411,6 +417,28 @@ namespace MUSEODESCALZOS.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("tb_Cliente");
+                });
+
+            modelBuilder.Entity("MuseoDescalzos.Models.Contacto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("t_contacto");
                 });
 
             modelBuilder.Entity("MuseoDescalzos.Models.Evento", b =>
