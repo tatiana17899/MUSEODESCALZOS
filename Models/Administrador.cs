@@ -25,7 +25,7 @@ namespace MuseoDescalzos.Models
         public string? Direccion { get; set; }
         public string? Contraseña { get; set; }
         public string? Imagen { get; set; }
-        public string? PasswordResetToken { get; set; }
+        //public string? PasswordResetToken { get; set; }
         public DateTime? ResetTokenExpiration { get; set; }
         public void SetPassword(string password)
         {
