@@ -45,28 +45,37 @@
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 <script>
-    $(document).ready(function () {
-        $('#loginForm').submit(function (event) {
-            event.preventDefault(); // Evita el envío normal del formulario
-            var form = $(this);
+    $(document).ready(function() {
+    $('#loginForm').submit(function(event) {
+        event.preventDefault(); // Evitar el envío normal del formulario
 
-            $.ajax({
-                type: form.attr('method'),
-                url: form.attr('action'),
-                data: form.serialize(),
-                success: function (response) {
-                    if (response.success) {
-                        window.location.href = response.redirectUrl; // Redirige al dashboard
-                    } else {
-                        // Muestra el SweetAlert con el mensaje de error
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: response.message
-                        });
-                    }
+        $.ajax({
+            type: 'POST',
+            url: '/admin/IniciarSesionAdmin/Login',
+            data: $(this).serialize(),
+            success: function(response) {
+                if (response.success) {
+                    // Redirigir si el inicio de sesión fue exitoso
+                    window.location.href = response.redirectUrl;
+                } else {
+                    // Mostrar SweetAlert si hay un error
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response.message
+                    });
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                // Manejar errores de la solicitud AJAX
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error inesperado. Por favor, intenta nuevamente.'
+                });
+            }
         });
     });
+});
+
 </script>
