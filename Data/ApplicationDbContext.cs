@@ -24,5 +24,5 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<MuseoDescalzos.Models.Usuario > DataUsuario { get;set; }
     public DbSet<MuseoDescalzos.Models.Tarea > DataTareas { get;set; }
     public DbSet<MuseoDescalzos.Models.Administrador> DataAdministrador { get; set; }
-
+    public DbSet<MuseoDescalzos.Models.Contacto> DataContacto { get; set; }
 }
