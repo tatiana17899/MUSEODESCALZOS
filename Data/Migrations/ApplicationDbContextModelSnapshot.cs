@@ -300,7 +300,7 @@ namespace MUSEODESCALZOS.Data.Migrations
 
                     b.HasKey("IDAdministrador");
 
-                    b.ToTable("tb_Administrador");
+                    b.ToTable("tb_Admin");
                 });
 
             modelBuilder.Entity("MuseoDescalzos.Models.Alquiler", b =>

@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using Org.BouncyCastle.Crypto.Generators;
 namespace MuseoDescalzos.Models
 {
-    [Table("tb_Administrador")]
+    [Table("tb_Admin")]
     public class Administrador
     {
         [Key]
