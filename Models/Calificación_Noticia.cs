@@ -20,7 +20,7 @@ namespace MuseoDescalzos.Models
         public long IDNoticia { get; set; }
         public Noticia? Noticia { get; set; }= default!;
         [ForeignKey("Usuario")]
-        public long  IDUsuario { get; set; }
+        public string?  IDUsuario { get; set; }
         public Usuario? Usuario { get; set; }= default!;
         public string? Tipo { get; set; }
 

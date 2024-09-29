@@ -135,6 +135,8 @@ namespace MUSEODESCALZOS.Data.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -254,55 +256,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.ToTable("tb_Actividades");
                 });
 
-            modelBuilder.Entity("MuseoDescalzos.Models.Administrador", b =>
-                {
-                    b.Property<long>("IDAdministrador")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("IDAdministrador"));
-
-                    b.Property<string>("Apellidos")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Contraseña")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Direccion")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Distrito")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("FechaNacimiento")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Imagen")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Nombres")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NumDoc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PasswordResetToken")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Provincia")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("ResetTokenExpiration")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("IDAdministrador");
-
-                    b.ToTable("tb_Admin");
-                });
-
             modelBuilder.Entity("MuseoDescalzos.Models.Alquiler", b =>
                 {
                     b.Property<long>("IDAlquileres")
@@ -348,8 +301,8 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.Property<long>("IDNoticia")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("IDUsuario")
-                        .HasColumnType("bigint");
+                    b.Property<string>("IDUsuario")
+                        .HasColumnType("text");
 
                     b.Property<string>("Tipo")
                         .HasColumnType("text");
@@ -387,8 +340,8 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("IDUsuario")
-                        .HasColumnType("bigint");
+                    b.Property<string>("IDUsuario")
+                        .HasColumnType("text");
 
                     b.Property<string>("Nombres")
                         .HasColumnType("text");
@@ -691,30 +644,46 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.ToTable("tb_Tarea");
                 });
 
+            modelBuilder.Entity("MuseoDescalzos.Models.Administrador", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Apellidos")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Direccion")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Distrito")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("FechaNacimiento")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Imagen")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nombres")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NumDoc")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Provincia")
+                        .HasColumnType("text");
+
+                    b.ToTable("tb_Admin");
+                });
+
             modelBuilder.Entity("MuseoDescalzos.Models.Usuario", b =>
                 {
-                    b.Property<long>("IDUsuario")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("IDUsuario"));
-
-                    b.Property<string>("Contraseña")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Reestablecer")
-                        .HasColumnType("text");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("Rutalmagen")
                         .HasColumnType("text");
 
                     b.Property<string>("usuario")
                         .HasColumnType("text");
-
-                    b.HasKey("IDUsuario");
 
                     b.ToTable("tb_Usuario");
                 });
@@ -797,9 +766,7 @@ namespace MUSEODESCALZOS.Data.Migrations
 
                     b.HasOne("MuseoDescalzos.Models.Usuario", "Usuario")
                         .WithOne("Calificación_Noticia")
-                        .HasForeignKey("MuseoDescalzos.Models.Calificación_Noticia", "IDUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MuseoDescalzos.Models.Calificación_Noticia", "IDUsuario");
 
                     b.HasOne("MuseoDescalzos.Models.Calificación_Noticia", "calificación_Noticia")
                         .WithMany()
@@ -816,9 +783,7 @@ namespace MUSEODESCALZOS.Data.Migrations
                 {
                     b.HasOne("MuseoDescalzos.Models.Usuario", "Usuario")
                         .WithOne("Cliente")
-                        .HasForeignKey("MuseoDescalzos.Models.Cliente", "IDUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MuseoDescalzos.Models.Cliente", "IDUsuario");
 
                     b.Navigation("Usuario");
                 });
@@ -900,6 +865,24 @@ namespace MUSEODESCALZOS.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Guía");
+                });
+
+            modelBuilder.Entity("MuseoDescalzos.Models.Administrador", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithOne()
+                        .HasForeignKey("MuseoDescalzos.Models.Administrador", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MuseoDescalzos.Models.Usuario", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithOne()
+                        .HasForeignKey("MuseoDescalzos.Models.Usuario", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MuseoDescalzos.Models.Alquiler", b =>
