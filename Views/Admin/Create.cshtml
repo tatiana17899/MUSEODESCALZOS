@@ -1,0 +1,38 @@
+@model MuseoDescalzos.Models.Noticia
+
+@{
+    ViewData["Title"] = "Crear Noticia";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Crear Noticia</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Titulo" class="control-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Descripción" class="control-label"></label>
+        <textarea asp-for="Descripción" class="form-control"></textarea>
+        <span asp-validation-for="Descripción" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Rutalmagen" class="control-label"></label>
+        <input type="file" asp-for="Rutalmagen" class="form-control" />
+        <span asp-validation-for="Rutalmagen" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cerrar</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -1,0 +1,121 @@
+@model IEnumerable<MuseoDescalzos.Models.Noticia>
+
+@{
+    ViewData["Title"] = "Listado de Noticias";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Listado de Noticias</h2>
+
+<a asp-controller="NoticiasAdmin" asp-action="Create" class="btn btn-success">Crear nueva Noticia</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Imagen</th>
+            <th>Fecha de Publicación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="5" class="text-center">No hay noticias disponibles.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var noticia in Model)
+            {
+                <tr>
+                    <td>@noticia.Titulo</td>
+                    <td>@noticia.Descripción</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(noticia.Rutalmagen))
+                        {
+                            <img src="@noticia.Rutalmagen" alt="@noticia.Titulo" style="width:100px;height:auto;"/>
+                        }
+                        else
+                        {
+                            <span>No disponible</span>
+                        }
+                    </td>
+                    <td>@noticia.FechaPublicación.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@noticia.IDNoticia" class="btn btn-warning">Editar</a>
+                        <form asp-action="Delete" asp-route-id="@noticia.IDNoticia" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<!-- Historial de calificaciones -->
+<h3>Historial de calificaciones de cada noticia</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Corazones</th>
+            <th>Sonrisas</th>
+            <th>Tristeza</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>120</td>
+            <td>35</td>
+            <td>2</td>
+        </tr>
+    </tbody>
+</table>
+<!-- Gráfico de calificaciones -->
+<div class="col-md-6 mb-3">
+    <div class="card shadow">
+        <div class="card-header">
+            <h5 class="card-title me-3">
+                <i class="fa-solid fa-chart-pie"></i> Gráfico de Calificaciones
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <canvas id="calificacionesChart" width="80" height="80"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('calificacionesChart').getContext('2d');
+        var calificacionesChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Corazones', 'Sonrisas', 'Tristeza'],
+                datasets: [{
+                    data: [120, 35, 2], 
+                    backgroundColor: ['#FF6384', '#FFCE56', '#36A2EB'],
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Calificaciones de Noticias'
+                    }
+                }
+            }
+        });
+    </script>
+}
+

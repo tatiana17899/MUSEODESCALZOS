@@ -15,119 +15,86 @@
     <!--Font Family Google-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-   
-    <!--iconos-->
+    <!--Iconos-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 </head>
 <body>
     <div class="d-flex">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id="sidebar">
-        <div
-          class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
-        >
-          <a
-            href="/"
-            class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-          >
-            <span class="fs-5 d-none d-sm-inline">Museo de los Descalzos</span>
-          </a>
-          <ul
-            class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-            id="menu"
-          >
-            <li class="nav-item">
-              <a class="nav-link align-middle px-0" asp-controller="Dashboard" asp-action="Index">
-                <i class="fa-solid fa-sliders"></i>
-                <span class="ms-1 d-none d-sm-inline">Dashboard</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link align-middle px-0">
-                <i class="fa-solid fa-users"></i>
-                <span class="ms-1 d-none d-sm-inline">Cliente / Usuario</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#submenu1"
-                data-bs-toggle="collapse"
-                class="nav-link px-0 align-middle"
-              >
-                <i class="fa-solid fa-gear"></i>
-                <span class="ms-1 d-none d-sm-inline">Administrar</span>
-              </a>
-              <ul
-                class="collapse show nav flex-column ms-1"
-                id="submenu1"
-                data-bs-parent="#menu"
-              >
-                <li class="w-100">
-                  <a href="#" class="nav-link px-0">
-                    <span class="d-none d-sm-inline">Guías</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="nav-link px-0">
-                    <span class="d-none d-sm-inline">Alquileres</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="nav-link px-0">
-                    <span class="d-none d-sm-inline">Eventos</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="nav-link px-0">
-                    <span class="d-none d-sm-inline">Noticias</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <hr />
-          <div class="dropdown pb-4">
-            <a
-              href="#"
-              class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-              id="dropdownUser1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <img
-                src="#"
-                alt="hugenerd"
-                width="30"
-                height="30"
-                class="rounded-circle"
-              />
-              <span class="d-none d-sm-inline mx-1">Usuario</span>
-            </a>
-            <ul
-              class="dropdown-menu dropdown-menu-dark text-small shadow"
-              aria-labelledby="dropdownUser1"
-            >
-              <li><a class="dropdown-item" href="#">Cerrar Sesion</a></li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li><a class="dropdown-item" href="#">Iniciar Sesion</a></li>
-              <li><a class="dropdown-item" href="#">Registrarse</a></li>
-            </ul>
-          </div>
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline">Museo de los Descalzos</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a class="nav-link align-middle px-0" asp-controller="Dashboard" asp-action="Index">
+                            <i class="fa-solid fa-sliders"></i>
+                            <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fa-solid fa-users"></i>
+                            <span class="ms-1 d-none d-sm-inline">Cliente / Usuario</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fa-solid fa-gear"></i>
+                            <span class="ms-1 d-none d-sm-inline">Administrar</span>
+                        </a>
+                        <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="#" class="nav-link px-0">
+                                    <span class="d-none d-sm-inline">Guías</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-0">
+                                    <span class="d-none d-sm-inline">Alquileres</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-0">
+                                    <span class="d-none d-sm-inline">Eventos</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-0">
+                                    <span class="d-none d-sm-inline">Noticias</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <hr />
+                <div class="dropdown pb-4">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="#" alt="hugenerd" width="30" height="30" class="rounded-circle" />
+                        <span class="d-none d-sm-inline mx-1">Usuario</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="#">Cerrar Sesion</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#">Iniciar Sesion</a></li>
+                        <li><a class="dropdown-item" href="#">Registrarse</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-      <!-- Main Content -->
-      <div class="content flex-grow-1" id="contenido" role="main">
-        @RenderBody()
-      </div>
+        <!-- Main Content -->
+        <div class="content flex-grow-1" id="contenido" role="main">
+            @RenderBody()
+        </div>
     </div>
-    
+
     @RenderSection("ControlsSection", required: false)
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
+

@@ -26,12 +26,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2xpZW50ZVVzdWFyaW9DUlVELmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/meli0/OneDrive/Documents/GitHub/MUSEODESCALZOS/Views/Admin/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/meli0/OneDrive/Documents/GitHub/MUSEODESCALZOS/Views/Admin/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/meli0/OneDrive/Documents/GitHub/MUSEODESCALZOS/Views/Admin/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/meli0/OneDrive/Documents/GitHub/MUSEODESCALZOS/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/meli0/OneDrive/Documents/GitHub/MUSEODESCALZOS/Views/Admin/NoticiaCRUD.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTm90aWNpYUNSVUQuY3NodG1s
+[C:/Users/meli0/OneDrive/Documents/GitHub/MUSEODESCALZOS/Views/Admin/ListadoNoticias.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTGlzdGFkb05vdGljaWFzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/meli0/OneDrive/Documents/GitHub/MUSEODESCALZOS/Views/Admin/Profile.cshtml]
