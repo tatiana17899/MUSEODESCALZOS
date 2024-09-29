@@ -6,60 +6,53 @@
 <div class="main-content">
     <h1>Perfil</h1>
     <div class="profile-container">
-        <img src="@Model.Imagen" alt="Profile Picture" class="profile-picture">
+        <img src="@Model.imagen" alt="Profile Picture" class="profile-picture">
         <div class="edit-icon">
-            <i class="fas fa-pen-to-square"></i> <!-- Ícono de FontAwesome -->
+            <i class="fas fa-pen-to-square"></i> 
         </div>
     </div>
 
     <form class="profile-form" method="post" asp-action="UpdateProfile">
-        <input type="hidden" asp-for="IDAdministrador" />
+        <input type="hidden" asp-for="idadministrador" />
 
         <div class="form-group">
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" asp-for="Nombres" class="form-control" />
+            <input type="text" id="nombre" asp-for="nombres" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="apellidos">Apellidos:</label>
-            <input type="text" id="apellidos" asp-for="Apellidos" class="form-control" />
+            <input type="text" id="apellidos" asp-for="apellidos" class="form-control" />
         </div>
 
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" asp-for="Email" class="form-control" />
-        </div>
+
 
         <div class="form-group">
             <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
-            <input type="date" id="fecha-nacimiento" asp-for="FechaNacimiento" class="form-control" />
+            <input type="date" id="fecha-nacimiento" asp-for="fechanacimiento" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="documento">N° Documento:</label>
-            <input type="text" id="documento" asp-for="NumDoc" class="form-control" />
+            <input type="text" id="documento" asp-for="numdoc" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="provincia">Provincia:</label>
-            <input type="text" id="provincia" asp-for="Provincia" class="form-control" />
+            <input type="text" id="provincia" asp-for="provincia" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="distrito">Distrito:</label>
-            <input type="text" id="distrito" asp-for="Distrito" class="form-control" />
+            <input type="text" id="distrito" asp-for="distrito" class="form-control" />
         </div>
 
         <div class="form-group">
             <label for="direccion">Dirección:</label>
-            <input type="text" id="direccion" asp-for="Direccion" class="form-control" />
+            <input type="text" id="direccion" asp-for="direccion" class="form-control" />
         </div>
 
-        <div class="form-group">
-            <label for="contrasena">Contraseña:</label>
-            <input type="password" id="contrasena" asp-for="Contraseña" class="form-control" />
-            <span class="toggle-password">👁️</span>
-        </div>
+      
 
         <button type="submit" class="save-button">Guardar</button>
     </form>

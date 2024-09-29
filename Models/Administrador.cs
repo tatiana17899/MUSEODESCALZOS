@@ -4,25 +4,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+
 namespace MuseoDescalzos.Models
 {
-    [Table("tb_Administrador")]
+    [Table("tb_admin")]
     public class Administrador
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long IDAdministrador { get; set; }
+        public long idadministrador { get; set; }
 
-        public string? Nombres { get; set; }
-        public string? Apellidos { get; set; }
-        public string? Email { get; set; }
-        public DateTime FechaNacimiento { get; set; }
-        public string? NumDoc { get; set; }
-        public string? Distrito { get; set; }
-        public string? Provincia { get; set; }
-        public string? Direccion { get; set; }
-        public string? Contraseña { get; set; }
-        public string? Imagen { get; set; }
-    
+        public string? nombres { get; set; }
+        public string? apellidos { get; set; }
+        public DateTime fechanacimiento { get; set; }
+        public string? numdoc { get; set; }
+        public string? distrito { get; set; }
+        public string? provincia { get; set; }
+        public string? direccion { get; set; }
+        public string? imagen { get; set; }
     }
 }

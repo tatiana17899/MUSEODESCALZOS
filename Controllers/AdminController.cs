@@ -40,7 +40,7 @@ namespace MuseoDescalzos.Controllers
             {
                 _context.DataAdministrador.Update(administrador); 
                 _context.SaveChanges(); 
-                return RedirectToAction("Profile", new { id = administrador.IDAdministrador }); 
+                return RedirectToAction("Profile", new { id = administrador.idadministrador }); 
             }
             return View(administrador); 
         }
