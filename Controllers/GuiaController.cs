@@ -75,7 +75,7 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                     Sueldo = viewModel.FormGuia.Sueldo,
                     PedidoVisita = viewModel.FormGuia.PedidoVisita,
                     Actividades = viewModel.FormGuia.Actividades,
-                    ContraseñaGenerada = Guía.GenerarContraseña()
+                  
                 };
                 _context.DataGuía.Add(nuevaGuia);
                 await _context.SaveChangesAsync();

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MUSEODESCALZOS.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <!--Icon Google-->
     <link
       rel="stylesheet"
@@ -69,12 +70,7 @@
                         </li>
                     </ul>
                     <form class="d-flex">
-                        <button class="btn btn-log mx-2" id="login">
-                        Iniciar Sesion
-                        </button>
-                        <button class="btn btn-reg mx-2" id="register">
-                        Registrarse
-                        </button>
+                        <partial name="_LoginPartial" />
                     </form>
                     </div>
                 </div>
@@ -129,7 +125,6 @@
             &copy; 2024 - MUSEODESCALZOS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>-->
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
