@@ -1,0 +1,30 @@
+@using Microsoft.AspNetCore.Identity;
+@using System.Collections.Generic;
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User)){
+    IdentityUser myidentity = await Task.Run(() => UserManager.GetUserAsync(User));
+    var roles = await Task.Run(() => UserManager.GetRolesAsync(myidentity));
+
+    @if(roles.Contains("admin") ){
+        <li class="nav-item mx-4">
+            <a class="nav-link text-dark" asp-area="" asp-controller="CuentaBancaria" asp-action="Index">
+                <span class="material-symbols-outlined">
+                    app_registration
+                </span> Registro Cuenta Bancaria</a>
+        </li>
+        <li class="nav-item mx-4">
+            <a class="nav-link text-dark" asp-area="" asp-controller="ListarCuentas" asp-action="Index">
+                <span class="material-symbols-outlined">
+                    receipt_long
+                </span>Listador de cuentas</a>
+        </li>
+
+    }else{
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="CuentaBancaria" asp-action="Index">Registrar Cuenta</a>
+        </li>
+    } 
+}
