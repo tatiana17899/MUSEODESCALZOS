@@ -34,16 +34,20 @@ namespace MuseoDescalzos.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateProfile(Administrador administrador) 
-        {
-            if (ModelState.IsValid) 
-            {
-                _context.DataAdministrador.Update(administrador); 
-                _context.SaveChanges(); 
-                return RedirectToAction("Profile", new { id = administrador.idadministrador }); 
-            }
-            return View(administrador); 
-        }
+public IActionResult UpdateProfile(Administrador administrador) 
+{
+    if (ModelState.IsValid) 
+    {
+        // Convertir fechanacimiento a UTC si no está en UTC
+        administrador.fechanacimiento = DateTime.SpecifyKind(administrador.fechanacimiento, DateTimeKind.Utc);
+
+        _context.DataAdministrador.Update(administrador); 
+        _context.SaveChanges(); 
+        return RedirectToAction("Profile", new { id = administrador.idadministrador }); 
+    }
+    return View(administrador); 
+}
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
