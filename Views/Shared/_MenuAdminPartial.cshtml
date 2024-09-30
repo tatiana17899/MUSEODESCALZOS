@@ -10,7 +10,9 @@
 
     @if(roles.Contains("Admin") ){
         <li class="nav-item">
-            <a class="nav-link text-white bi bi-cart" asp-area="" asp-controller="Admin" asp-action="Index">Menú Principal Administrador</a>
+            <a class="nav-link text-white mx-4" asp-area="" asp-controller="Admin" asp-action="Index">
+               <span class="material-symbols-outlined">shield_person</span> 
+               Menú Principal Administrador</a>
         </li>
     }
 
