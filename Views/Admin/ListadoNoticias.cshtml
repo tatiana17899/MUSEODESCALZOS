@@ -61,19 +61,26 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Corazones</th>
-            <th>Sonrisas</th>
-            <th>Tristeza</th>
+            <th>Calificación</th>
+            <th>Cantidad</th>
         </tr>
     </thead>
     <tbody>
         <tr>
+            <td><i class="fa-solid fa-heart"></i> Corazones</td>
             <td>120</td>
+        </tr>
+        <tr>
+            <td><i class="fa-solid fa-smile"></i> Sonrisas</td>
             <td>35</td>
+        </tr>
+        <tr>
+            <td><i class="fa-solid fa-sad-tear"></i> Tristeza</td>
             <td>2</td>
         </tr>
     </tbody>
 </table>
+
 <!-- Gráfico de calificaciones -->
 <div class="col-md-6 mb-3">
     <div class="card shadow">
@@ -86,9 +93,16 @@
             <div class="d-flex align-items-center">
                 <canvas id="calificacionesChart" width="80" height="80"></canvas>
             </div>
+            <!-- Leyenda personalizada -->
+            <div class="mt-3">
+                <span><i class="fa-solid fa-heart" style="color: #FF6384;"></i> Corazones: 120</span><br />
+                <span><i class="fa-solid fa-smile" style="color: #FFCE56;"></i> Sonrisas: 35</span><br />
+                <span><i class="fa-solid fa-sad-tear" style="color: #36A2EB;"></i> Tristeza: 2</span>
+            </div>
         </div>
     </div>
 </div>
+
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
