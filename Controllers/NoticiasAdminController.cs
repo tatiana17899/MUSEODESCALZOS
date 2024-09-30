@@ -35,6 +35,9 @@ namespace MuseoDescalzos.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Convertir la fecha a UTC
+                noticia.FechaPublicación = DateTime.UtcNow; // Asignar la fecha actual en UTC
+
                 // Aquí puedes manejar la lógica de subida de archivos si es necesario
                 // Por ejemplo, si usas un servicio para guardar la imagen, podrías hacer algo como esto:
                 // noticia.Rutalmagen = await SaveImageAndGetPath(noticia.Rutalmagen);
@@ -47,30 +50,32 @@ namespace MuseoDescalzos.Controllers
         }
 
         // Acción para editar una noticia
-public IActionResult Edit(long id)
-{
-    var noticia = _context.DataNoticia.Find(id);
-    if (noticia == null)
-    {
-        return NotFound(); // Retorna un 404 si no se encuentra la noticia
-    }
-    return View("../Admin/Edit", noticia); // Cambia aquí la ruta a la vista
-}
+        public IActionResult Edit(long id)
+        {
+            var noticia = _context.DataNoticia.Find(id);
+            if (noticia == null)
+            {
+                return NotFound(); // Retorna un 404 si no se encuentra la noticia
+            }
+            return View("../Admin/Edit", noticia); // Cambia aquí la ruta a la vista
+        }
 
-// Acción para manejar el envío del formulario de edición
-[HttpPost]
-[ValidateAntiForgeryToken]
-public IActionResult Edit(Noticia noticia)
-{
-    if (ModelState.IsValid)
-    {
-        _context.Update(noticia); // Actualiza la noticia
-        _context.SaveChanges(); // Guarda los cambios
-        return RedirectToAction(nameof(Index)); // Redirige al índice
-    }
-    return View("../Admin/Edit", noticia); // Asegúrate de usar la ruta correcta aquí también
-}
+        // Acción para manejar el envío del formulario de edición
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Noticia noticia)
+        {
+            if (ModelState.IsValid)
+            {
+                // Convertir la fecha a UTC si es necesario, por ejemplo, si se actualiza la fecha
+                noticia.FechaPublicación = DateTime.UtcNow; // Asignar la fecha actual en UTC
 
+                _context.Update(noticia); // Actualiza la noticia
+                _context.SaveChanges(); // Guarda los cambios
+                return RedirectToAction(nameof(Index)); // Redirige al índice
+            }
+            return View("../Admin/Edit", noticia); // Asegúrate de usar la ruta correcta aquí también
+        }
 
         // Acción para eliminar una noticia
         [HttpPost, ActionName("Delete")]
