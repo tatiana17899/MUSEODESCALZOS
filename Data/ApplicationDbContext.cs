@@ -12,7 +12,6 @@ public class ApplicationDbContext : IdentityDbContext
     
     public DbSet<MuseoDescalzos.Models.Actividades> DataActividades { get;set; }
     public DbSet<MuseoDescalzos.Models.Alquiler> DataAlquiler { get;set; }
-    public DbSet<MuseoDescalzos.Models.Calificación_Noticia> DataCalificación_Noticia { get;set; }
     public DbSet<MuseoDescalzos.Models.Cliente> DataCliente { get;set; }
     public DbSet<MuseoDescalzos.Models.Evento> DataEvento { get;set; }
     public DbSet<MuseoDescalzos.Models.Guía> DataGuía { get;set; }
@@ -21,8 +20,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<MuseoDescalzos.Models.PedidoAlquiler> DataPedidoAlquiler { get;set; }
     public DbSet<MuseoDescalzos.Models.PedidoEvento> DataPedidoEvento { get;set; }
     public DbSet<MuseoDescalzos.Models.PedidoVisita> DataPedidoVisita { get;set; }
-    public DbSet<MuseoDescalzos.Models.Usuario > DataUsuario { get;set; }
     public DbSet<MuseoDescalzos.Models.Tarea > DataTareas { get;set; }
-    public DbSet<MuseoDescalzos.Models.Administrador> DataAdministrador { get; set; }
     public DbSet<MuseoDescalzos.Models.Contacto> DataContacto { get; set; }
 }

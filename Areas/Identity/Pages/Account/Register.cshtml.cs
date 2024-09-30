@@ -24,23 +24,23 @@ namespace MUSEODESCALZOS.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<Usuario> _signInManager;
-        private readonly UserManager<Usuario> _userManager;
-        private readonly IUserStore<Usuario> _userStore;
-        private readonly IUserEmailStore<Usuario> _emailStore;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IUserStore<IdentityUser> _userStore;
+        private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<Usuario> userManager,
-            IUserStore<Usuario> userStore,
-            SignInManager<Usuario> signInManager,
+            UserManager<IdentityUser> userManager,
+            IUserStore<IdentityUser> userStore,
+            SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
             _userStore = userStore;
-            _emailStore = (IUserEmailStore<Usuario>)userStore;
+            _emailStore = (IUserEmailStore<IdentityUser>)userStore;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
@@ -113,7 +113,7 @@ namespace MUSEODESCALZOS.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Usuario { UserName = Input.Email, Email = Input.Email };
+                var user = CreateUser();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
