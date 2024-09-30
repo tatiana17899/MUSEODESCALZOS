@@ -13,11 +13,10 @@ using MimeKit;
 using MUSEODESCALZOS.Data;
 using MUSEO_DE_LOS_DESCALZOS.ViewModel;
 using MuseoDescalzos.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace MUSEO_DE_LOS_DESCALZOS.Controllers
 {
-    [Authorize]
+ 
     public class GuiaController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -10,10 +10,9 @@ using OfficeOpenXml;
 using System.Dynamic;
 using MuseoDescalzos.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
+
 namespace MuseoDescalzos.Controllers
 {
-    [Authorize]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;

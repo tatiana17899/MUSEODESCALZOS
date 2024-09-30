@@ -13,11 +13,11 @@ using Microsoft.EntityFrameworkCore;
 
 using OfficeOpenXml;
 using System.IO;
-using Microsoft.AspNetCore.Authorization;
+
 
 namespace MUSEO_DE_LOS_DESCALZOS.Controllers
 {
-   [Authorize]
+   
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
