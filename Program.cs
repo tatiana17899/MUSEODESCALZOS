@@ -33,11 +33,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-//app.MapControllerRoute(
-    //name: "admin",
-    //pattern: "admin/{controller=Admin}/{action=Index}/{id?}");//
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "admin/{controller=Admin}/{action=Index}/{id?}");//
 
 app.MapControllerRoute(
     name: "default",

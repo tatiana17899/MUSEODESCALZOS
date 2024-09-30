@@ -34,43 +34,8 @@
                     >
                     <span class="navbar-toggler-icon"></span>
                     </button>
-                    <partial name="_MenuAdminPartial" />
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                         @if (!User.IsInRole("Admin"))
-                        {
-                            <ul class="navbar-nav me-auto mb-0 mb-lg-0 mx-auto">
-                                <li class="nav-item mx-4">
-                                    <a class="nav-link" href="@Url.Action("Index", "Home")">
-                                        <span class="material-symbols-outlined">home</span>
-                                        <p class="title-link">Inicio</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item mx-4">
-                                    <a class="nav-link" href="#">
-                                        <span class="material-symbols-outlined">attach_money</span>
-                                        <p class="title-link">Catálogo</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item mx-4">
-                                    <a class="nav-link" href="@Url.Action("Visita", "Home")">
-                                        <span class="material-symbols-outlined">calendar_month</span>
-                                        <p class="title-link">Visita</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item mx-4">
-                                <a class="nav-link" href="@Url.Action("Visita", "Home")">
-                                    <span class="material-symbols-outlined icon">shopping_cart</span>
-                                    <p class="title-link">Carrito</p>
-                                </a>
-                                </li>
-                                <li class="nav-item mx-4">
-                                <a class="nav-link" href="@Url.Action("Index", "Contacto")">
-                                    <span class="material-symbols-outlined icon">email</span>
-                                    <p class="title-link">Contacto</p>
-                                </a>
-                                </li>
-                            </ul>
-                        }
+                        <partial name="_MenuAdminPartial" />
                         <form class="d-flex">
                             <partial name="_LoginPartial" />
                         </form>
