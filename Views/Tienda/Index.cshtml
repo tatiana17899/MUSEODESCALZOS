@@ -1,0 +1,137 @@
+@using MUSEO_DE_LOS_DESCALZOS.ViewModel
+@model AlquilerViewModel
+
+@{
+    ViewData["Title"] = "Tienda";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="container">
+        <h1>TIENDA</h1>
+        <div class="tabs">
+            <button class="tablink" id="defaultOpen">Eventos</button>
+            <button class="tablink">Alquileres</button>
+        </div>
+
+        <div id="Eventos" class="tabcontent">
+            <div class="grid">
+                <div class="card">
+                    <!--<img src="~/images/evento1.jpg" alt="Evento 1" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 1 hora</span>
+                </div>
+
+                <div class="card">
+                    <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 2 horas</span>
+                </div>
+
+                <div class="card">
+                    <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 1 hora</span>
+                </div>
+
+                <div class="card">
+                    <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 2 horas</span>
+                </div>
+
+                <div class="card">
+                    <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 1 hora</span>
+                </div>
+
+                <div class="card">
+                    <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 3 horas</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="Alquileres" class="tabcontent" style="display:none">
+            <div class="grid">
+                <div class="card">
+                    <!--<img src="~/images/evento1.jpg" alt="Evento 1" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 1 hora</span>
+                </div>
+
+                <div class="card">
+                    <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 2 horas</span>
+                </div>
+
+                <div class="card">
+                    <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 1 hora</span>
+                </div>
+
+                <div class="card">
+                    <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 2 horas</span>
+                </div>
+
+                <div class="card">
+                    <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 1 hora</span>
+                </div>
+
+                <div class="card">
+                    <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
+                    <h3>EVENTO MUSEO “Memory”</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <span><i class="fa fa-clock-o"></i> 3 horas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Script para el manejo de pestañas (Eventos y Alquileres)
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Abre la pestaña de Eventos por defecto
+        document.getElementById("defaultOpen").click();
+    </script>
+</body>
+</html>
