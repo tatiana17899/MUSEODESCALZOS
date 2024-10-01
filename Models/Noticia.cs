@@ -16,8 +16,5 @@ namespace MuseoDescalzos.Models
         public string? Descripción { get; set; }
         public string? Rutalmagen { get; set; }
         public DateTime FechaPublicación { get; set; }
-
-        // Relación con Calificación_Noticia
-        public ICollection<Calificación_Noticia>? Calificaciones { get; set; } = new List<Calificación_Noticia>();
     }
 }

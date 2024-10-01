@@ -9,6 +9,11 @@
 
 <a asp-controller="NoticiasAdmin" asp-action="Create" class="btn btn-success">Crear nueva Noticia</a>
 
+<link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css"
+/>
+
 <table class="table">
     <thead>
         <tr>
@@ -56,84 +61,3 @@
     </tbody>
 </table>
 
-<!-- Historial de calificaciones 
-<h3>Historial de calificaciones de cada noticia</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Calificación</th>
-            <th>Cantidad</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><i class="fa-solid fa-heart"></i> Corazones</td>
-            <td>120</td>
-        </tr>
-        <tr>
-            <td><i class="fa-solid fa-smile"></i> Sonrisas</td>
-            <td>35</td>
-        </tr>
-        <tr>
-            <td><i class="fa-solid fa-sad-tear"></i> Tristeza</td>
-            <td>2</td>
-        </tr>
-    </tbody>
-</table>
--->
-
-<!--
-<div class="col-md-6 mb-3">
-    <div class="card shadow">
-        <div class="card-header">
-            <h5 class="card-title me-3">
-                <i class="fa-solid fa-chart-pie"></i> Gráfico de Calificaciones
-            </h5>
-        </div>
-        <div class="card-body">
-            <div class="d-flex align-items-center">
-                <canvas id="calificacionesChart" width="80" height="80"></canvas>
-            </div>
-
-            <div class="mt-3">
-                <span><i class="fa-solid fa-heart" style="color: #FF6384;"></i> Corazones: 120</span><br />
-                <span><i class="fa-solid fa-smile" style="color: #FFCE56;"></i> Sonrisas: 35</span><br />
-                <span><i class="fa-solid fa-sad-tear" style="color: #36A2EB;"></i> Tristeza: 2</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-@section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        
-        var ctx = document.getElementById('calificacionesChart').getContext('2d');
-        var calificacionesChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Corazones', 'Sonrisas', 'Tristeza'],
-                datasets: [{
-                    data: [120, 35, 2], 
-                    backgroundColor: ['#FF6384', '#FFCE56', '#36A2EB'],
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Calificaciones de Noticias'
-                    }
-                }
-            }
-        });
-        
-    </script>
-}-->

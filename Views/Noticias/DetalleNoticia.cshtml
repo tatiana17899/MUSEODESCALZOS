@@ -3,18 +3,3 @@
 <h1>@Model.Titulo</h1>
 <p>@Model.Descripción</p>
 <img src="@Model.Rutalmagen" alt="Imagen de noticia" />
-
-<h2>Calificaciones</h2>
-<ul>
-    @if (Model.Calificaciones != null && Model.Calificaciones.Any())
-    {
-        foreach (var calificacion in Model.Calificaciones)
-        {
-            <li>@calificacion.Tipo (Usuario ID: @calificacion.IDUsuario)</li>
-        }
-    }
-    else
-    {
-        <li>No hay calificaciones disponibles.</li>
-    }
-</ul>
