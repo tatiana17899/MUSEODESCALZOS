@@ -1,67 +1,145 @@
 @using MUSEO_DE_LOS_DESCALZOS.ViewModel
-@model AlquilerViewModel
-
+@model MuseoDescalzos.Models.Alquiler
 @{
     ViewData["Title"] = "Tienda";
 }
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda</title>
     <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tablink {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .tablink:hover {
+            background-color: #0056b3;
+        }
+        .active {
+            background-color: #0056b3;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        .card img {
+            max-width: 100%;
+            border-radius: 5px;
+            height: auto;
+        }
+        .card h3 {
+            font-size: 1.5em;
+            margin: 10px 0;
+            color: #007bff;
+        }
+        .card p {
+            color: #6c757d;
+        }
+        .card span {
+            font-weight: bold;
+            color: #343a40;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <h1>TIENDA</h1>
         <div class="tabs">
             <button class="tablink" id="defaultOpen">Eventos</button>
-            <button class="tablink">Alquileres</button>
+            <a class="tablink" href="@Url.Action("Listar", "Alquiler")">Alquileres</a>
         </div>
 
         <div id="Eventos" class="tabcontent">
             <div class="grid">
                 <div class="card">
-                    <!--<img src="~/images/evento1.jpg" alt="Evento 1" />-->
+                        <!--<img src="~/images/evento1.jpg" alt="Evento 1" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 1 hora</span>
                 </div>
 
                 <div class="card">
                     <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 2 horas</span>
                 </div>
 
                 <div class="card">
                     <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 1 hora</span>
                 </div>
 
                 <div class="card">
                     <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 2 horas</span>
                 </div>
 
                 <div class="card">
                     <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 1 hora</span>
                 </div>
 
                 <div class="card">
                     <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 3 horas</span>
                 </div>
             </div>
@@ -72,42 +150,48 @@
                 <div class="card">
                     <!--<img src="~/images/evento1.jpg" alt="Evento 1" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 1 hora</span>
                 </div>
 
                 <div class="card">
                     <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 2 horas</span>
                 </div>
 
                 <div class="card">
                     <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 1 hora</span>
                 </div>
 
                 <div class="card">
                     <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 2 horas</span>
                 </div>
 
                 <div class="card">
                     <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 1 hora</span>
                 </div>
 
                 <div class="card">
                     <!--<img src="~/images/evento2.jpg" alt="Evento 2" />-->
                     <h3>EVENTO MUSEO “Memory”</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut, molestie mauris.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In id risus tincidunt, posuere massa ut,
+                        molestie mauris.</p>
                     <span><i class="fa fa-clock-o"></i> 3 horas</span>
                 </div>
             </div>
@@ -134,4 +218,5 @@
         document.getElementById("defaultOpen").click();
     </script>
 </body>
+
 </html>

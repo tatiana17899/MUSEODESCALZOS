@@ -1,0 +1,32 @@
+@model IEnumerable<MuseoDescalzos.Models.Alquiler>
+
+@{
+    ViewData["Title"] = "Alquiler";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="row row-cols-1 row-cols-md-2 g-4 w-50 ">
+        @foreach (var alquiler in Model)
+        {
+            <div class="col ">
+                <div class="card h-100">
+                    <img src="..." class="card-img-top" alt="@alquiler.Titulo">
+                    <div class="card-body">
+                        <h3>@alquiler.Titulo</h3>
+                        <p>@alquiler.Descripcion</p>
+                        <span><i class="fa fa-clock-o"></i> @alquiler.Hora_Disponible.ToString("hh\\:mm")</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+<script>
+    document.getElementById('clickableDiv').addEventListener('click', function () {
+        window.location.href = 'alquiler.html'; // Cambia por tu enlace
+    });
+</script>

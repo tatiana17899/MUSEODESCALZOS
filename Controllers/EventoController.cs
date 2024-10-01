@@ -1,19 +1,28 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MUSEODESCALZOS.Models;
+using MUSEODESCALZOS.Data;
 
 namespace MUSEODESCALZOS.Controllers
 {
-    public class TiendaController : Controller
+    public class EventoController : Controller
     {
-        private readonly ILogger<TiendaController> _logger;
+        private readonly ILogger<EventoController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public TiendaController(ILogger<TiendaController> logger)
+        public EventoController(ILogger<EventoController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        
+        public IActionResult Listar()
         {
             return View();
         }
