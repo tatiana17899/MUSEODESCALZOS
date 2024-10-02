@@ -1,21 +1,23 @@
 @model List<MuseoDescalzos.Models.Noticia> 
 
 <div class="container mt-5">
-    <h2>Noticias</h2>
+    <h2 class="text-center mb-4">Noticias</h2>
     <div class="row">
         @foreach (var noticia in Model)
         {
             <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="@noticia.Rutalmagen" class="card-img-top" alt="Noticia">
+                <div class="card shadow-lg">
+                    <img src="@noticia.Rutalmagen" class="card-img-top" alt="Noticia" style="max-height: 200px; object-fit: cover;">
                     <div class="card-body">
-                        <h5 class="card-title">@noticia.Titulo</h5>
-                        <p class="card-text">@noticia.Descripción</p>
-                        <p class="card-text text-muted">@noticia.FechaPublicación.ToString("dd/MM/yyyy")</p>
-                        <a href="@Url.Action("DetalleNoticia", "Noticias", new { id = noticia.IDNoticia })" class="btn btn-primary">Leer más</a>
+                        <h5 class="card-title text-dark">@noticia.Titulo</h5> <!-- Título en negro -->
+                        
+                        <p class="card-text text-muted" style="font-size: 0.8rem;">@noticia.FechaPublicación.ToString("dd/MM/yyyy")</p>
+                        <a href="@Url.Action("DetalleNoticia", "Noticias", new { id = noticia.IDNoticia })" class="btn btn-dark">Leer más</a>
                     </div>
                 </div>
             </div>
         }
     </div>
 </div>
+
+
