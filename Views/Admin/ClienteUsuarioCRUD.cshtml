@@ -1,7 +1,7 @@
 @model MuseoDescalzos.Models.ClientesUsuarios
 
 @{
-    ViewData["Title"] = "Clientes y Usuarios";
+    ViewData["Title"] = "Clientes";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -46,33 +46,11 @@
     </tbody>
 </table>
 
-<h3>Usuarios</h3>
-<table id="usuariosTable" class="table display">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Usuario</th>
-            <th>Email</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var usuario in Model.Usuarios)
-        {
-            <tr>
-                <td>@usuario.IDUsuario</td>
-                <td>@usuario.usuario</td>
-                <td>@usuario.Email</td>
-            </tr>
-        }
-    </tbody>
-</table>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
 <script>
     $(document).ready(function() {
         $('#clientesTable').DataTable();
-        $('#usuariosTable').DataTable();
     });
 </script>

@@ -15,18 +15,16 @@ namespace MuseoDescalzos.Controllers
             _context = context;
         }
 
-        // GET: /ClientesUsuarios
+        // GET: /Clientes
         public async Task<IActionResult> Index()
-{
-    var model = new ClientesUsuarios
-    {
-        Clientes = await _context.DataCliente.ToListAsync(),
-        Usuarios = await _context.DataUsuario.ToListAsync()
-    };
+        {
+            var model = new ClientesUsuarios
+            {
+                Clientes = await _context.DataCliente.ToListAsync()
+            };
 
-    // Renderiza la vista en Views/Admin/ClienteUsuarioCRUD.cshtml
-    return View("~/Views/Admin/ClienteUsuarioCRUD.cshtml", model);
-}
-
+            // Renderiza la vista en Views/Admin/ClienteUsuarioCRUD.cshtml
+            return View("~/Views/Admin/ClienteUsuarioCRUD.cshtml", model);
+        }
     }
 }
