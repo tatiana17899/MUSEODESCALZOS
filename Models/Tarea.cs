@@ -17,5 +17,6 @@ namespace MuseoDescalzos.Models
         public long GuíaID { get; set; }
         public Guía Guía { get; set; } = default!;
         public string Descripción { get; set; } = default!;
+        public bool Estado { get; set; } = false;
     }
 }

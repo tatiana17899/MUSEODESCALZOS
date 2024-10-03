@@ -23,7 +23,7 @@ namespace MuseoDescalzos.Models
         public DateTime FechaNacimiento { get; set; }
         public DateTime FechaRegistro { get; set; }
         [ForeignKey("Usuario")]
-        public string? IDUsuario { get; set; }
+        public long IDUsuario { get; set; }
         public Usuario? Usuario { get; set; }
         public ICollection<PedidoEvento>? PedidoEvento { get; set; }
         public ICollection<PedidoAlquiler>? PedidoAlquiler { get; set; }

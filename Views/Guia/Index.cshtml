@@ -175,24 +175,30 @@
         <form id="taskForm" asp-controller="Guia" asp-action="AsignarTarea" method="post">
             <input type="hidden" id="guiaId" name="guiaId" />
             <div class="mb-3">
+                <input type="hidden" id="guiaIdHidden" name="guiaId" />
                 <label for="tareaDescripcion" class="form-label">Descripción de la Tarea</label>
                 <input type="text" class="form-control" id="tareaDescripcion" name="descripcion" />
             </div>
             <button type="button" class="btn btn-primary" onclick="confirmarAsignarTarea()">Asignar</button>
         </form>
         <hr>
-         <h5>Lista de Tareas</h5>
-         <table id="taskTable" class="table table-striped table-bordered mt-3">
+        <h5 class="card-title d-flex align-items-center">
+          <i class="fa-sharp fa-solid fa-list-check"></i> Tareas Asignadas
+        </h5>
+        <table id="tareasTable" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>Tarea</th>
                     <th>Estado</th>
+                    <th>A</th>
                 </tr>
             </thead>
-            <tbody id="taskTableBody">
-                
+            <tbody id="tareasTableBody">
+               
             </tbody>
-         </table>
+        </table>
+    </div>
+</div>
       </div>
     </div>
   </div>
@@ -202,110 +208,180 @@
     <script src="https://cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(function () {
-            $('#guiaTable').DataTable({
-                lengthMenu: [3, 5, 7, 9],
-                pageLength: 5
+    $(document).ready(function () {
+        $('#guiaTable').DataTable({
+            lengthMenu: [3, 5, 7, 9],
+            pageLength: 5
+        });
+        $('#guiaTabletarea').DataTable({
+            lengthMenu: [3, 5, 7, 9],
+            pageLength: 5
+        });
+
+        window.editGuia = function(idGuia) {
+            $.ajax({
+                url: '@Url.Action("GetGuiaById", "Guia")',
+                type: 'GET',
+                data: { id: idGuia },
+                success: function (data) {
+                    $('#IDGuía').val(data.idGuía);
+                    $('#nombres').val(data.nombres);
+                    $('#apellidos').val(data.apellidos);
+                    $('#correo').val(data.email);
+                    $('#tipo_pago').val(data.tipPago);
+                    $('#sueldo').val(data.sueldo);
+                    $('#myModalLabel').text('Editar Guía');
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        title: "Error",
+                        text: "Hubo un error al obtener los datos del guía.",
+                        icon: "error"
+                    });
+                    console.log(error);
+                }
             });
-            $('#guiaTabletarea').DataTable({
-                lengthMenu: [3, 5, 7, 9],
-                pageLength: 5
-            });
-            
-            window.editGuia = function(idGuia) {
+        }
+
+        $('#btnCrear').click(function() {
+            $('#IDGuía').val(0);  
+            $('#nombres').val('');
+            $('#apellidos').val('');
+            $('#correo').val('');
+            $('#tipo_pago').val('');
+            $('#sueldo').val('');
+            $('#myModalLabel').text('Crear Guía');
+        });
+    });
+
+    function confirmarGuardar() {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "¡No podrás revertir esto!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, guardar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $('#formGuia').submit();
+            }
+        });
+    }
+
+    function confirmarEliminacion(idGuia) {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "¡No podrás revertir esto!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var form = $('<form>', {
+                    'method': 'POST',
+                    'action': '@Url.Action("Eliminar", "Guia")'
+                }).append($('<input>', {
+                    'type': 'hidden',
+                    'name': 'id',
+                    'value': idGuia
+                }));
+
+                $('body').append(form);
+                form.submit();
+            }
+        });
+    }
+    function setGuiaId(guiaId) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SetGuiaId", "Guia")',
+            data: { IDGuía: guiaId },
+            success: function (response) {
+                $("#guiaId").val(guiaId);
+                getTareasByGuia(guiaId);
+            }
+        });
+    }
+
+    function getTareasByGuia(guiaId) {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetTareasByGuia", "Guia")',
+            data: { guiaId: guiaId },
+            success: function (response) {
+                $("#tareasTableBody").empty();
+                $.each(response, function (index, tarea) {
+                    var row = $("<tr>");
+                    row.append($("<td>" + tarea.descripcion + "</td>")); // Corrección: propiedad en minúscula
+                    row.append($("<td>" + (tarea.estado ? "Completada" : "Pendiente") + "</td>")); // Corrección: propiedad en minúscula
+                    row.append($("<td><button type='button' class='btn btn-danger btn-sm' onclick='eliminarTarea(" + tarea.idTarea + ")'><i class='fa-solid fa-trash'></i></button></td>"));
+                    $("#tareasTableBody").append(row);
+                });
+            }
+        });
+    }
+
+    function confirmarAsignarTarea() {
+        var guiaId = $("#guiaId").val();
+        var descripcion = $("#tareaDescripcion").val();
+        Swal.fire({
+            title: "¿Estás seguro de asignar esta tarea?",
+            text: "La tarea se asignará al guía seleccionado.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, asignar"
+        }).then((result) => {
+            if (result.isConfirmed) {
                 $.ajax({
-                    url: '@Url.Action("GetGuiaById", "Guia")',
-                    type: 'GET',
-                    data: { id: idGuia },
-                    success: function (data) {
-                        $('#IDGuía').val(data.idGuía);
-                        $('#nombres').val(data.nombres);
-                        $('#apellidos').val(data.apellidos);
-                        $('#correo').val(data.email);
-                        $('#tipo_pago').val(data.tipPago);
-                        $('#sueldo').val(data.sueldo);
-                        $('#myModalLabel').text('Editar Guía');
-                    },
-                    error: function (xhr, status, error) {
-                        console.log(error);
+                    type: "POST",
+                    url: '@Url.Action("AsignarTarea", "Guia")',
+                    data: { guiaId: guiaId, descripcion: descripcion },
+                    success: function (response) {
+                        getTareasByGuia(guiaId);
+                        $("#tareaDescripcion").val("");
+                        Swal.fire({
+                            title: "Tarea asignada con éxito!",
+                            icon: "success"
+                        });
                     }
                 });
             }
-
-            $('#btnCrear').click(function() {
-                $('#IDGuía').val(0);  
-                $('#nombres').val('');
-                $('#apellidos').val('');
-                $('#correo').val('');
-                $('#tipo_pago').val('');
-                $('#sueldo').val('');
-                $('#myModalLabel').text('Crear Guía');
-            });
         });
+    }
 
-        function confirmarGuardar() {
-            Swal.fire({
-                title: "¿Estás seguro?",
-                text: "¡No podrás revertir esto!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Sí, guardar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#formGuia').submit();
-                }
-            });
-        }
-        function confirmarEliminacion(idGuia) {
-            Swal.fire({
-                title: "¿Estás seguro?",
-                text: "¡No podrás revertir esto!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Sí, eliminar",
-                cancelButtonText: "Cancelar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    var form = $('<form>', {
-                        'method': 'POST',
-                        'action': '@Url.Action("Eliminar", "Guia")'
-                    }).append($('<input>', {
-                        'type': 'hidden',
-                        'name': 'id',
-                        'value': idGuia
-                    }));
-
-                    $('body').append(form);
-                    form.submit();
-                }
-            });
-        }
-        let guiaId = null;
-
-        function setGuiaId(id) {
-            guiaId = id;
-            $('#guiaId').val(id);
-        }
-
-        function confirmarAsignarTarea() {
-            Swal.fire({
-                title: "¿Estás seguro?",
-                text: "¿Quieres asignar esta tarea al guía?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Sí, asignar",
-                cancelButtonText: "Cancelar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#taskForm').submit();
-                }
-            });
-        }
-    </script>
+    function eliminarTarea(idTarea) {
+        Swal.fire({
+            title: "¿Estás seguro de eliminar esta tarea?",
+            text: "La tarea se eliminará permanentemente.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("EliminarTarea", "Guia")',
+                    data: { idTarea: idTarea },
+                    success: function (response) {
+                        var guiaId = $("#guiaId").val();
+                        getTareasByGuia(guiaId);
+                        Swal.fire({
+                            title: "Tarea eliminada con éxito!",
+                            icon: "success"
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>
 }

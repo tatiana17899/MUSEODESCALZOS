@@ -3,6 +3,7 @@ using System;
 using MUSEODESCALZOS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MUSEODESCALZOS.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241001005714_AgregarEstadoTarea")]
+    partial class AgregarEstadoTarea
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,8 +138,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -287,42 +288,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.ToTable("tb_Alquiler");
                 });
 
-            modelBuilder.Entity("MuseoDescalzos.Models.Calificación_Noticia", b =>
-                {
-                    b.Property<long>("IDCalifNoticia")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("IDCalifNoticia"));
-
-                    b.Property<long>("IDCalifcacion")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("IDNoticia")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("IDUsuario")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Tipo")
-                        .HasColumnType("text");
-
-                    b.Property<long?>("calificación_NoticiaIDCalifNoticia")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("IDCalifNoticia");
-
-                    b.HasIndex("IDNoticia")
-                        .IsUnique();
-
-                    b.HasIndex("IDUsuario")
-                        .IsUnique();
-
-                    b.HasIndex("calificación_NoticiaIDCalifNoticia");
-
-                    b.ToTable("tb_Calificacion");
-                });
-
             modelBuilder.Entity("MuseoDescalzos.Models.Cliente", b =>
                 {
                     b.Property<long>("IDCliente")
@@ -339,9 +304,6 @@ namespace MUSEODESCALZOS.Data.Migrations
 
                     b.Property<DateTime>("FechaRegistro")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<long>("IDUsuario")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Nombres")
                         .HasColumnType("text");
@@ -644,34 +606,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.ToTable("tb_Tarea");
                 });
 
-            modelBuilder.Entity("MuseoDescalzos.Models.Usuario", b =>
-                {
-                    b.Property<long>("IDUsuario")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("IDUsuario"));
-
-                    b.Property<string>("Contraseña")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Reestablecer")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Rutalmagen")
-                        .HasColumnType("text");
-
-                    b.Property<string>("usuario")
-                        .HasColumnType("text");
-
-                    b.HasKey("IDUsuario");
-
-                    b.ToTable("tb_Usuario");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -738,42 +672,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.Navigation("Evento");
 
                     b.Navigation("Guía");
-                });
-
-            modelBuilder.Entity("MuseoDescalzos.Models.Calificación_Noticia", b =>
-                {
-                    b.HasOne("MuseoDescalzos.Models.Noticia", "Noticia")
-                        .WithOne("Calificación_Noticia")
-                        .HasForeignKey("MuseoDescalzos.Models.Calificación_Noticia", "IDNoticia")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MuseoDescalzos.Models.Usuario", "Usuario")
-                        .WithOne("Calificación_Noticia")
-                        .HasForeignKey("MuseoDescalzos.Models.Calificación_Noticia", "IDUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MuseoDescalzos.Models.Calificación_Noticia", "calificación_Noticia")
-                        .WithMany()
-                        .HasForeignKey("calificación_NoticiaIDCalifNoticia");
-
-                    b.Navigation("Noticia");
-
-                    b.Navigation("Usuario");
-
-                    b.Navigation("calificación_Noticia");
-                });
-
-            modelBuilder.Entity("MuseoDescalzos.Models.Cliente", b =>
-                {
-                    b.HasOne("MuseoDescalzos.Models.Usuario", "Usuario")
-                        .WithOne("Cliente")
-                        .HasForeignKey("MuseoDescalzos.Models.Cliente", "IDUsuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("MuseoDescalzos.Models.Imagen_Alquiler", b =>
@@ -853,24 +751,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Guía");
-                });
-
-            modelBuilder.Entity("MuseoDescalzos.Models.Administrador", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("MuseoDescalzos.Models.Administrador", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MuseoDescalzos.Models.Usuario", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("MuseoDescalzos.Models.Usuario", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MuseoDescalzos.Models.Alquiler", b =>
