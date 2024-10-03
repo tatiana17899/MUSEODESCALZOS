@@ -5,14 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
-using MailKit.Net.Smtp;
-using MailKit.Security;
 using MimeKit;
-
 using MUSEODESCALZOS.Data;
 using MUSEO_DE_LOS_DESCALZOS.ViewModel;
 using MuseoDescalzos.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace MUSEO_DE_LOS_DESCALZOS.Controllers
 {
@@ -31,11 +28,13 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
         public IActionResult Index()
         {
             var guias= from o in _context.DataGuía select o;
+            var tareas = from o in _context.DataTareas select o;
             var viewModel = new GuiaViewModel{
                 FormGuia = new Guía(),
-                ListGuía = guias.ToList()
+                ListGuía = guias.ToList(),
+                ListaTareas = tareas.ToList() 
             };
-
+            ViewBag.GuiaId = 0;
             return View(viewModel);
         }
         [HttpGet]
@@ -78,7 +77,6 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                 };
                 _context.DataGuía.Add(nuevaGuia);
                 await _context.SaveChangesAsync();
-                await EnviarCorreoContraseña(nuevaGuia.Email, nuevaGuia.ContraseñaGenerada);
             }
              else
             {
@@ -99,23 +97,6 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-        private async Task EnviarCorreoContraseña(string email, string contraseña)
-        {
-            var mensaje = new MimeMessage();
-            mensaje.From.Add(new MailboxAddress("Administrador", "tu_email@gmail.com"));
-            mensaje.To.Add(new MailboxAddress("", email));
-            mensaje.Subject = "Tu contraseña de acceso";
-            mensaje.Body = new TextPart("plain")
-            {
-                Text = $"Hola,\n\nTu contraseña generada es: {contraseña}\n\nSaludos!"
-            };
-
-            using var cliente = new SmtpClient();
-            await cliente.ConnectAsync("smtp.tu_email.com", 587, SecureSocketOptions.StartTls);
-            await cliente.AuthenticateAsync("tu_email@gmail.com", "tu_contraseña");
-            await cliente.SendAsync(mensaje);
-            await cliente.DisconnectAsync(true);
-        }
         [HttpPost]
         public IActionResult Eliminar(int id){
             var guia = _context.DataGuía.FirstOrDefault(gu => gu.IDGuía == id);
@@ -127,8 +108,26 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpPost]
+        public IActionResult SetGuiaId(long guiaId)
+        {
+            ViewBag.GuiaId = guiaId;
+            return Ok();
+        }
+        [HttpPost]
         public IActionResult AsignarTarea(long guiaId, string descripcion)
         {
+            if (guiaId <= 0)
+            {
+                TempData["Error"] = "ID de guía inválido.";
+                return RedirectToAction("Index");
+            }
+
+            if (string.IsNullOrWhiteSpace(descripcion))
+            {
+                TempData["Error"] = "La descripción de la tarea no puede estar vacía.";
+                return RedirectToAction("Index");
+            }
+
             var guia = _context.DataGuía.FirstOrDefault(g => g.IDGuía == guiaId);
             if (guia != null)
             {
@@ -141,8 +140,65 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                 _context.SaveChanges();
                 TempData["Message"] = "Tarea asignada exitosamente.";
             }
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["Error"] = "No se encontró el guía.";
+            }
+
+             return Ok();
         }
+
+        [HttpGet]
+        public IActionResult GetTareasByGuia(long guiaId)
+        {
+            if (guiaId <= 0)
+            {
+                return BadRequest("ID de guía inválido.");
+            }
+
+            var tareas = _context.DataTareas
+                .Where(t => t.GuíaID == guiaId)
+                .Select(t => new
+                {
+                    idTarea = t.IDTarea,
+                    descripcion = t.Descripción,
+                    estado = t.Estado 
+                })
+                .ToList();
+
+            if (!tareas.Any())
+            {
+                return Json(new { mensaje = "No hay tareas asignadas para este guía." });
+            }
+
+            return Json(tareas);
+        }
+
+        [HttpPost]
+        public IActionResult EliminarTarea(long idTarea)
+        {
+            if (idTarea <= 0)
+            {
+                TempData["Error"] = "ID de tarea inválido.";
+                return RedirectToAction("Index");
+            }
+
+            var tarea = _context.DataTareas.Find(idTarea);
+            if (tarea != null)
+            {
+                _context.DataTareas.Remove(tarea);
+                _context.SaveChanges();
+                TempData["Message"] = "Tarea eliminada exitosamente.";
+            }
+            else
+            {
+                TempData["Error"] = "No se encontró la tarea.";
+            }
+
+            return Ok();
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
