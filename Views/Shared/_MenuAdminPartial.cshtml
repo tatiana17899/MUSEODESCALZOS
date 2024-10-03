@@ -9,8 +9,8 @@
     var roles = await Task.Run(() => UserManager.GetRolesAsync(myidentity));
 
     @if(roles.Contains("admin") ){
-        <li class="nav-item">
-            <a class="nav-link text-white mx-4" asp-area="" asp-controller="Dashboard" asp-action="Index">
+        <li class="nav-item mb-4">
+            <a class="nav-link text-white" asp-area="" asp-controller="Dashboard" asp-action="Index">
                <span class="material-symbols-outlined">shield_person</span> 
                Menú Principal Administrador</a>
         </li>
