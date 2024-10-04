@@ -1,0 +1,19 @@
+@model MuseoDescalzos.Models.Noticia
+
+@{
+    ViewData["Title"] = "Eliminar Noticia";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Eliminar Noticia</h2>
+
+<h4>¿Estás seguro de que deseas eliminar esta noticia?</h4>
+<div>
+    <h5>@Model.Titulo</h5>
+    <p>@Model.Descripción</p>
+    <form asp-action="DeleteConfirmed" method="post">
+        <input type="hidden" asp-for="IDNoticia" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

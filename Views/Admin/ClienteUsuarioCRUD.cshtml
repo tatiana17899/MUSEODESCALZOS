@@ -1,0 +1,73 @@
+@model MuseoDescalzos.Models.ClientesUsuarios
+
+@{
+    ViewData["Title"] = "Clientes";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css" />
+
+<div class="content flex-grow-1" id="contenido">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">@ViewData["Title"]</h1>
+        <hr>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title d-flex align-items-center">
+              <i class="fa-sharp fa-solid fa-person"></i> Clientes
+            </h5>
+        </div>
+        <div class="card-body">
+            <!-- Botón para abrir el modal de crear nuevo cliente -->
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" id="btnCrear">
+                Crear Nuevo Cliente
+            </button>
+            <hr>
+            <div class="container">
+                <table id="clientesTable" class="table table-striped table-bordered" style="padding: 10px;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Tipo de Documento</th>
+                            <th>Número de Documento</th>
+                            <th>País</th>
+                            <th>Número de Tarjeta</th>
+                            <th>Titular</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Fecha de Registro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cliente in Model.Clientes)
+                        {
+                            <tr>
+                                <td>@cliente.IDCliente</td>
+                                <td>@cliente.Nombres</td>
+                                <td>@cliente.Apellidos</td>
+                                <td>@cliente.TipoDoc</td>
+                                <td>@cliente.NumDoc</td>
+                                <td>@cliente.Pais</td>
+                                <td>@cliente.NumTarjeta</td>
+                                <td>@cliente.Titular</td>
+                                <td>@cliente.FechaNacimiento.ToShortDateString()</td>
+                                <td>@cliente.FechaRegistro.ToShortDateString()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#clientesTable').DataTable();
+    });
+</script>

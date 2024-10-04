@@ -1,0 +1,63 @@
+@model IEnumerable<MuseoDescalzos.Models.Noticia>
+
+@{
+    ViewData["Title"] = "Listado de Noticias";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Listado de Noticias</h2>
+
+<a asp-controller="NoticiasAdmin" asp-action="Create" class="btn btn-success">Crear nueva Noticia</a>
+
+<link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css"
+/>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Imagen</th>
+            <th>Fecha de Publicación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="5" class="text-center">No hay noticias disponibles.</td>
+            </tr>
+        }
+        else
+        {
+            foreach (var noticia in Model)
+            {
+                <tr>
+                    <td>@noticia.Titulo</td>
+                    <td>@noticia.Descripción</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(noticia.Rutalmagen))
+                        {
+                            <img src="@noticia.Rutalmagen" alt="@noticia.Titulo" style="width:100px;height:auto;"/>
+                        }
+                        else
+                        {
+                            <span>No disponible</span>
+                        }
+                    </td>
+                    <td>@noticia.FechaPublicación.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@noticia.IDNoticia" class="btn btn-warning">Editar</a>
+                        <form asp-action="Delete" asp-route-id="@noticia.IDNoticia" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

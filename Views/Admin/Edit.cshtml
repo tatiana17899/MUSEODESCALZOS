@@ -1,0 +1,36 @@
+@model MuseoDescalzos.Models.Noticia
+
+@{
+    ViewData["Title"] = "Editar Noticia";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Editar Noticia</h2>
+
+<form asp-action="Edit">
+    <div class="form-group">
+        <label asp-for="Titulo"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Descripción"></label>
+        <textarea asp-for="Descripción" class="form-control"></textarea>
+        <span asp-validation-for="Descripción" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Rutalmagen"></label>
+        <input asp-for="Rutalmagen" class="form-control" />
+        <span asp-validation-for="Rutalmagen" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FechaPublicación"></label>
+        <input asp-for="FechaPublicación" class="form-control" />
+        <span asp-validation-for="FechaPublicación" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="IDNoticia" />
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+
