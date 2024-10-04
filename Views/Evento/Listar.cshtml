@@ -4,22 +4,50 @@
     ViewData["Title"] = "Evento";
 }
 
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<style>
+    /* Personalización del diseño */
+    .tienda-header {
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .separator {
+      border-top: 1px solid #000;
+      margin-bottom: 20px;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="tienda-header">
+        <h2>TIENDA</h2>
+    </div>
+    <div class="separator"></div>
+</div>
+
 <div class="d-flex justify-content-center mt-5">
-    <a href="@Url.Action("Listar", "Evento")" class="btn btn-secondary m-2">EVENTOS</a>
-    <a href="@Url.Action("Listar", "Alquiler")" class="btn btn-secondary m-2">ALQUILER</a>
+    <a href="@Url.Action("Listar", "Evento")" class="btn btn-dark btn-lg m-2">EVENTOS</a>
+    <a href="@Url.Action("Listar", "Alquiler")" class="btn btn-dark btn-lg m-2">ALQUILER</a>
 </div>
 
 <div class="d-flex justify-content-center mt-5">
     <div class="row row-cols-1 row-cols-md-2 g-4 w-50 ">
         @foreach (var evento in Model)
+
         {
-            <div class="col ">
-                <a href="@Url.Action("Detalle", "DetalleEvento", new { IDEvento = evento.IDEvento })" class="text-decoration-none">
-                    <div class="card h-100">
-                        <img src="@evento.NombreImagen" class="card-img-top" alt="@evento.Nombre">
-                        <div class="card-body">
+            <div class="col border border-dark">
+                <a href="@Url.Action("Detalle", "DetalleEvento", new { IDEvento = evento.IDEvento })"
+                    class="text-decoration-none">
+                    <div class="card  mt-2">
+                        <img src="@evento.RutalImagen" class="card-img-top" style="color: black;">
+                        <div class="card-body " style="color: black;">
+                            <h5 class="card-title text-dark">@evento.Nombre</h5>
                             <p>@evento.Descripción</p>
-                            <h5>@evento.Fecha</h5>
+                            <i class="bi bi-calendar"></i>@evento.Fecha
                         </div>
                     </div>
                 </a>

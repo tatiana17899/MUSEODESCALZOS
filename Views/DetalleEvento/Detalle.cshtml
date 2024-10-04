@@ -9,20 +9,45 @@
         margin-left: 250px;
         /* Cambia este valor según sea necesario */
     }
+
+    <style>
+    /* Personalización del diseño */
+    .tienda-header {
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .separator {
+      border-top: 1px solid #000;
+      margin-bottom: 20px;
+    }
+</style>
 </style>
 
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<div class="container mt-5">
+    <div class="tienda-header">
+        <h2>EVENTOS<samp>"@Model.Nombre"</samp></h2>
+    </div>
+    <div class="separator"></div>
+</div>
+
 <div class="d-flex justify-content-center mt-5">
-    <div class="col-lg-6">
+    <div class="col-lg-6 border border-dark">
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="..." class="img-fluid rounded-start" alt="...">
+                    <img src="@Model.RutalImagen" class="img-fluid rounded-start" alt="...">
                     <!-- Cambia el src a la URL de tu imagen -->
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">@Model.Nombre</h5>
-                        <small class="text-body-secondary">@Model.Fecha.ToString()</small>
+                         <i class="bi bi-calendar"></i> @Model.Fecha.ToString()
                         <p>@Model.Descripción</p>
                         <div class="d-flex align-items-center">
                             <a href="#" class="btn btn-primary me-2">RESERVAR EVENTO</a> <!-- Botón "Contactar" -->
@@ -36,3 +61,7 @@
         </div>
     </div>
 </div>
+
+<table>
+    
+</table>
