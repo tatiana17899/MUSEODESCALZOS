@@ -1,0 +1,51 @@
+@using MUSEO_DE_LOS_DESCALZOS.ViewModel
+@model GuiaDashboardViewModel
+@{
+    ViewData["Title"] = "Visitas";
+}
+<link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css"
+    />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<div class="container bg-light p-4">
+        <h2 class="mb-4">Listado de pedido de visitas</h2>
+        <div class="card">
+            <div class="card-header d-flex align-items-center">
+                <i class="fas fa-tasks fa-lg me-2"></i>
+                <h5 class="mb-0">Guías a visitantes a realizar</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered mb-0" id="tbvisita">
+                    <thead>
+                        <tr>
+                            <th>Visita</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var visita in Model.Visitas)
+                        {
+                            <tr>
+                                <td>@visita.Cliente</td>
+                                <td>
+                                    <form asp-action="ActualizarVisita" method="post">
+                                        <input type="hidden" name="id" value="@visita.IDGuía" />
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        <!-- DataTables -->
+        <script src="https://cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#tbvisita').DataTable();
+            });
+        </script>
+    }

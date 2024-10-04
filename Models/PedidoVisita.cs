@@ -25,6 +25,7 @@ namespace MuseoDescalzos.Models
         [ForeignKey("Guía")]
         public long IDGuía { get; set; }
         public Guía? Guía { get; set; } = default!;
+        //public bool Estado { get; set; } = false;
 
     }
 }

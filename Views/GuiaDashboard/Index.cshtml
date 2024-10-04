@@ -1,0 +1,76 @@
+@using MUSEO_DE_LOS_DESCALZOS.ViewModel
+@model GuiaDashboardViewModel
+
+@{
+    ViewData["Title"] = "Tareas para el Guía";
+}
+<link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css"
+    />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<div class="container bg-light p-4">
+        <h2 class="mb-4">Listado de Tareas</h2>
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-check-square fa-2x mb-2"></i>
+                        <h5 class="card-title">TAREAS REALIZADAS</h5>
+                        <p class="card-text fs-4">@Model.TareasCompletadas TAREAS</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="fas fa-times-circle fa-2x mb-2"></i>
+                        <h5 class="card-title">TAREAS NO REALIZADAS</h5>
+                        <p class="card-text fs-4">@Model.TareasNoCompletadas TAREAS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header d-flex align-items-center">
+                <i class="fas fa-tasks fa-lg me-2"></i>
+                <h5 class="mb-0">Tareas a Realizar</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered mb-0" id="tbtarea">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tarea</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var tarea in Model.Tareas)
+                        {
+                            <tr>
+                                <td>@tarea.IDTarea</td>
+                                <td>@tarea.Descripción</td>
+                                <td>
+                                    <form asp-action="ActualizarTarea" method="post">
+                                        <input type="hidden" name="id" value="@tarea.IDTarea" />
+                                        <input type="checkbox" name="estado" value="true" @(tarea.Estado ? "checked" : "") onchange="this.form.submit()" />
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        <!-- DataTables -->
+        <script src="https://cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#tbtarea').DataTable();
+            });
+        </script>
+    }
+

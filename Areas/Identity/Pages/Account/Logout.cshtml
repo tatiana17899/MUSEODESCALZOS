@@ -1,21 +1,28 @@
 @page
 @model LogoutModel
+
 @{
     ViewData["Title"] = "Log out";
 }
 
-<header>
-    <h1>@ViewData["Title"]</h1>
-    @{
-        if (User.Identity?.IsAuthenticated ?? false)
-        {
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="nav-link btn btn-link text-dark">Click here to Logout</button>
-            </form>
-        }
-        else
-        {
-            <p>You have successfully logged out of the application.</p>
-        }
-    }
-</header>
+<div class="container d-flex align-items-center justify-content-center vh-100 mt-5">
+    <div class="card w-50 p-6 bg-white shadow-lg rounded-lg" style="color: #000;">
+        <h2 class="text-2xl font-bold text-black dark:text-white text-center mb-5 m-4">Cerrar Sesión</h2>
+        <hr class="m-2"/>
+        <form id="logout-form" method="post" class="m-4">
+            <div class="text-center mb-4">
+                <p class="text-sm font-medium text-zinc-700 dark:text-zinc-300">¿Estás seguro de que deseas cerrar sesión?</p>
+            </div>
+            <div>
+                <button id="logout-submit" type="submit" class="w-100 bg-black text-white p-2 rounded-lg hover:bg-zinc-800">Cerrar Sesión</button>
+            </div>
+            <div class="text-center mt-3">
+                <a href="/" class="text-sm" style="text-decoration: none; color: #000;">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

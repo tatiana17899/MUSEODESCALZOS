@@ -15,6 +15,18 @@
                Menú Principal Administrador</a>
         </li>
     }
+    else if(roles.Contains("guia")){
+        <li class="nav-item mb-4">
+            <a class="nav-link text-white" asp-area="" asp-controller="GuiaDashboard" asp-action="Index">
+               <span class="material-symbols-outlined">tour</span> 
+               Tareas para Guía</a>
+        </li>
+        <li class="nav-item mb-4">
+            <a class="nav-link text-white" asp-area="" asp-controller="GuiaDashboard" asp-action="Visitas">
+               <span class="material-symbols-outlined">star</span> 
+               Listado visitas</a>
+        </li>
+    }
     else{
             <ul class="navbar-nav me-auto mb-0 mb-lg-0 mx-auto">
                 <li class="nav-item mx-4">
