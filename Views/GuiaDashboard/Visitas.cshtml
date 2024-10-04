@@ -19,21 +19,28 @@
                 <table class="table table-bordered mb-0" id="tbvisita">
                     <thead>
                         <tr>
-                            <th>Visita</th>
+                            <th>Cliente</th>
+                            <th>Fecha Visita</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var visita in Model.Visitas)
                         {
-                            <tr>
-                                <td>@visita.Cliente</td>
-                                <td>
-                                    <form asp-action="ActualizarVisita" method="post">
-                                        <input type="hidden" name="id" value="@visita.IDGuía" />
-                                    </form>
-                                </td>
-                            </tr>
+                            if (visita.Guía != null)
+                            {
+                                var guia = visita.Guía;
+                                <tr>
+                                    <td>@visita.Cliente.Nombres</td>
+                                    <td>@visita.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>
+                                        <form asp-action="ActualizarDisponible" method="post">
+                                            <input type="hidden" name="id" value="@visita.Guía.IDGuía" />
+                                            <input type="checkbox" name="estado" value="true" @(visita.Estado ? "checked" : "") onchange="this.form.submit()" />
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
                         }
                     </tbody>
                 </table>

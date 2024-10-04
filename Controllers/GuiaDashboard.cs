@@ -4,6 +4,7 @@ using MUSEODESCALZOS.Data;
 using MuseoDescalzos.Models;
 using MUSEO_DE_LOS_DESCALZOS.ViewModel;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace MUSEODESCALZOS.Controllers
 {
@@ -38,7 +39,12 @@ namespace MUSEODESCALZOS.Controllers
         public IActionResult Visitas()
         {
             var usuario = User.Identity.Name; 
-            var visitas = _context.DataPedidoVisita.Where(v => v.Guía.Email == usuario).ToList();
+            var visitas = _context.DataPedidoVisita
+                .AsQueryable()
+                .Include(v => v.Cliente)
+                .Include(v => v.Guía)
+                .Where(v => v.Guía.Email == usuario)
+                .ToList();
             var viewModel = new GuiaDashboardViewModel
             {
                 Visitas = visitas
@@ -62,12 +68,20 @@ namespace MUSEODESCALZOS.Controllers
 
         // Método para actualizar el estado de la visita
         [HttpPost]
-        public IActionResult ActualizarVisita(long id, bool estado)
+        public IActionResult ActualizarDisponible(long id, bool disponible)
         {
             var visita = _context.DataPedidoVisita.Find(id);
             if (visita != null)
             {
-                //visita.Estado = estado;
+                visita.Estado = disponible;
+                if (disponible)
+                {
+                    visita.Guía.Disponible = false;
+                }
+                else
+                {
+                    visita.Guía.Disponible = true;
+                }
                 _context.SaveChanges();
             }
             return RedirectToAction("Visitas");
