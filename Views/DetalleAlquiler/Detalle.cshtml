@@ -1,0 +1,74 @@
+@model MuseoDescalzos.Models.Alquiler
+
+@{
+    ViewData["Title"] = "DetalleAlquiler";
+}
+
+<style>
+    .text-margin {
+        margin-left: 250px;
+        /* Cambia este valor según sea necesario */
+    }
+</style>
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="col-lg-6">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="..." class="img-fluid rounded-start" alt="...">
+                    <!-- Cambia el src a la URL de tu imagen -->
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body border-dark">
+                        <h5 class="text-dark">@Model.Titulo</h5>
+                        <p class="card-text text-dark">@Model.Descripcion</p>
+                        <div class="d-flex align-items-center">
+                            <a href="#" class="btn btn-primary me-2">Contactar</a> <!-- Botón "Contactar" -->
+                            <p class="card-text mb-0 text-margin text-dark">
+                                <small class="text-body-secondary ">@Model.Hora_Disponible.ToString("hh\\:mm")</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="col-lg-6">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <div class="col-md-4">
+                        <div class="red-border">
+                            <img src="..." class="img-fluid rounded-start" alt="...">
+                            <!-- Cambia el src a la URL de tu imagen -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Caracteristicas</h5>
+                        <p class="card-text">@Model.Caracteristicas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .red-border {
+        border: 2px solid red;
+        /* Bordes rojos */
+        border-radius: 5px;
+        /* Bordes redondeados */
+        padding: 5px;
+        /* Espaciado interno */
+        margin-bottom: 20px;
+        /* Espaciado inferior */
+    }
+</style>
