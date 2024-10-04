@@ -1,0 +1,30 @@
+@model IEnumerable<MuseoDescalzos.Models.Alquiler>
+
+@{
+    ViewData["Title"] = "Alquiler";
+}
+<div class="d-flex justify-content-center mt-5">
+    <a href="@Url.Action("Listar", "Evento")" class="btn btn-secondary m-2">EVENTOS</a>
+    <a href="@Url.Action("Listar", "Alquiler")" class="btn btn-secondary m-2">ALQUILER</a>
+</div>
+<div class="d-flex justify-content-center mt-5">
+    <div class="row row-cols-1 row-cols-md-2 g-4 w-50 ">
+        @foreach (var alquiler in Model)
+        {
+            <div class="col ">
+                <a href="@Url.Action("Detalle", "DetalleAlquiler", new { IDAlquileres = alquiler.IDAlquileres })" class="text-decoration-none">
+                    <div class="card h-100 border border-dark">
+                        <img src="..." class="card-img-top" alt="@alquiler.Titulo">
+                        <div class="card-body">
+                            <h3 class="text-dark">@alquiler.Titulo</h3>
+                            <p class="text-dark">@alquiler.Descripcion</p>
+                            <span class="text-dark"><i class="fa fa-clock-o text-dark"></i> @alquiler.Hora_Disponible.ToString("hh\\:mm")</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+

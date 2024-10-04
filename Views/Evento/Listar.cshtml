@@ -1,0 +1,29 @@
+@model IEnumerable<MuseoDescalzos.Models.Evento>
+
+@{
+    ViewData["Title"] = "Evento";
+}
+
+<div class="d-flex justify-content-center mt-5">
+    <a href="@Url.Action("Listar", "Evento")" class="btn btn-secondary m-2">EVENTOS</a>
+    <a href="@Url.Action("Listar", "Alquiler")" class="btn btn-secondary m-2">ALQUILER</a>
+</div>
+
+<div class="d-flex justify-content-center mt-5">
+    <div class="row row-cols-1 row-cols-md-2 g-4 w-50 ">
+        @foreach (var evento in Model)
+        {
+            <div class="col ">
+                <a href="@Url.Action("Detalle", "DetalleEvento", new { IDEvento = evento.IDEvento })" class="text-decoration-none">
+                    <div class="card h-100">
+                        <img src="@evento.NombreImagen" class="card-img-top" alt="@evento.Nombre">
+                        <div class="card-body">
+                            <p>@evento.Descripción</p>
+                            <h5>@evento.Fecha</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
