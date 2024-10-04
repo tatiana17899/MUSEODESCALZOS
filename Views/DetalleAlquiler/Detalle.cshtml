@@ -20,13 +20,13 @@
                     <!-- Cambia el src a la URL de tu imagen -->
                 </div>
                 <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">@Model.Titulo</h5>
-                        <p class="card-text">@Model.Descripcion</p>
+                    <div class="card-body border-dark">
+                        <h5 class="text-dark">@Model.Titulo</h5>
+                        <p class="card-text text-dark">@Model.Descripcion</p>
                         <div class="d-flex align-items-center">
                             <a href="#" class="btn btn-primary me-2">Contactar</a> <!-- Botón "Contactar" -->
-                            <p class="card-text mb-0 text-margin">
-                                <small class="text-body-secondary">@Model.Hora_Disponible.ToString("hh\\:mm")</small>
+                            <p class="card-text mb-0 text-margin text-dark">
+                                <small class="text-body-secondary ">@Model.Hora_Disponible.ToString("hh\\:mm")</small>
                             </p>
                         </div>
                     </div>

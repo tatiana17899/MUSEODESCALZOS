@@ -10,12 +10,12 @@
         {
             <div class="col ">
                 <a href="@Url.Action("Detalle", "DetalleAlquiler", new { IDAlquileres = alquiler.IDAlquileres })" class="text-decoration-none">
-                    <div class="card h-100">
+                    <div class="card h-100 border border-dark">
                         <img src="..." class="card-img-top" alt="@alquiler.Titulo">
                         <div class="card-body">
-                            <h3>@alquiler.Titulo</h3>
-                            <p>@alquiler.Descripcion</p>
-                            <span><i class="fa fa-clock-o"></i> @alquiler.Hora_Disponible.ToString("hh\\:mm")</span>
+                            <h3 class="text-dark">@alquiler.Titulo</h3>
+                            <p class="text-dark">@alquiler.Descripcion</p>
+                            <span class="text-dark"><i class="fa fa-clock-o text-dark"></i> @alquiler.Hora_Disponible.ToString("hh\\:mm")</span>
                         </div>
                     </div>
                 </a>
