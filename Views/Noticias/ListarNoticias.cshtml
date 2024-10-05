@@ -1,7 +1,17 @@
 @model List<MuseoDescalzos.Models.Noticia> 
-
+<style>
+    .separator {
+      border-top: 1px solid #000;
+      margin-bottom: 20px;
+    }
+</style>
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Noticias</h2>
+    <div class="container mt-5">
+        <div class="tienda-header">
+            <h3>Noticias</h3>
+        </div>
+        <div class="separator"></div>
+    </div>
     <div class="row">
         @foreach (var noticia in Model)
         {
@@ -11,7 +21,9 @@
                     <div class="card-body">
                         <h5 class="card-title text-dark">@noticia.Titulo</h5> <!-- Título en negro -->
                         
-                        <p class="card-text text-muted" style="font-size: 0.8rem;">@noticia.FechaPublicación.ToString("dd/MM/yyyy")</p>
+                        <p class="card-text text-muted" style="font-size: 0.8rem;"><span class="material-symbols-outlined">
+calendar_month
+</span>@noticia.FechaPublicación.ToString("dd/MM/yyyy")</p>
                         <a href="@Url.Action("DetalleNoticia", "Noticias", new { id = noticia.IDNoticia })" class="btn btn-dark">Leer más</a>
                     </div>
                 </div>

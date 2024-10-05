@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<MuseoDescalzos.Models.Evento>
+@{
     ViewData["Title"] = "Museo de los Descalzos";
 }
 <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
@@ -59,13 +60,13 @@
             </div>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="~/img/imagen.jpg" class="d-block w-100" alt="img" />
+                <img src="~/img/imagenCuatro.jpg" class="d-block w-100 img-fluid" style="height: 500px; object-fit: cover;" alt="img" />
               </div>
               <div class="carousel-item">
-                <img src="~/img/imagen.jpg" class="d-block w-100" alt="img" />
+                <img src="~/img/imagenDos.jpg" class="d-block w-100 img-fluid" style="height: 500px; object-fit: cover;" alt="img" />
               </div>
               <div class="carousel-item">
-                <img src="~/img/imagen.jpg" class="d-block w-100" alt="img" />
+                <img src="~/img/imagenTres.jpg" class="d-block w-100 img-fluid" style="height: 500px; object-fit: cover;" alt="img" />
               </div>
             </div>
             <button
@@ -98,218 +99,62 @@
         </div>
         <div class="container aa">
           <div class="row blog carousel-small">
-            <div class="col-12">
-              <div
-                id="blogCarousel"
-                class="carousel slide"
-                data-bs-ride="carousel"
-              >
-                <ol class="carousel-indicators">
-                  <li
-                    data-bs-target="#blogCarousel"
-                    data-bs-slide-to="0"
-                    class="active"
-                  ></li>
-                  <li data-bs-target="#blogCarousel" data-bs-slide-to="1"></li>
-                </ol>
-                <div class="carousel-inner m-2">
-                  <div class="carousel-item active">
-                    <div class="row">
-                      <div class="col-6">
-                        <div
-                          class="card mb-3 m-2 text-white"
-                          style="
-                            max-width: 600px;
-                            background-color: #4b4b4b;
-                            height: 280px;
-                          "
-                        >
-                          <div class="row g-0 h-100">
-                            <h4 class="card-title mt-1 mb-0 p-1">Noche Cultural en el Museo</h4>
-                            <hr />
-                            <div class="col-md-4 d-flex p-2">
-                              <img
-                                src="https://via.placeholder.com/150"
-                                class="img-fluid rounded-start"
-                                alt="Imagen"
-                                width="50px"
-                                height="30px"
-                                id="img-carr2"
-                              />
-                            </div>
-                            <div class="col-md-8">
-                              <div class="card-body">
-                                <h5 class="card-title">Título</h5>
-                                <p class="card-text">
-                                  Este es un texto de ejemplo dentro de la
-                                  carta. Aquí puedes escribir una breve
-                                  descripción o cualquier otro contenido que
-                                  necesites.
-                                </p>
-                                <button
-                                  class="btn btn-btn mx-2"
-                                  id="login"
-                                  style="background-color: white"
-                                >
-                                  <span class="material-symbols-outlined"
-                                    >shopping_cart</span
-                                  >
-                                  Comprar Entradas
-                                </button>
+              <div class="col-12">
+                  <div id="blogCarousel" class="carousel slide" data-bs-ride="carousel">
+                      <ol class="carousel-indicators">
+                          @for (int i = 0; i < Model.Count(); i += 2) // Incrementar de 2 en 2
+                          {
+                              <li data-bs-target="#blogCarousel" data-bs-slide-to="@(i / 2)" class="@(i == 0 ? "active" : "")"></li>
+                          }
+                      </ol>
+                      <div class="carousel-inner m-2">
+                          @for (int i = 0; i < Model.Count(); i += 2) // Incrementar de 2 en 2
+                          {
+                              <div class="carousel-item @(i == 0 ? "active" : "")">
+                                  <div class="row">
+                                      @for (int j = i; j < Math.Min(i + 2, Model.Count()); j++) // Bucle interno para 2 elementos
+                                      {
+                                          var evento = Model.ElementAt(j);
+                                          <div class="col-6">
+                                              <div class="card mb-3 m-2 text-white" style="max-width: 600px; background-color: #4b4b4b; height: 280px;">
+                                                  <div class="row g-0 h-100">
+                                                      <h4 class="card-title mt-1 mb-0 p-1" style="font-size: 15px;">@evento.Nombre</h4>
+                                                      <hr />
+                                                      <div class="col-md-4 d-flex p-2">
+                                                          <img src="@evento.RutalImagen" class="img-fluid rounded-start" alt="Imagen" width="50px" height="30px">
+                                                      </div>
+                                                      <div class="col-md-8">
+                                                          <div class="card-body">
+                                                            <p class="card-text">Mas información visita a nuestro catalogo</p>
+                                                              <p class="card-text">
+                                                                <span class="material-symbols-outlined">
+                                                                  calendar_month
+                                                                </span>@evento.Fecha
+                                                              </p>
+                                                              <p class="card-text">
+                                                                <span class="material-symbols-outlined">
+                                                                  groups
+                                                                </span>
+                                                                @evento.Capacidad
+                                                              </p>
+                                                              <a href="@Url.Action("Detalle", "DetalleEvento", new { IDEvento = evento.IDEvento })" class="btn btn-btn mx-2" style="background-color: white">
+                                                                  <span class="material-symbols-outlined">shopping_cart</span>
+                                                                  Comprar Entradas
+                                                              </a>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      }
+                                  </div>
                               </div>
-                            </div>
-                          </div>
-                        </div>
+                          }
                       </div>
-                      <div class="col-6">
-                        <div
-                          class="card mb-3 m-2 text-white"
-                          style="
-                            max-width: 600px;
-                            background-color: #4b4b4b;
-                            height: 280px;
-                          "
-                        >
-                          <div class="row g-0 h-100">
-                            <h4 class="card-title mt-1 mb-0 p-1">Festival de Tradiciones Peruanas</h4>
-                            <hr />
-                            <div class="col-md-4 d-flex p-2">
-                              <img
-                                src="https://via.placeholder.com/150"
-                                class="img-fluid rounded-start"
-                                alt="Imagen"
-                                width="50px"
-                                height="30px"
-                                id="img-carr2"
-                              />
-                            </div>
-                            <div class="col-md-8">
-                              <div class="card-body">
-                                <h5 class="card-title">Título</h5>
-                                <p class="card-text">
-                                  Este es un texto de ejemplo dentro de la
-                                  carta. Aquí puedes escribir una breve
-                                  descripción o cualquier otro contenido que
-                                  necesites.
-                                </p>
-                                <button
-                                  class="btn btn-btn mx-2"
-                                  id="login"
-                                  style="background-color: white"
-                                >
-                                  <span class="material-symbols-outlined"
-                                    >shopping_cart</span
-                                  >
-                                  Comprar Entradas
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
-                  <div class="carousel-item">
-                    <div class="row">
-                      <div class="col-6">
-                        <div
-                          class="card mb-3 m-2 text-white"
-                          style="
-                            max-width: 600px;
-                            background-color: #4b4b4b;
-                            height: 280px;
-                          "
-                        >
-                          <div class="row g-0 h-100">
-                            <h4 class="card-title mt-1 mb-0 p-1">Tarde de Arte Colonial</h4>
-                            <hr />
-                            <div class="col-md-4 d-flex p-2">
-                              <img
-                                src="https://via.placeholder.com/150"
-                                class="img-fluid rounded-start"
-                                alt="Imagen"
-                                width="50px"
-                                height="30px"
-                                id="img-carr2"
-                              />
-                            </div>
-                            <div class="col-md-8">
-                              <div class="card-body">
-                                <h5 class="card-title">Título</h5>
-                                <p class="card-text">
-                                  Este es un texto de ejemplo dentro de la
-                                  carta. Aquí puedes escribir una breve
-                                  descripción o cualquier otro contenido que
-                                  necesites.
-                                </p>
-                                <button
-                                  class="btn btn-btn mx-2"
-                                  id="login"
-                                  style="background-color: white"
-                                >
-                                  <span class="material-symbols-outlined"
-                                    >shopping_cart</span
-                                  >
-                                  Comprar Entradas
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-6">
-                        <div
-                          class="card mb-3 m-2 text-white"
-                          style="
-                            max-width: 600px;
-                            background-color: #4b4b4b;
-                            height: 280px;
-                          "
-                        >
-                          <div class="row g-0 h-100">
-                            <h4 class="card-title mt-1 mb-0 p-1">Recorrido Histórico Franciscano</h4>
-                            <hr />
-                            <div class="col-md-4 d-flex p-2">
-                              <img
-                                src="https://via.placeholder.com/150"
-                                class="img-fluid rounded-start"
-                                alt="Imagen"
-                                width="50px"
-                                height="30px"
-                                id="img-carr2"
-                              />
-                            </div>
-                            <div class="col-md-8">
-                              <div class="card-body">
-                                <h5 class="card-title">Título</h5>
-                                <p class="card-text">
-                                  Este es un texto de ejemplo dentro de la
-                                  carta. Aquí puedes escribir una breve
-                                  descripción o cualquier otro contenido que
-                                  necesites.
-                                </p>
-                                <button
-                                  class="btn btn-btn mx-2"
-                                  id="login"
-                                  style="background-color: white"
-                                >
-                                  <span class="material-symbols-outlined"
-                                    >shopping_cart</span
-                                  >
-                                  Comprar Entradas
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
-            </div>
           </div>
-        </div>
+      </div>
         <section
         class="container my-5"
         style="background-color: rgb(255, 255, 255)"
@@ -318,11 +163,11 @@
           <div id="info" class="ms-3 mt-5 w-100">
             <div class="atettion">
               <span class="material-symbols-outlined">schedule</span>
-              <p>Horario 5:00pm - 6:00pm</p>
+              <p>Horario:<br> Martes a Domingo 9:30am- 13:00pm| 14:00 pm- 17:30pm<br> Lunes cerrado</p>
             </div>
             <div class="ubication">
               <span class="material-symbols-outlined">location_on</span>
-              <p>Peru-Lima</p>
+              <p>Calle Manco Cápac, 202·A - Alameda de los Descalzos, Rimac, Peru</p>
             </div>
             <div class="ticket">
               <span class="material-symbols-outlined">confirmation_number</span>
@@ -344,8 +189,8 @@
           <div id="map" class="ms-5 justify-content-center">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.1368968303705!2d-77.02709282674641!3d-12.034095088201685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cf4e7d83ae79%3A0x9e1f9a140b89d8b1!2sMuseo%20de%20los%20Descalzos!5e0!3m2!1ses-419!2spe!4v1722820836304!5m2!1ses-419!2spe"
-              width="500"
-              height="500"
+              width="450"
+              height="400"
               style="border: 0"
               allowfullscreen=""
               loading="lazy"
@@ -357,7 +202,7 @@
       <section class="container my-5">
         <div class="container d-flex" style="padding-top: 10%">
           <img
-            src="~/img/imagen.jpg"
+            src="~/img/museo2.jpg"
             alt="museo"
             width="500"
             height="400"
@@ -365,7 +210,7 @@
           />
           <div class="nosotros text-white">
             <h2>Nosotros somos</h2>
-            <p>El Museo de los Descalzos del Rímac abre sus puertas al público en el año 1981. Se ubica dentro de los espacios del Convento de los Padres Franciscanos Descalzos, fundado en el año 1595. En 1972, el edificio es declarado Monumento Histórico Nacional, y está enclavado en el área del Centro Histórico de Lima que fue declarada "Patrimonio de la Humanidad" por la Unesco.</p>
+            <p style=" width:450px; padding: 20px; margin-left: 10px;">El Museo de los Descalzos del Rímac abre sus puertas al público en el año 1981. Se ubica dentro de los espacios del Convento de los Padres Franciscanos Descalzos, fundado en el año 1595. En 1972, el edificio es declarado Monumento Histórico Nacional, y está enclavado en el área del Centro Histórico de Lima que fue declarada "Patrimonio de la Humanidad" por la Unesco.</p>
           </div>
         </div>
       </section>
