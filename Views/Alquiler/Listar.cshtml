@@ -4,6 +4,18 @@
 @{
     ViewData["Title"] = "Alquiler";
 }
+<style>    
+    .separator {
+      border-top: 1px solid #000;
+      margin-bottom: 20px;
+    }
+</style>
+<div class="container mt-5">
+    <div class="tienda-header">
+        <h2>TIENDA</h2>
+    </div>
+    <div class="separator"></div>
+</div>
 <div class="d-flex justify-content-center mt-5">
     <a href="@Url.Action("Listar", "Evento")" class="btn btn-dark btn-lg m-2">EVENTOS</a>
     <a href="@Url.Action("Listar", "Alquiler")" class="btn btn-dark btn-lg m-2">ALQUILER</a>
@@ -22,7 +34,9 @@
                         <div class="card-body">
                             <h3 class="text-dark">@alquiler.Titulo</h3>
                             <p class="text-dark">@alquiler.Descripcion</p>
-                            <span class="text-dark"><i class="fa fa-clock-o text-dark"></i>
+                            <span class="text-dark"><span class="material-symbols-outlined">
+                                    schedule
+                                </span>
                                 @alquiler.Hora_Disponible.ToString("hh\\:mm")</span>
                         </div>
                     </div>
