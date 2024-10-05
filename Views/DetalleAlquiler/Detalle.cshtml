@@ -16,7 +16,12 @@
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="..." class="img-fluid rounded-start" alt="...">
+
+                    @if (Model.Imagenes != null && Model.Imagenes.Any())
+                    {
+                        <img src="@Model.Imagenes.First().Rutalmagen" class="img-fluid rounded-start" alt="@Model.Titulo">
+                    }
+
                     <!-- Cambia el src a la URL de tu imagen -->
                 </div>
                 <div class="col-md-8">
@@ -43,9 +48,12 @@
             <div class="row g-0">
                 <div class="col-md-4">
                     <div class="col-md-4">
-                        <div class="red-border">
-                            <img src="..." class="img-fluid rounded-start" alt="...">
-                            <!-- Cambia el src a la URL de tu imagen -->
+                        <div>
+                            @if (Model.Imagenes != null && Model.Imagenes.Any())
+                            {
+                                <img src="@Model.Imagenes.First().Rutalmagen" class="img-fluid rounded-start w-100"
+                                    alt="@Model.Titulo">
+                            }
                         </div>
                     </div>
                 </div>
@@ -60,15 +68,3 @@
     </div>
 </div>
 
-<style>
-    .red-border {
-        border: 2px solid red;
-        /* Bordes rojos */
-        border-radius: 5px;
-        /* Bordes redondeados */
-        padding: 5px;
-        /* Espaciado interno */
-        margin-bottom: 20px;
-        /* Espaciado inferior */
-    }
-</style>

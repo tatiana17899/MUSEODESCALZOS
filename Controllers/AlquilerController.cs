@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MUSEODESCALZOS.Models;
 using MUSEODESCALZOS.Data;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace MUSEODESCALZOS.Controllers
@@ -29,8 +30,13 @@ namespace MUSEODESCALZOS.Controllers
 
         public IActionResult Listar()
         {
-            var listaAlquiler = _context.DataAlquiler.ToList(); // Obtener la lista de alquileres
+            // Incluir las imágenes relacionadas al obtener los alquileres
+            var listaAlquiler = _context.DataAlquiler
+                                        .Include(a => a.Imagenes) // Incluir las imágenes asociadas
+                                        .ToList(); // Obtener la lista de alquileres con las imágenes
+
             return View(listaAlquiler); // Pasar la lista a la vista
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

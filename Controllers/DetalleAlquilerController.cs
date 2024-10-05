@@ -3,10 +3,11 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using MUSEODESCALZOS.Models;
 using MUSEODESCALZOS.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace MUSEODESCALZOS.Controllers
 {
-    
+
     public class DetalleAlquilerController : Controller
     {
         private readonly ILogger<DetalleAlquilerController> _logger;
@@ -24,11 +25,12 @@ namespace MUSEODESCALZOS.Controllers
 
         public IActionResult Detalle(long IDAlquileres)
         {
-            var alquiler = _context.DataAlquiler.Find(IDAlquileres);
+            var alquiler = _context.DataAlquiler.Include(a => a.Imagenes)
+                            .FirstOrDefault(a => a.IDAlquileres == IDAlquileres);
 
-            if (alquiler == null)
+            if (alquiler?.Imagenes == null || !alquiler.Imagenes.Any())
             {
-                return NotFound(); // Maneja el caso donde no se encuentra el alquiler
+                return NotFound();// Manejar caso donde no hay imágenes
             }
 
             return View(alquiler);

@@ -1,5 +1,6 @@
 @model IEnumerable<MuseoDescalzos.Models.Alquiler>
 
+
 @{
     ViewData["Title"] = "Alquiler";
 }
@@ -12,13 +13,17 @@
         @foreach (var alquiler in Model)
         {
             <div class="col ">
-                <a href="@Url.Action("Detalle", "DetalleAlquiler", new { IDAlquileres = alquiler.IDAlquileres })" class="text-decoration-none">
+                <a href="@Url.Action("Detalle", "DetalleAlquiler", new { IDAlquileres = alquiler.IDAlquileres })"
+                    class="text-decoration-none">
                     <div class="card h-100 border border-dark">
-                        <img src="..." class="card-img-top" alt="@alquiler.Titulo">
+                        @foreach(var imagen in alquiler.Imagenes){
+                            <img src="@imagen.Rutalmagen" class="card-img-top" alt="@alquiler.Titulo">
+                        }                  
                         <div class="card-body">
                             <h3 class="text-dark">@alquiler.Titulo</h3>
                             <p class="text-dark">@alquiler.Descripcion</p>
-                            <span class="text-dark"><i class="fa fa-clock-o text-dark"></i> @alquiler.Hora_Disponible.ToString("hh\\:mm")</span>
+                            <span class="text-dark"><i class="fa fa-clock-o text-dark"></i>
+                                @alquiler.Hora_Disponible.ToString("hh\\:mm")</span>
                         </div>
                     </div>
                 </a>
@@ -26,5 +31,3 @@
         }
     </div>
 </div>
-
-
