@@ -219,7 +219,9 @@
 
 <script>
     $(document).ready(function() {
-        $('#ventasTable').DataTable();
+        $('#ventasTable').DataTable({
+            responsive: true
+        });
     });
     var ctx = document.getElementById("salesChart").getContext("2d");
     var graphicLine = new Chart(ctx, {
