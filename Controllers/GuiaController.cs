@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MimeKit;
+using MailKit.Net.Smtp;
 using MUSEODESCALZOS.Data;
 using MUSEO_DE_LOS_DESCALZOS.ViewModel;
 using MuseoDescalzos.Models;
 using Microsoft.EntityFrameworkCore;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace MUSEO_DE_LOS_DESCALZOS.Controllers
 {
@@ -18,7 +22,20 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<GuiaController> _logger;
+        private string GenerarContraseña()
+        {
+            var caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var longitud = 10; 
+            var contraseña = "";
 
+            for (int i = 0; i < longitud; i++)
+            {
+                var indice = new Random().Next(0, caracteres.Length);
+                contraseña += caracteres[indice];
+            }
+
+            return contraseña;
+        }
         public GuiaController(ApplicationDbContext context, ILogger<GuiaController> logger)
         {
             _context = context;
@@ -63,7 +80,8 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
         [HttpPost]
         public async Task<IActionResult> Guardar(GuiaViewModel viewModel)
         {
-            if(viewModel.FormGuia.IDGuía == 0){
+            if(viewModel.FormGuia.IDGuía == 0)
+            {
                 var nuevaGuia = new Guía
                 {
                     Nombres = viewModel.FormGuia.Nombres,
@@ -73,13 +91,17 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                     Sueldo = viewModel.FormGuia.Sueldo,
                     PedidoVisita = viewModel.FormGuia.PedidoVisita,
                     Actividades = viewModel.FormGuia.Actividades,
-                  
                 };
+
+                var contraseñaGenerada = GenerarContraseña(); 
+                nuevaGuia.ContraseñaGenerada = contraseñaGenerada;
+
                 _context.DataGuía.Add(nuevaGuia);
                 await _context.SaveChangesAsync();
-            }
-             else
-            {
+
+                await EnviarCorreoElectronico(nuevaGuia.Email, "Bienvenido al Museo", $"Hola {nuevaGuia.Nombres}, tu contraseña es: {nuevaGuia.ContraseñaGenerada}");
+
+            } else {
                 var guiaExistente = _context.DataGuía.FirstOrDefault(g => g.IDGuía == viewModel.FormGuia.IDGuía);
                 if (guiaExistente != null)
                 {
@@ -94,9 +116,36 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                     _context.DataGuía.Update(guiaExistente);
                 }
             }
+
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        private async Task EnviarCorreoElectronico(string destinatario, string asunto, string mensaje)
+        {
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress("Museo de los Descalzos", "tatianasuarezrosas332@gmail.com"));
+            emailMessage.To.Add(new MailboxAddress("", destinatario));
+            emailMessage.Subject = asunto;
+
+            var bodyBuilder = new BodyBuilder { HtmlBody = mensaje };
+            emailMessage.Body = bodyBuilder.ToMessageBody();
+
+            using (var client = new SmtpClient())
+            {
+                try
+                {
+                    await client.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                    await client.AuthenticateAsync("tatianasuarezrosas332@gmail.com", "tatiana123%&");
+                    await client.SendAsync(emailMessage);
+                    await client.DisconnectAsync(true);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Error al enviar el correo: {ex.Message}");
+                }
+            }
+        }
+
         [HttpPost]
         public IActionResult Eliminar(int id){
             var guia = _context.DataGuía.FirstOrDefault(gu => gu.IDGuía == id);
