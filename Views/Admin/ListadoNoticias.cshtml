@@ -5,59 +5,103 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Listado de Noticias</h2>
-
-<a asp-controller="NoticiasAdmin" asp-action="Create" class="btn btn-success">Crear nueva Noticia</a>
-
 <link
       rel="stylesheet"
       href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css"
 />
+<h2>Listado de Noticias</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Imagen</th>
-            <th>Fecha de Publicación</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model == null || !Model.Any())
-        {
-            <tr>
-                <td colspan="5" class="text-center">No hay noticias disponibles.</td>
-            </tr>
-        }
-        else
-        {
-            foreach (var noticia in Model)
-            {
-                <tr>
-                    <td>@noticia.Titulo</td>
-                    <td>@noticia.Descripción</td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(noticia.Rutalmagen))
+<div class="content flex-grow-1" id="contenido">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title d-flex align-items-center">
+              <i class="fa-sharp fa-solid fa-newspaper"></i> Noticias
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <a asp-controller="NoticiasAdmin" asp-action="Create" class="btn btn-success">Crear nueva Noticia</a>
+                <hr>
+                <table id="noticiasTable" class="table table-striped table-bordered" style="padding: 10px;">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th>Imagen</th>
+                            <th>Fecha de Publicación</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model == null || !Model.Any())
                         {
-                            <img src="@noticia.Rutalmagen" alt="@noticia.Titulo" style="width:100px;height:auto;"/>
+                            <tr>
+                                <td colspan="5" class="text-center">No hay noticias disponibles.</td>
+                            </tr>
                         }
                         else
                         {
-                            <span>No disponible</span>
+                            @foreach (var noticia in Model)
+                            {
+                                <tr>
+                                    <td>@noticia.Titulo</td>
+                                    <td>@noticia.Descripción</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(noticia.Rutalmagen))
+                                        {
+                                            <img src="@noticia.Rutalmagen" alt="@noticia.Titulo" style="width:100px;height:auto;"/>
+                                        }
+                                        else
+                                        {
+                                            <span>No disponible</span>
+                                        }
+                                    </td>
+                                    <td>@noticia.FechaPublicación.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@noticia.IDNoticia" class="btn btn-primary btn-sm"><i class="fa-solid fa-pencil"></i></a>
+                                       <form asp-action="Delete" asp-route-id="@noticia.IDNoticia" method="post" style="display:inline;">
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirmarEliminar()">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
                         }
-                    </td>
-                    <td>@noticia.FechaPublicación.ToString("dd/MM/yyyy")</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@noticia.IDNoticia" class="btn btn-warning">Editar</a>
-                        <form asp-action="Delete" asp-route-id="@noticia.IDNoticia" method="post" style="display:inline;">
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+<script src="https://cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmarEliminar() {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: '¿Estás seguro de que deseas eliminar esta noticia?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                return true;
+            } else {
+                return false;
             }
-        }
-    </tbody>
-</table>
+        })
+    }
 
+    $(document).ready(function() {
+        $('#noticiasTable').DataTable({
+            responsive: true,
+            autoWidth: false,
+            dom: 'Bfrtip', 
+            buttons: []
+        });
+    });
+</script>
+}
