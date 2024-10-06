@@ -5,32 +5,41 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Crear Noticia</h2>
+<div class="content flex-grow-1" id="contenido">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title d-flex align-items-center">
+               Crear Noticia
+            </h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label asp-for="Titulo" class="control-label"></label>
+                    <input asp-for="Titulo" class="form-control" />
+                    <span asp-validation-for="Titulo" class="text-danger"></span>
+                </div>
 
-<form asp-action="Create" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="Titulo" class="control-label"></label>
-        <input asp-for="Titulo" class="form-control" />
-        <span asp-validation-for="Titulo" class="text-danger"></span>
-    </div>
+                <div class="form-group">
+                    <label asp-for="Descripción" class="control-label"></label>
+                    <textarea asp-for="Descripción" class="form-control"></textarea>
+                    <span asp-validation-for="Descripción" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="Descripción" class="control-label"></label>
-        <textarea asp-for="Descripción" class="form-control"></textarea>
-        <span asp-validation-for="Descripción" class="text-danger"></span>
-    </div>
+                <div class="form-group">
+                    <label asp-for="Rutalmagen" class="control-label"></label>
+                    <input type="file" asp-for="Rutalmagen" class="form-control" />
+                    <span asp-validation-for="Rutalmagen" class="text-danger"></span>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="Rutalmagen" class="control-label"></label>
-        <input type="file" asp-for="Rutalmagen" class="form-control" />
-        <span asp-validation-for="Rutalmagen" class="text-danger"></span>
+                <div class="d-flex justify-content-end">
+                    <input type="submit" value="Guardar" class="btn btn-primary mr-2" />
+                    <a asp-action="Index" class="btn btn-secondary">Cerrar</a>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <div class="form-group">
-        <input type="submit" value="Guardar" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-secondary">Cerrar</a>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
