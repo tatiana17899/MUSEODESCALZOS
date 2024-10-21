@@ -22,7 +22,7 @@ namespace MuseoDescalzos.Models
         public string? NombreImagen { get; set; }
         public string? RutalImagen { get; set; }
 
-        public PedidoEvento PedidoEvento { get; set; } = default!;
+        public ICollection<PedidoEvento>? PedidoEventos { get; set; }
 
         public ICollection<Actividades>? Actividades { get; set; }
     }

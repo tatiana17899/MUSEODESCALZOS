@@ -1,0 +1,52 @@
+@model List<MUSEO_DE_LOS_DESCALZOS.ViewModel.EventoViewModel>
+
+@{
+    ViewData["Title"] = "Carrito de Compras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h3>Carrito de Compras</h3>
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">
+            No hay eventos en el carrito.
+        </div>
+    }
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Evento</th>
+                    <th>Detalle</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Evento</td>
+                        <td>@item.Detalle</td>
+                        <td>@item.PrecioUnitario.ToString("C")</td>
+                        <td>@item.CantidadTotal</td>
+                        <td>
+                            <form asp-action="EliminarDelCarrito" method="post" style="display:inline;">
+                                <input type="hidden" name="idEvento" value="@item.IDEvento" />
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="text-center">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Continuar Comprando</a>
+            <a asp-controller="Checkout" asp-action="Index" class="btn btn-success">Proceder al Pago</a>
+        </div>
+    }
+</div>
