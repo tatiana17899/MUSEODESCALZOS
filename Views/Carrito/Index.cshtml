@@ -29,14 +29,13 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.Evento</td>
-                        <td>@item.Detalle</td>
+                        <td>@item.Eventoo.Nombre</td>
+                        <td>@item.Eventoo.Descripción</td>
                         <td>@item.PrecioUnitario.ToString("C")</td>
                         <td>@item.CantidadTotal</td>
                         <td>
-                            <form asp-action="EliminarDelCarrito" method="post" style="display:inline;">
-                                <input type="hidden" name="idEvento" value="@item.IDEvento" />
-                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            <form asp-action="Eliminar" asp-route-id="@item.IDPedidoEvento" method="post">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
                             </form>
                         </td>
                     </tr>

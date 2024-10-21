@@ -62,23 +62,69 @@ namespace MUSEODESCALZOS.Controllers
                 return View("Index", model);
             }
 
+            var evento = await _context.DataEvento.FirstOrDefaultAsync(e => e.IDEvento == model.IDEvento);
+            if (evento == null)
+            {
+                ModelState.AddModelError("", "Evento no encontrado.");
+                return View("Index", model);
+            }
+
             var pedidoEvento = new PedidoEvento
             {
-                IDCliente = cliente.IDCliente, 
-                IDEvento = model.IDEvento,
+                IDCliente = cliente.IDCliente,
+                IDEvento = evento.IDEvento,  
                 Detalle = model.Detalle,
                 Cantidad = model.CantidadTotal,
                 PrecioUnitario = model.PrecioTotal,
-                PrecioTotal = model.PrecioTotal, 
-                Fecha = DateTime.Now 
+                PrecioTotal = model.PrecioTotal,
+                Fecha = DateTime.Now
             };
 
-
-            _context.DataPedidoEvento.Add(pedidoEvento);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.DataPedidoEvento.Add(pedidoEvento);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error al guardar el pedido: {0}", ex.Message);
+                ModelState.AddModelError("", "No se pudo realizar la reserva. Intente nuevamente.");
+                return View("Index", model);
+            }
 
             return RedirectToAction("Index"); 
         }
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Eliminar(int id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var pedidoEvento = await _context.DataPedidoEvento.FindAsync(id);
+            if (pedidoEvento == null)
+            {
+                ModelState.AddModelError("", "Pedido no encontrado.");
+                return RedirectToAction("Index"); 
+            }
+
+            try
+            {
+                // Elimina el pedido de evento
+                _context.DataPedidoEvento.Remove(pedidoEvento);
+                await _context.SaveChangesAsync(); 
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError("Error al eliminar el pedido: {0}", ex.Message);
+                ModelState.AddModelError("", "No se pudo realizar la eliminación. Intente nuevamente.");
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

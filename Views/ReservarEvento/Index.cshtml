@@ -47,7 +47,7 @@
 
         <!-- Formulario para seleccionar entradas -->
         <form asp-controller="Carrito" asp-action="AgregarAlCarrito" method="post" class="needs-validation p-3" novalidate>
-            <input type="hidden" name="IDEvento" value="@Model.IDEvento" />
+            <input type="hidden" name="IDEvento" value="@Model.Eventoo.IDEvento" />
             <input type="hidden" name="vidcliente" value="@Model.vidcliente" />
             <input type="hidden" name="PrecioUnitario" value="@(Model.PrecioUnitario)" />
             <input type="hidden" name="PrecioUnitario_adultomayor" value="@(Model.PrecioUnitario_adultomayor)" />
