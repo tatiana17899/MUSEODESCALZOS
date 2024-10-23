@@ -1,0 +1,200 @@
+@{
+    ViewData["Title"] = "Index";
+}
+<section id="form">
+        <div class="container p-5">
+          <form id="form" class="needs-validation p-3" novalidate>
+            <!-- Selección de Fecha -->
+            <div class="form-group mb-4">
+              <label for="date" class="form-label">Select Date</label>
+              <input type="date" class="form-control" id="date" required />
+              <div class="invalid-feedback">Please select a valid date.</div>
+            </div>
+
+            <!-- Selección de Hora -->
+            <div class="form-group mb-4">
+              <label for="hora" class="form-label">¿A qué hora?</label>
+              <select
+                class="form-select"
+                aria-label="Seleccione una hora"
+                id="hora"
+                required
+              >
+                <option selected disabled value="">Seleccione una hora</option>
+                <!-- Opciones para las horas aquí -->
+              </select>
+              <div class="invalid-feedback">Por favor escoje la hora</div>
+            </div>
+
+            <div class="form-group mb-4">
+              <label for="hora" class="form-label">¿Desea un guía en su visita?</label>
+              <select
+                class="form-select"
+                aria-label="Seleccione una hora"
+                id="hora"
+                required
+              >
+                <option selected disabled value="">Seleccione una hora</option>
+                <!-- Opciones para las horas aquí -->
+              </select>
+              <div class="invalid-feedback">Por favor escoje la hora</div>
+            </div>
+            <!-- Sección de Entradas -->
+            <div class="form-group mb-5" style="max-width: 600px">
+              <h5 class="text-white">Escoje sus entradas</h5>
+              <div class="container pay">
+                <select
+                  class="form-select mb-3"
+                  aria-label="Moneda"
+                  style="width: auto"
+                >
+                  <option selected>Moneda</option>
+                  <option value="1">PEN</option>
+                  <option value="2">DOLAR</option>
+                </select>
+                <hr class="text-white" />
+
+                <!-- General -->
+                <div class="form-group row mb-3">
+                  <div class="col-md-4">
+                    <h5 class="text-white">General</h5>
+                  </div>
+                  <div class="col-md-4">
+                    <h5 class="text-white">S/40.00</h5>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-center">
+                    <button
+                      type="button"
+                      class="btn btn-light decrease"
+                      data-target="general-quantity"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="text"
+                      id="general-quantity"
+                      class="form-control mx-2 text-center quantity-input"
+                      value="0"
+                      readonly
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-light increase"
+                      data-target="general-quantity"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Adulto Mayor -->
+                <div class="form-group row mb-3">
+                  <div class="col-md-4">
+                    <h5 class="text-white">Adulto Mayor</h5>
+                  </div>
+                  <div class="col-md-4">
+                    <h5 class="text-white">S/30.00</h5>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-center">
+                    <button
+                      type="button"
+                      class="btn btn-light decrease"
+                      data-target="adulto-quantity"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="text"
+                      id="adulto-quantity"
+                      class="form-control mx-2 text-center quantity-input"
+                      value="0"
+                      readonly
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-light increase"
+                      data-target="adulto-quantity"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Estudiantes -->
+                <div class="form-group row mb-3">
+                  <div class="col-md-4">
+                    <h5 class="text-white">Estudiantes</h5>
+                  </div>
+                  <div class="col-md-4">
+                    <h5 class="text-white">S/20.00</h5>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-center">
+                    <button
+                      type="button"
+                      class="btn btn-light decrease"
+                      data-target="estudiantes-quantity"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="text"
+                      id="estudiantes-quantity"
+                      class="form-control mx-2 text-center quantity-input"
+                      value="0"
+                      readonly
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-light increase"
+                      data-target="estudiantes-quantity"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Niños -->
+                <div class="form-group row mb-3">
+                  <div class="col-md-4">
+                    <h5 class="text-white">Niños</h5>
+                  </div>
+                  <div class="col-md-4">
+                    <h5 class="text-white">Gratis</h5>
+                  </div>
+                  <div class="col-md-4 d-flex align-items-center">
+                    <button
+                      type="button"
+                      class="btn btn-light decrease"
+                      data-target="ninos-quantity"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="text"
+                      id="ninos-quantity"
+                      class="form-control mx-2 text-center quantity-input"
+                      value="0"
+                      readonly
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-light increase"
+                      data-target="ninos-quantity"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <hr class="text-white" />
+              </div>
+            </div>
+
+            <!-- Botón Continuar -->
+            <div id="next" class="text-center">
+              <button type="submit" class="btn next btn-lg w-100">
+                Continuar
+              </button>
+            </div>
+          </form>
+        </div>
+</section>

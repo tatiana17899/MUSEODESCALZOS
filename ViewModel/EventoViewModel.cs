@@ -28,5 +28,6 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
         public int CantidadTotal => CantidadAdulto + CantidadAdultoMayor + CantidadEscolar;
 
         public long IDPedidoEvento { get; set; }
+
     }
 }
