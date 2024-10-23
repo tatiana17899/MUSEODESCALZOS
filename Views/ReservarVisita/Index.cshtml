@@ -1,0 +1,133 @@
+@model MUSEODESCALZOS.ViewModel.ReservarVisitaViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+<link rel="stylesheet" href="~/css/pago.css" />
+
+<div class="container">
+          <h4 class="m-5">Compra tus entradas</h4>
+          <hr />
+          <div class="container">
+            <img src="~/img/imagenCuatro.jpg" alt="img" width="100%" height="150px" class="m-2" />
+          </div>
+</div>
+<section id="form">
+    <div class="container p-5">
+        <form asp-action="CreateReservation" asp-controller="ReservarVisita" method="post" id="form" class="needs-validation p-3" novalidate>
+            <!-- Selección de Fecha -->
+            <div class="form-group mb-4">
+                <label for="date" class="form-label">Seleccione la fecha</label>
+                <input type="date" class="form-control" id="date" name="Fecha" required />
+                <div class="invalid-feedback">Por favor, seleccione una fecha válida.</div>
+            </div>
+
+            <!-- Selección de Hora -->
+            <div class="form-group mb-4">
+                <label for="hora" class="form-label">¿A qué hora?</label>
+                <select class="form-select" id="hora" name="Hora" required>
+                    <option selected disabled value="">Seleccione una hora</option>
+                    @for (var i = 8; i <= 22; i += 2)
+                    {
+                        <option value="@i:00">@i:00</option>
+                    }
+                </select>
+                <div class="invalid-feedback">Por favor, seleccione una hora.</div>
+            </div>
+
+            <!-- Selección de Guía -->
+            <div class="form-group mb-4">
+                <label for="guia" class="form-label">¿Desea un guía en su visita?</label>
+                <select class="form-select" id="guia" name="GuiaID">
+                    <option value="0">No deseo guía</option>
+                    @foreach (var guia in Model.GuiaDisponibles)
+                    {
+                        <option value="@guia.IDGuía">@guia.Nombres @guia.Apellidos</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Sección de Entradas -->
+            <div class="form-group mb-5" style="max-width: 600px">
+                <h5 class="text-white">Escoja sus entradas</h5>
+                <div class="container pay">
+                    <select class="form-select mb-3" name="Moneda" required>
+                        <option value="PEN">PEN</option>
+                        <option value="USD">USD</option>
+                    </select>
+                    <hr class="text-white" />
+
+                    <!-- Adulto Mayor -->
+                    <div class="form-group row mb-3">
+                        <div class="col-md-4">
+                            <h5 class="text-white">Adulto Mayor</h5>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="text-white">S/20.00</h5>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-center">
+                            <button type="button" class="btn btn-light decrease">-</button>
+                            <input type="text" id="adulto-quantity" name="AdultoMayor" class="form-control mx-2 text-center" value="0" readonly />
+                            <button type="button" class="btn btn-light increase">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Estudiantes -->
+                    <div class="form-group row mb-3">
+                        <div class="col-md-4">
+                            <h5 class="text-white">Estudiantes</h5>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="text-white">S/10.00</h5>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-center">
+                            <button type="button" class="btn btn-light decrease">-</button>
+                            <input type="text" id="estudiantes-quantity" name="Estudiantes" class="form-control mx-2 text-center" value="0" readonly />
+                            <button type="button" class="btn btn-light increase">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Niños -->
+                    <div class="form-group row mb-3">
+                        <div class="col-md-4">
+                            <h5 class="text-white">Niños</h5>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="text-white">Gratis</h5>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-center">
+                            <button type="button" class="btn btn-light decrease">-</button>
+                            <input type="text" id="ninos-quantity" name="Ninos" class="form-control mx-2 text-center" value="0" readonly />
+                            <button type="button" class="btn btn-light increase">+</button>
+                        </div>
+                    </div>
+                    <hr class="text-white" />
+                </div>
+            </div>
+
+            <!-- Botón Continuar -->
+            <div id="next" class="text-center">
+                <button type="submit" class="btn next btn-lg w-100">Continuar</button>
+            </div>
+        </form>
+    </div>
+</section>
+@section Scripts {
+    <script>
+        document.querySelectorAll('.increase').forEach(button => {
+            button.addEventListener('click', function () {
+                const input = this.closest('.form-group').querySelector('input');
+                input.value = parseInt(input.value) + 1;
+            });
+        });
+
+        document.querySelectorAll('.decrease').forEach(button => {
+            button.addEventListener('click', function () {
+                const input = this.closest('.form-group').querySelector('input');
+                if (input.value > 0) {
+                    input.value = parseInt(input.value) - 1;
+                }
+            });
+        });
+
+    </script>
+}

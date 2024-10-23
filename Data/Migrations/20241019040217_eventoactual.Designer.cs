@@ -3,6 +3,7 @@ using System;
 using MUSEODESCALZOS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MUSEODESCALZOS.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241019040217_eventoactual")]
+    partial class eventoactual
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -320,12 +323,7 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.Property<string>("Titular")
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
                     b.HasKey("IDCliente");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("tb_Cliente");
                 });
@@ -673,15 +671,6 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.Navigation("Evento");
 
                     b.Navigation("Guía");
-                });
-
-            modelBuilder.Entity("MuseoDescalzos.Models.Cliente", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MuseoDescalzos.Models.Imagen_Alquiler", b =>

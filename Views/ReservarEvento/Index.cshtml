@@ -1,0 +1,139 @@
+@model MUSEO_DE_LOS_DESCALZOS.ViewModel.EventoViewModel
+
+@{
+    ViewData["Title"] = "Carrito de Compra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/reservar.css" />
+<script src="~/js/pago.js"></script>
+
+<div class="container">
+    <h3 class="m-1">Compra tus entradas</h3>
+    <hr />
+    <div class="container">
+        <img src="~/img/imagenCuatro.jpg" alt="img" width="100%" height="150px" class="m-2" />
+    </div>
+</div>
+
+<section id="form">
+    <div class="container p-5">
+        <section class="container p-5">
+            <div class="row justify-content-center">
+                <article class="card d-flex flex-row col-md-8">
+                    <section class="date text-center p-2">
+                        <time datetime="23th feb">
+                            <span class="d-block" style="font-size: 50px">@Model.Fecha.ToString("dd")</span>
+                            <span class="d-block" style="font-size: 50px">@Model.Fecha.ToString("MMMM", System.Globalization.CultureInfo.GetCultureInfo("es-PE"))</span>
+                        </time>
+                    </section>
+                    <section class="card-body">
+                        <small class="text-muted">@Model.Evento</small>
+                        <h3 class="card-title">@Model.Detalle</h3>
+                        <div class="even-date mb-2">
+                            <i class="fa fa-calendar"></i>
+                            <time>
+                                <span style="font-size: 15px;" class="d-block">@Model.Fecha.ToString("dddd dd 'de' MMMM 'del' yyyy", System.Globalization.CultureInfo.GetCultureInfo("es-PE"))</span>
+                                <span style="font-size: 15px;">@Model.Fecha.ToString("HH:mm")</span>
+                            </time>
+                        </div>
+                        <div class="even-info mb-2">
+                            <i class="fa fa-map-marker"></i>
+                            <p>Museo de los Descalzos</p>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </section>
+
+        <!-- Formulario para seleccionar entradas -->
+        <form asp-controller="Carrito" asp-action="AgregarAlCarrito" method="post" class="needs-validation p-3" novalidate>
+            <input type="hidden" name="IDEvento" value="@Model.Eventoo.IDEvento" />
+            <input type="hidden" name="vidcliente" value="@Model.vidcliente" />
+            <input type="hidden" name="PrecioUnitario" value="@(Model.PrecioUnitario)" />
+            <input type="hidden" name="PrecioUnitario_adultomayor" value="@(Model.PrecioUnitario_adultomayor)" />
+            <input type="hidden" name="PrecioUnitario_estudiante" value="@(Model.PrecioUnitario_estudiante)" />
+
+            <!-- Sección de Entradas -->
+            <div class="form-group mb-5" style="max-width: 600px; margin: auto;">
+                <div class="container pay">
+                    <p class="text-white" style="font-size: 15px;">Escoje tus entradas</p>
+                    <hr>
+                    <select class="form-select" aria-label="Moneda">
+                        <option selected>Moneda</option>
+                        <option value="1">PEN</option>
+                        <option value="2">DOLAR</option>
+                    </select>
+                    <hr class="text-white" />
+
+                    <!-- General -->
+                    <div class="form-group row mb-3">
+                        <div class="col-md-4">
+                            <p class="text-white" style="font-size: 15px;">General</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="text-white" style="font-size: 15px;">@Model.PrecioUnitario.ToString("C")</p>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-center justify-content-center">
+                            <button type="button" class="btn btn-light decrease" data-target="general-quantity">-</button>
+                            <input type="number" name="CantidadAdulto" id="general-quantity" class="form-control mx-2 text-center quantity-input" value="0" />
+                            <button type="button" class="btn btn-light increase" data-target="general-quantity">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Adulto Mayor -->
+                    <div class="form-group row mb-3">
+                        <div class="col-md-4">
+                            <p class="text-white" style="font-size: 15px;">Adulto Mayor</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="text-white" style="font-size: 15px;">@Model.PrecioUnitario_adultomayor.ToString("C")</p>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-center justify-content-center">
+                            <button type="button" class="btn btn-light decrease" data-target="adulto-quantity">-</button>
+                            <input type="number" name="CantidadAdultoMayor" id="adulto-quantity" class="form-control mx-2 text-center quantity-input" value="0" />
+                            <button type="button" class="btn btn-light increase" data-target="adulto-quantity">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Estudiantes -->
+                    <div class="form-group row mb-3">
+                        <div class="col-md-4">
+                            <p class="text-white" style="font-size: 15px;">Estudiantes</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="text-white" style="font-size: 15px;">@Model.PrecioUnitario_estudiante.ToString("C")</p>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-center justify-content-center">
+                            <button type="button" class="btn btn-light decrease" data-target="estudiantes-quantity">-</button>
+                            <input type="number" name="CantidadEscolar" id="estudiantes-quantity" class="form-control mx-2 text-center quantity-input" value="0" />
+                            <button type="button" class="btn btn-light increase" data-target="estudiantes-quantity">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Niños -->
+                    <div class="form-group row mb-3">
+                        <div class="col-md-4">
+                            <p class="text-white" style="font-size: 15px;">Niños</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="text-white" style="font-size: 15px;">Gratis</p>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-center justify-content-center">
+                            <button type="button" class="btn btn-light decrease" data-target="ninos-quantity">-</button>
+                            <input type="number" name="CantidadNinos" id="ninos-quantity" class="form-control mx-2 text-center quantity-input" value="0" />
+                            <button type="button" class="btn btn-light increase" data-target="ninos-quantity">+</button>
+                        </div>
+                    </div>
+                    <hr class="text-white" />
+                </div>
+            </div>
+
+            <!-- Botón para agregar al carrito -->
+            <div id="next" class="text-center justify-content-center d-flex">
+                <button type="submit" class="btn next btn-lg w-100" style="font-size: 15px;">
+                    Agregar al Carrito
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

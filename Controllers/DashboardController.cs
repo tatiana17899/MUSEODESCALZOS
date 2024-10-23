@@ -119,8 +119,6 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                         Cliente = p.Cliente,
                         Evento = p.Evento.ToString(),
                         Detalle = p.Detalle,
-                        Cantidad = p.Cantidad,
-                        PrecioUnitario = p.PrecioUnitario
                     }).ToList();
 
                 ventasList.AddRange(eventos.Cast<VentaBase>());
@@ -196,8 +194,7 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                         Cliente = p.Cliente,
                         Evento = p.Evento.ToString(),
                         Detalle = p.Detalle,
-                        Cantidad = p.Cantidad,
-                        PrecioUnitario = p.PrecioUnitario
+                        
                     }).ToList();
             }
              using (var package = new ExcelPackage()){
@@ -239,8 +236,8 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                     {
                         worksheet.Cells[rowIndex, 5].Value = evento.Cliente?.ToString();
                         worksheet.Cells[rowIndex, 6].Value = evento.Detalle;
-                        worksheet.Cells[rowIndex, 7].Value = evento.Cantidad;
-                        worksheet.Cells[rowIndex, 8].Value = evento.PrecioUnitario;
+                        worksheet.Cells[rowIndex, 7].Value = evento.CantidadTotal;
+                        worksheet.Cells[rowIndex, 8].Value = evento.PrecioTotal;
                         worksheet.Cells[rowIndex, 9].Value = "";
                     }
 

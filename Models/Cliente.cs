@@ -4,6 +4,7 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace MuseoDescalzos.Models
 {
@@ -22,6 +23,9 @@ namespace MuseoDescalzos.Models
         public string? Titular { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public DateTime FechaRegistro { get; set; }
+        public string? UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual IdentityUser? User { get; set; }
         public ICollection<PedidoEvento>? PedidoEvento { get; set; }
         public ICollection<PedidoAlquiler>? PedidoAlquiler { get; set; }
         public ICollection<PedidoVisita>? PedidoVisita { get; set; }

@@ -47,7 +47,7 @@
                          <i class="bi bi-calendar"></i> @Model.Fecha.ToString()
                         <p>@Model.Descripción</p>
                         <div style="display: flex; align-items: center;">
-                            <a href="#" class="btn btn-dark me-2" style="font-size: 15px;">
+                            <a asp-controller="ReservarEvento" asp-action="Index" asp-route-id="@Model.IDEvento" class="btn btn-dark me-2" style="font-size: 15px;">
                                 <span class="material-symbols-outlined" style="margin-right: 5px;">shopping_cart</span>Reservar Evento
                             </a>
                             <p class="card-text mb-0 fw-bold" style="font-size: 15px; margin-left: 5rem;">
