@@ -9,10 +9,8 @@
     <h4 class="font-weight-bold mb-4">Carrito de Compras</h4>
         <hr class="mb-4">
         <div class="d-flex justify-content-center mb-4">
-            <div class="btn-group mb-4" role="group">
-                <button type="button" class="btn btn-dark" href="@Url.Action("Index", "Carrito")">Eventos</button>
-                <button type="button" class="btn btn-dark">Visitas</button>
-            </div>
+            <a class="btn btn-dark" href="@Url.Action("Index", "Carrito")">Eventos</a>
+            <a class="btn btn-dark" href="@Url.Action("Summary", "ReservarVisita")">Visitas</a>
         </div>
     
     @if (Model == null || !Model.Any())

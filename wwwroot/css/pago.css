@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+/*Pago*/
+
+.process-row {
+  display: table-row;
+}
+
+.process {
+  display: table;
+  width: 100%;
+  position: relative;
+}
+
+.process-step button[disabled] {
+  opacity: 1 !important;
+}
+
+.process-row:before {
+  top: 50px;
+  bottom: 0;
+  position: absolute;
+  content: " ";
+  width: 90%;
+  height: 2px;
+  background-color: #131313;
+  z-index: 0;
+}
+
+.process-step {
+  display: table-cell;
+  text-align: center;
+  position: relative;
+}
+
+.btn-circle {
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 88px;
+  border-radius: 70%;
+}
+.icon {
+  color: white;
+  font-size: 30px;
+}
+/*formulario*/
+#form {
+  max-width: 100%;
+  background-color: #2c2c2c;
+}
+#form label {
+  color: white;
+}
+
+h5 {
+  color: white;
+  font-size: 15px;
+}
+.btn.next {
+  background-color: #5d5d5d;
+  color: white;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 600px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 20px;
+}
