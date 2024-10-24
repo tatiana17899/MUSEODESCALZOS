@@ -53,11 +53,12 @@ namespace MUSEODESCALZOS.Controllers
                 FormEvento = evento,
                 ListEvento = _context.DataEvento.ToList()
             };
+            
             return View("Index", viewModel);
         }
 
         [HttpGet]
-        public IActionResult GetEventoFaById(int id)
+        public IActionResult GetEventoById(int id)
         {
             var evento = _context.DataEvento.FirstOrDefault(ev => ev.IDEvento == id);
             if (evento == null)
@@ -76,14 +77,13 @@ namespace MUSEODESCALZOS.Controllers
                 {
                     Nombre = viewModel.FormEvento.Nombre,
                     Descripción = viewModel.FormEvento.Descripción,
-                    Fecha = viewModel.FormEvento.Fecha,
+                    Fecha = viewModel.FormEvento.Fecha.ToUniversalTime(),
                     Precio = viewModel.FormEvento.Precio,
                     Capacidad = viewModel.FormEvento.Capacidad,
                     RutalImagen = viewModel.FormEvento.RutalImagen,
-
                 };
                 _context.DataEvento.Add(nuevoEvento);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(); 
             }
             else
             {
@@ -92,7 +92,7 @@ namespace MUSEODESCALZOS.Controllers
                 {
                     eventoExistente.Nombre = viewModel.FormEvento.Nombre;
                     eventoExistente.Descripción = viewModel.FormEvento.Descripción;
-                    eventoExistente.Fecha = viewModel.FormEvento.Fecha;
+                    eventoExistente.Fecha = viewModel.FormEvento.Fecha.ToUniversalTime();
                     eventoExistente.Precio = viewModel.FormEvento.Precio;
                     eventoExistente.Capacidad = viewModel.FormEvento.Capacidad;
                     eventoExistente.RutalImagen = viewModel.FormEvento.RutalImagen;
@@ -100,7 +100,7 @@ namespace MUSEODESCALZOS.Controllers
                 }
             }
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync(); 
             return RedirectToAction("Index");
         }
 
@@ -123,6 +123,5 @@ namespace MUSEODESCALZOS.Controllers
             ViewBag.EventoId = eventoId;
             return Ok();
         }
-
     }
 }
