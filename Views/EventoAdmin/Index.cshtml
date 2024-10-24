@@ -20,33 +20,44 @@
             </h5>
         </div>
         <div class="card-body">
-            <!-- Botón para abrir el modal de crear nuevo guía -->
+            <!-- Botón para abrir el modal de crear nuevo evento -->
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"
                 id="btnCrear">
-                Crear Evento
+                Crear Nuevo Evento
             </button>
             <hr>
             <div class="container">
-                <table id="guiaTable" class="table table-striped table-bordered" style="padding: 10px;">
-                    <tr>
-                        <th>Titulo</th>
-                        <th>Descripción</th>
-                        <th>Capacidad</th>
-                        <th>Precio</th>
-                        <th>Fecha</th>
-                        <th>Imagen</th>
-                        <td>Acciones</td>
-                    </tr>
+                <table id="eventoTable" class="table table-striped table-bordered" style="padding: 10px;">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Fecha</th>
+                            <th>Precio</th>
+                            <th>Capacidad</th>
+                            <th>Imagen</th>
+                            <td>Acciones</td>
+                        </tr>
+                    </thead>
                     <tbody>
                         @foreach (var evento in Model.ListEvento)
                         {
                             <tr>
                                 <td>@evento.Nombre</td>
                                 <td>@evento.Descripción</td>
-                                <td>@evento.Capacidad</td>
-                                <td>@evento.Precio</td>
                                 <td>@evento.Fecha</td>
-                                <td>@evento.NombreImagen</td>
+                                <td>@evento.Precio</td>
+                                <td>@evento.Capacidad</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(evento.RutalImagen))
+                                    {
+                                        <img src="@evento.RutalImagen" alt="@evento.Nombre" style="width:100px;height:auto;" />
+                                    }
+                                    else
+                                    {
+                                        <span>No disponible</span>
+                                    }
+                                </td>
                                 <td>
                                     <!-- Botón para abrir el modal de editar evento -->
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
@@ -78,47 +89,49 @@
                     <h5 class="modal-title" id="myModalLabel">Crear Talleres</h5>
                 </div>
                 <div class="modal-body">
-                    <form asp-controller="EventoAdmin" asp-action="Guardar" method="post" id="formAlquiler">
+                    <form asp-controller="EventoAdmin" asp-action="Guardar" method="post" id="formEvento"
+                        enctype="multipart/form-data">
                         <input type="hidden" asp-for="FormEvento.IDEvento" id="IDEvento" />
-                        <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <label asp-for="FormEvento.Nombre" class="block text-gray-700">Titulo</label>
-                                <input type="text" id="titulo" class="w-full border border-gray-300 rounded p-2"
-                                    asp-for="FormEvento.Nombre">
-                            </div>
-                            <div>
-                                <label asp-for="FormEvento.Descripción"
-                                    class="block text-gray-700">Caracteristicas</label>
-                                <input type="text" id="caracteristicas"
-                                    class="w-full border border-gray-300 rounded p-2" asp-for="FormEvento.Descripción">
-                            </div>
+
+                        <div class="mb-4">
+                            <label asp-for="FormEvento.Nombre" class="block text-gray-700">Nombre</label>
+                            <input type="text" id="nombre" class="w-full border border-gray-300 rounded p-2"
+                                asp-for="FormEvento.Nombre" required>
                         </div>
+
+                        <div class="mb-4">
+                            <label asp-for="FormEvento.Descripción" class="block text-gray-700">Descripción</label>
+                            <input type="text" id="descripcion" class="w-full border border-gray-300 rounded p-2"
+                                asp-for="FormEvento.Descripción" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="FormEvento.Fecha" class="block text-gray-700">Fecha</label>
+                            <input type="date" id="fecha" class="w-full border border-gray-300 rounded p-2"
+                                asp-for="FormEvento.Fecha" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="FormEvento.Precio" class="block text-gray-700">Precio</label>
+                            <input type="number" id="precio" class="w-full border border-gray-300 rounded p-2"
+                                asp-for="FormEvento.Precio" required>
+                        </div>
+
                         <div class="mb-4">
                             <label asp-for="FormEvento.Capacidad" class="block text-gray-700">Capacidad</label>
-                            <input type="email" id="capacidad" class="w-full border border-gray-300 rounded p-2"
-                                asp-for="FormEvento.Capacidad">
+                            <input type="number" id="capacidad" class="w-full border border-gray-300 rounded p-2"
+                                asp-for="FormEvento.Capacidad" required>
                         </div>
-                        <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <label asp-for="FormEvento.Precio" class="block text-gray-700">Precio</label>
-                                <input type="number" id="imagen" class="w-full border border-gray-300 rounded p-2"
-                                    asp-for="FormEvento.Precio">
-                            </div>
-                            <div>
-                                <label asp-for="FormEvento.Fecha" class="block text-gray-700">Fecha</label>
-                                <input type="date" id="disponible" class="w-full border border-gray-300 rounded p-2"
-                                    asp-for="FormEvento.Fecha">
-                            </div>
-                        </div>
+
                         <div class="mb-4">
                             <label asp-for="FormEvento.RutalImagen" class="block text-gray-700">Imagen</label>
-                            <input type="file" id="capacidad" class="w-full border border-gray-300 rounded p-2"
-                                asp-for="FormEvento.Fecha">
+                            <input type="file" id="rutalImagen" class="w-full border border-gray-300 rounded p-2"
+                                asp-for="FormEvento.RutalImagen" accept="image/*" required>
                         </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary"
-                                onclick="confirmarGuardar()">Siguiente</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -126,13 +139,15 @@
         </div>
     </div>
 
+
+
     @section scripts {
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             $(document).ready(function () {
-                $('#guiaTable').DataTable({
+                $('#eventoTable').DataTable({
                     responsive: true,
                     autoWidth: false,
                     lengthMenu: [3, 5, 7, 9],
@@ -141,17 +156,17 @@
 
                 window.editEvento = function (idEvento) {
                     $.ajax({
-                        url: '@Url.Action("GetGuiaById", "EventoAdmin")',
+                        url: '@Url.Action("GetEventoById", "EventoAdmin")',
                         type: 'GET',
                         data: { id: idEvento },
                         success: function (data) {
-                            $('#').val(data.idEvento);
-                            $('#nombre').val(data.nombre);
-                            $('#caracteristicas').val(data.caracteristicas);
-                            $('#capacidad').val(data.capacidad);
-                            $('#Precio').val(data.Precio);
-                            $('#fecha').val(data.fecha);
-                            $('#RutaImagen').val(data.RutaImagen);
+                            $('#IDEvento').val(data.iDEvento);
+                            $('#Nombre').val(data.nombre);
+                            $('#Descripción').val(data.descripcion);
+                            $('#Capacidad').val(data.capacidad);
+                            $('#Precio').val(data.precio);
+                            $('#Fecha').val(data.fecha);
+                            $('#RutalImagen').val(data.rutalImagen);
                             $('#myModalLabel').text('Editar Evento');
                         },
                         error: function (xhr, status, error) {
@@ -167,12 +182,13 @@
 
                 $('#btnCrear').click(function () {
                     $('#IDEvento').val(0);
-                    $('#nombre').val('');
-                    $('#caracteristicas').val('');
-                    $('#capacidad').val('');
+                    $('#Nombre').val('');
+                    $('#Descripción').val('');
+                    $('#Capacidad').val('');
                     $('#Precio').val('');
-                    $('#RutaImagen').val('');
-                    $('#fecha').text('Crear Alquiler');
+                    $('#RutalImagen').val('');
+                    $('#Fecha').val('');
+                    $('#myModalLabel').text('Crear Evento');
                 });
             });
 
@@ -204,4 +220,5 @@
                 });
             }
         </script>
+
     }
