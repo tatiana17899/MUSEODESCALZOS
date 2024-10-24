@@ -1,108 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MUSEODESCALZOS</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/styleAdmin.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MUSEODESCALZOS.styles.css" asp-append-version="true" />
-    <!--Icon Google-->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
-    <!--Font Family Google-->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-   
-    <!--iconos-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@ViewData["Title"] - MUSEODESCALZOS</title>
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="~/css/styleAdmin.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/MUSEODESCALZOS.styles.css" asp-append-version="true" />
+  <!--Icon Google-->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <!--Font Family Google-->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!--iconos-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
+
 <body>
-  
-    <div class="d-flex">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id="sidebar">
-        <div
-          class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
-        >
-          <a
-            asp-controller="Home" asp-action="Index"
-            class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-          >
-            <span class="fs-5 d-none d-sm-inline">Museo de los Descalzos</span>
-          </a>
-          <ul
-            class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-            id="menu"
-          >
-            <li class="nav-item">
-              <a class="nav-link align-middle px-0" asp-controller="Dashboard" asp-action="Index">
-                <i class="fa-solid fa-sliders"></i>
-                <span class="ms-1 d-none d-sm-inline">Dashboard</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a asp-controller="ClientesUsuarios" asp-action="Index" class="nav-link align-middle px-0">
-                <i class="fa-solid fa-users"></i>
-                <span class="ms-1 d-none d-sm-inline">Cliente / Usuario</span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="#submenu1"
-                data-bs-toggle="collapse"
-                class="nav-link px-0 align-middle"
-              >
-                <i class="fa-solid fa-gear"></i>
-                <span class="ms-1 d-none d-sm-inline">Administrar</span>
-              </a>
-              <ul
-                class="collapse show nav flex-column ms-1"
-                id="submenu1"
-                data-bs-parent="#menu"
-              >
-                <li class="w-100">
-                  <a class="nav-link px-0" asp-controller="Guia" asp-action="Index">
-                    <span class="d-none d-sm-inline">Guías</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="nav-link px-0">
-                    <span class="d-none d-sm-inline">Alquileres</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="nav-link px-0">
-                    <span class="d-none d-sm-inline">Eventos</span>
-                  </a>
-                </li>
-                <li>
-                  <a asp-controller="NoticiasAdmin" asp-action="Index" class="nav-link px-0">
-                    <span class="d-none d-sm-inline">Noticias</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <hr />
-          <div class="container pb-4">
-            <a class="text-white" asp-controller="Home" asp-action="Index">Regresar Inicio</a>
-          </div>
+
+  <div class="d-flex">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" id="sidebar">
+      <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+        <a asp-controller="Home" asp-action="Index"
+          class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+          <span class="fs-5 d-none d-sm-inline">Museo de los Descalzos</span>
+        </a>
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+          <li class="nav-item">
+            <a class="nav-link align-middle px-0" asp-controller="Dashboard" asp-action="Index">
+              <i class="fa-solid fa-sliders"></i>
+              <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a asp-controller="ClientesUsuarios" asp-action="Index" class="nav-link align-middle px-0">
+              <i class="fa-solid fa-users"></i>
+              <span class="ms-1 d-none d-sm-inline">Cliente / Usuario</span>
+            </a>
+          </li>
+          <li>
+            <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+              <i class="fa-solid fa-gear"></i>
+              <span class="ms-1 d-none d-sm-inline">Administrar</span>
+            </a>
+            <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+              <li class="w-100">
+                <a class="nav-link px-0" asp-controller="Guia" asp-action="Index">
+                  <span class="d-none d-sm-inline">Guías</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link px-0">
+                  <span class="d-none d-sm-inline">Alquileres</span>
+                </a>
+              </li>
+              <li>
+                <a class="nav-link px-0" href="/admin/EventoAdmin">
+                  <span class="d-none d-sm-inline">Eventos</span>
+                </a>
+              </li>
+              <li>
+                <a asp-controller="NoticiasAdmin" asp-action="Index" class="nav-link px-0">
+                  <span class="d-none d-sm-inline">Noticias</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <hr />
+        <div class="container pb-4">
+          <a class="text-white" asp-controller="Home" asp-action="Index">Regresar Inicio</a>
         </div>
       </div>
-      <!-- Main Content -->
-      <div class="content flex-grow-1" id="contenido" role="main">
-        @RenderBody()
-      </div>
     </div>
-    
-    @RenderSection("ControlsSection", required: false)
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Main Content -->
+    <div class="content flex-grow-1" id="contenido" role="main">
+      @RenderBody()
+    </div>
+  </div>
 
-    @await RenderSectionAsync("Scripts", required: false)
+  @RenderSection("ControlsSection", required: false)
+  <script src="~/lib/jquery/dist/jquery.min.js"></script>
+  <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+
+  @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
