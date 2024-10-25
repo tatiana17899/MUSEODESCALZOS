@@ -37,14 +37,14 @@
             </h5>
         </div>
         <div class="card-body">
-            <!-- Botón para abrir el modal de crear nuevo guía -->
+            <!-- Botón para abrir el modal de crear nuevo alquiler-->
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"
                 id="btnCrear">
                 Crear Alquiler
             </button>
             <hr>
             <div class="container">
-                <table id="guiaTable" class="table table-striped table-bordered" style="padding: 10px;">
+                <table id="alquilerTable" class="table table-striped table-bordered" style="padding: 10px;">
                     <thead>
                         <tr>
                             <th>Titulo</th>
@@ -66,7 +66,7 @@
                                     <span class="estado-@(alquiler.Disponible ? "disponible" : "no-disponible")"></span>
                                 </td>
                                 <td>
-                                    <!-- Botón para abrir el modal de editar guía -->
+                                    <!-- Botón para abrir el modal de editar alquiler -->
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#myModal" onclick="editAlquiler('@alquiler.IDAlquileres')">
                                         <i class="fa-solid fa-pencil"></i>
@@ -95,20 +95,22 @@
             </h5>
         </div>
         <div class="card-body">
-            <!-- Botón para abrir el modal de crear nuevo guía -->
+            <!-- Botón para abrir el modal de crear nuevo alquiler -->
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"
                 id="btnCrear">
-                Crear Reserva Alquiler
+                Crear nueva Reserva
             </button>
             <hr>
+
+
             <div class="container">
-                <table id="guiaTabletarea" class="table table-striped table-bordered">
+                <table id="alquilerTabletarea" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>Alquiler</th>
                             <th>Cliente</th>
                             <th>Cantidad</th>
-                            <th>Hora Incio</th>
+                            <th>Hora Inicio</th>
                             <th>Hora Fin</th>
                             <th>Precio Total</th>
                         </tr>
@@ -117,12 +119,14 @@
                         @foreach (var alquiler in Model.ListAlquiler)
                         {
                             <tr>
+                                <td>@alquiler.Titulo</td>
                                 <td>@Model.Cliente</td>
-                                <td>@Model.Alquiler</td>
+                                <td>@Model.CantPersona</td>
                                 <td>@Model.HoraInicio</td>
                                 <td>@Model.HoraFin</td>
                                 <td>@Model.CantPersona</td>
-                                <!--<td>/*Precio</td>-->
+
+
                                 <!-- Botón para abrir el modal de editar Reserva Alquiler -->
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
@@ -152,7 +156,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #1D3860; color: white;">
-                <h5 class="modal-title" id="myModalLabel">Crear Reserva Alquiler</h5>
+                <h5 class="modal-title" id="myModalLabel">Reservar Alquiler</h5>
             </div>
             <div class="modal-body">
                 <form asp-controller="AlquilerAdmin" asp-action="Guardar" method="post" id="formAlquiler">
@@ -255,21 +259,17 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function () {
-            $('#guiaTable').DataTable({
+            $('#alquilerTable').DataTable({
                 responsive: true,
                 autoWidth: false,
                 lengthMenu: [3, 5, 7, 9],
                 pageLength: 5
             });
-            /*
-            $('#guiaTabletarea').DataTable({
-                lengthMenu: [3, 5, 7, 9],
-                pageLength: 5
-            });*/
+
 
             window.editAlquiler = function (idAlquiler) {
                 $.ajax({
-                    url: '@Url.Action("GetGuiaById", "AlquilerAdmin")',
+                    url: '@Url.Action("GetAlquilerById", "AlquilerAdmin")',
                     type: 'GET',
                     data: { id: idAlquiler },
                     success: function (data) {
@@ -318,7 +318,7 @@
             }
         }
 
-                                                                                            function confirmarEliminacion(idAlquiler) {
+                                                                                                                                                            function confirmarEliminacion(idAlquiler) {
                 Swal.fire({
                     title: "¿Estás seguro?",
                     text: "¡No podrás revertir esto!",
@@ -344,10 +344,10 @@
                     }
                 });
             }
-                                                                            function setAlquilerId(alquilerId) {
+                                                                                                                                            function setAlquilerId(alquilerId) {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("SetAlquilerId", "AlquilerAdminia")',
+                    url: '@Url.Action("SetAlquilerId", "AlquilerAdmin")',
                     data: { IDAlquileres: alquilerId },
                     success: function (response) {
                         $("#alquilerId").val(alquilerId);

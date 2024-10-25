@@ -16,5 +16,7 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
 
         public Alquiler? FormAlquiler { get; set; }
         public List<Alquiler>? ListAlquiler { get; set; }
+
+        
     }
 }
