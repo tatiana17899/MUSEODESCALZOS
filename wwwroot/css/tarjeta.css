@@ -1,0 +1,163 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+.tarjeta {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  padding-bottom: 10px;
+}
+
+.tarjeta form {
+  background: transparent;
+  border-radius: 5px;
+  border: 2px solid rgb(252, 176, 176);
+  padding: 20px;
+  width: 500px;
+  padding-top: 160px;
+}
+
+.tarjeta form .inputBox {
+  margin-top: 20px;
+}
+
+.tarjeta form .inputBox span {
+  display: block;
+  color: rgb(94, 94, 94);
+  padding-bottom: 5px;
+}
+
+.tarjeta form .inputBox input,
+.tarjeta form .inputBox select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #1e1e1e;
+}
+
+.tarjeta form .flexbox {
+  display: flex;
+  gap: 15px;
+}
+
+.tarjeta form .flexbox .inputBox {
+  flex: 1 1 150px;
+}
+
+.tarjeta form .submit-btn {
+  width: 100%;
+  background-color: transparent;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 20px;
+  color: #ffffff;
+  border: #ffffff 2px solid;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s linear;
+}
+
+.tarjeta form .submit-btn:hover {
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+.tarjeta .card-container {
+  margin-bottom: -150px;
+  position: relative;
+  height: 250px;
+  width: 400px;
+}
+
+.tarjeta .card-container .front {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(45deg, rgb(245, 193, 193), rgb(248, 248, 248));
+  border-radius: 10px;
+  backface-visibility: hidden;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  transform: perspective(1000px) rotateY(0deg);
+  transition: transform 0.4s ease-out;
+}
+
+.tarjeta .card-container .front .image {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+}
+
+.tarjeta .card-container .front .image img {
+  height: 50px;
+}
+
+.tarjeta .card-container .front .card-number-box {
+  padding: 30px 0;
+  font-size: 22px;
+  color: #141414;
+}
+
+.tarjeta .card-container .front .flexbox {
+  display: flex;
+}
+
+.tarjeta .card-container .front .flexbox .box:nth-child(1) {
+  margin-right: auto;
+}
+
+.tarjeta .card-container .front .flexbox .box {
+  font-size: 15px;
+  color: #141414;
+}
+
+.tarjeta .card-container .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(45deg, rgb(205, 163, 163), rgb(231, 231, 231));
+  border-radius: 5px;
+  padding: 20px 0;
+  text-align: right;
+  backface-visibility: hidden;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  transform: perspective(1000px) rotateY(180deg);
+  transition: transform 0.4s ease-out;
+}
+
+.tarjeta .card-container .back .stripe {
+  background: #000;
+  width: 100%;
+  margin: 10px 0;
+  height: 50px;
+}
+
+.tarjeta .card-container .back .box {
+  padding: 0 20px;
+}
+
+.tarjeta .card-container .back .box span {
+  color: #141414;
+  font-size: 15px;
+}
+
+.tarjeta .card-container .back .box .cvv-box {
+  height: 50px;
+  padding: 10px;
+  margin-top: 5px;
+  color: #333;
+  background: #fff;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.tarjeta .card-container .back .box img {
+  margin-top: 30px;
+  height: 30px;
+}

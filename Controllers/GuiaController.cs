@@ -22,6 +22,10 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ILogger<GuiaController> _logger;
+        private void ConfigurarTwilio()
+        {
+            TwilioClient.Init("TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN");
+        }
         private string GenerarContraseña()
         {
             var caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -246,7 +250,7 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
 
             return Ok();
         }
-
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

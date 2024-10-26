@@ -1,0 +1,127 @@
+@model MUSEODESCALZOS.ViewModel.PagoViewModel
+
+@{
+    ViewData["Title"] = "Pago";
+    int index = 0;
+}
+<link rel="stylesheet" href="~/css/pagoA.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+<div class="card">
+    <div class="card-top border-bottom text-center">
+        <h4 class="text-center mb-4">Compra tus entradas</h4>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="left border">
+                <div class="row">
+                    <span class="header">Pagar</span>
+                    <div class="icons">
+                        <img src="https://img.icons8.com/color/48/000000/visa.png"/>
+                        <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png"/>
+                        <img src="https://img.icons8.com/color/48/000000/maestro.png"/>
+                    </div>
+                    <form id="payment-form" method="post" asp-action="ProcesarPago">
+                        <input type="hidden" name="Token" id="stripeToken" />
+                        <div class="form-group">
+                            <label for="nombres">Nombres:</label>
+                            <input type="text" id="nombres" name="Nombres" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="apellidos">Apellidos:</label>
+                            <input type="text" id="apellidos" name="Apellidos" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="pais">País:</label>
+                            <input type="text" id="pais" name="Pais" class="form-control" required />
+                        </div>
+                        <div class="row">
+                            <div class="col-3 form-group">
+                                <label for="tipoDoc">Tipo de Documento:</label>
+                                <input type="text" id="tipoDoc" name="TipoDoc" class="form-control" required />
+                            </div>
+                            <div class="col-3 form-group">
+                                <label for="numDoc">Número de Documento:</label>
+                                <input type="text" id="numDoc" name="NumDoc" class="form-control" required />
+                            </div>
+                            <div class="col-3 form-group">
+                                <label for="amount">Monto a Pagar:</label>
+                                <input type="text" id="amount" name="Total" class="form-control" value="@Model.Total" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroTarjeta">Número de Tarjeta:</label>
+                            <div id="card-element" class="form-control"></div>
+                            <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                        </div>
+                        <input type="checkbox" id="save_card" class="align-left">
+                        <label for="save_card">Guardar detalles de la tarjeta</label>
+                        <button type="submit" class="btn btn-dark btn-block">Realizar Pago</button>
+                    </form>
+                    <a id="confirmacionLink" asp-controller="SistemaPago" asp-action="ConfirmacionTarjeta" style="display:none;"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="right border">
+                <div class="header">Listado a pagar</div>
+                <div class="list-group mb-4">
+                    @if (Model.Eventos != null && Model.Eventos.Any())
+                    {
+                        foreach (var evento in Model.Eventos)
+                        {
+                            <input type="hidden" name="Eventos[@index].IDEvento" value="@evento.Eventoo.IDEvento" />
+                            <input type="hidden" name="Eventos[@index].Cantidad" value="@evento.Cantidad" />
+                            <input type="hidden" name="Eventos[@index].PrecioUnitario" value="@evento.PrecioUnitario" />
+                            <input type="hidden" name="Eventos[@index].PrecioTotal" value="@evento.PrecioTotal" />
+                            
+                            <div class="row item mb-3">
+                                <!-- Imagen del evento -->
+                                <div class="col-4 align-self-center">
+                                    <img class="img-fluid" src="@evento.Eventoo?.RutalImagen" alt="Imagen del evento">
+                                </div>
+                                <!-- Información del evento -->
+                                <div class="col-8">
+                                    <div class="row">
+                                        <b>@evento.Eventoo?.Nombre</b>
+                                    </div>
+                                    <div class="row">
+                                        <b>@evento.PrecioTotal.ToString("C")</b>
+                                    </div>
+                                    <div class="row">
+                                        Cant: @evento.Cantidad
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            index++; // Mueve esto fuera del bloque de entrada oculta
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted">No hay eventos seleccionados.</p>
+                    }
+
+                </div>
+
+                <hr>
+                <div class="row lower">
+                    <div class="col text-left">Total</div>
+                    <div class="col text-right">$@Model.Total.ToString("F2")</div>
+                </div>
+            </div>
+        </div>
+        <form asp-controller="SistemaPago" asp-action="GenerarPDF" method="post">
+            <input type="hidden" name="idCliente" value="@Model.IDCliente" />
+            <button type="submit" id="btnGenerarPDF" class="btn btn-dark btn-block">Generar PDF</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/js/payment.js"></script>
+
+}
