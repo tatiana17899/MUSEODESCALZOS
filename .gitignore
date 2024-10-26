@@ -3,8 +3,6 @@
 /obj/
 
 # Ignorar archivos de binarios específicos
-*.dll
-
 *.pdb
 *.cache
 *.sourcelink.json
