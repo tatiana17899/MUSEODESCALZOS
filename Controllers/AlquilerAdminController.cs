@@ -53,9 +53,11 @@ namespace MUSEODESCALZOS.Controllers
             return View("Index", viewModel);
         }
         [HttpGet]
-        public IActionResult GetAlquilerFaById(int id)
+        public IActionResult GetAlquilerById(int id)
         {
-            var alquiler = _context.DataAlquiler.FirstOrDefault(al => al.IDAlquileres == id);
+            var alquiler = _context.DataAlquiler
+                .Include(al=> al.Imagenes).ToList() // Esto asegura que se incluyan las imágenes relacionadas
+                .FirstOrDefault(al => al.IDAlquileres == id);
             if (alquiler == null)
             {
                 return NotFound();
