@@ -83,7 +83,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction()) // Permit
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Museo Descalzos API V1");
-        c.RoutePrefix = "swagger";
+        c.RoutePrefix = "";
     });
     app.UseMigrationsEndPoint();
 }
@@ -99,6 +99,7 @@ app.UseRouting();
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseHsts();
 
 app.MapControllerRoute(
     name: "admin",
