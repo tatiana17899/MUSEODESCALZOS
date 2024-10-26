@@ -13,5 +13,10 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
         public DateTime HoraInicio { get; set; }
         public DateTime HoraFin { get; set; }
         public int CantPersona { get; set; }
+
+        public Alquiler? FormAlquiler { get; set; }
+        public List<Alquiler>? ListAlquiler { get; set; }
+
+        
     }
 }

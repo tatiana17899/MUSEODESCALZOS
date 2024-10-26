@@ -12,6 +12,9 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
         public Evento Eventoo { get; set; }
         public string? Evento { get; set; }
         public int IDEvento { get; set; }
+        public long IDPedidoEvento { get; set; }
+        public Evento? FormEvento { get; set; }
+        public List<Evento>? ListEvento { get; set; }
         public string? Detalle { get; set; }
         public int Cantidad { get; set; }
         public int vidcliente  { get; set; }
@@ -27,7 +30,7 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
 
         public int CantidadTotal => CantidadAdulto + CantidadAdultoMayor + CantidadEscolar;
 
-        public long IDPedidoEvento { get; set; }
+      
 
     }
 }
