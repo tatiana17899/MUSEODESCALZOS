@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MUSEODESCALZOS.Data;
+using MUSEODESCALZOS.Models;
+using Rotativa.AspNetCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+// Configuración de Stripe
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
 
 builder.Services.AddSession(options =>
 {
@@ -31,17 +36,26 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+// Configuración de Rotativa
+IWebHostEnvironment env = app.Environment;
+if (builder.Environment.IsProduction())
+{
+    Rotativa.AspNetCore.RotativaConfiguration.Setup(env.ContentRootPath, "Rotativa/Linux");
+}
+else
+{
+    Rotativa.AspNetCore.RotativaConfiguration.Setup(env.ContentRootPath, "Rotativa/Windows");
+}
+
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
-    
-    // Habilitar Swagger en desarrollo
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Museo Descalzos API V1");
-        c.RoutePrefix = "swagger"; // Swagger estará en http://localhost:5009/swagger
-
+        c.RoutePrefix = "swagger"; 
     });
 }
 else
@@ -63,7 +77,6 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"); // Ruta de inicio
-
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 app.Run();
