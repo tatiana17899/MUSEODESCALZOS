@@ -7,11 +7,14 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("PostgressConnection") ?? throw new InvalidOperationException("Connection string 'PostgressConnection' not found.");
+// Configuración de la conexión a la base de datos
+var connectionString = builder.Configuration.GetConnectionString("PostgressConnection") 
+                      ?? throw new InvalidOperationException("Connection string 'PostgressConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+// Configuración de Identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -20,6 +23,7 @@ builder.Services.AddControllersWithViews();
 // Configuración de Stripe
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
 
+// Configuración de sesión
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30); 
@@ -27,7 +31,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true; 
 });
 
-// Registrar Swagger
+// Configuración de Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -38,7 +42,7 @@ var app = builder.Build();
 
 // Configuración de Rotativa
 IWebHostEnvironment env = app.Environment;
-if (builder.Environment.IsProduction())
+if (app.Environment.IsProduction())
 {
     Rotativa.AspNetCore.RotativaConfiguration.Setup(env.ContentRootPath, "Rotativa/Linux");
 }
@@ -47,23 +51,7 @@ else
     Rotativa.AspNetCore.RotativaConfiguration.Setup(env.ContentRootPath, "Rotativa/Windows");
 }
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Museo Descalzos API V1");
-        c.RoutePrefix = "swagger"; 
-    });
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
-
+// Configuración del pipeline de HTTP
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
@@ -71,6 +59,15 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Configuración de Swagger (disponible en todos los entornos)
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Museo Descalzos API V1");
+    c.RoutePrefix = "swagger"; 
+});
+
+// Configuración de rutas
 app.MapControllerRoute(
     name: "admin",
     pattern: "admin/{controller=Admin}/{action=Index}/{id?}");
@@ -78,5 +75,6 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapRazorPages();
 app.Run();
