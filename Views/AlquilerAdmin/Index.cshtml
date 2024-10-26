@@ -95,7 +95,7 @@
             </h5>
         </div>
         <div class="card-body">
-            <!-- Botón para abrir el modal de crear nuevo alquiler -->
+            <!-- Botón para abrir el modal de crear nueva reserva -->
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"
                 id="btnCrear">
                 Crear nueva Reserva
@@ -151,12 +151,12 @@
     </div>
 </div>
 
-<!-- Modal para Crear/Editar Alquiler -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal para Crear Alquiler -->
+<div class="modal fade" id="myModalCrear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #1D3860; color: white;">
-                <h5 class="modal-title" id="myModalLabel">Reservar Alquiler</h5>
+                <h5 class="modal-title" id="myModalLabel">Crear Alquiler</h5>
             </div>
             <div class="modal-body">
                 <form asp-controller="AlquilerAdmin" asp-action="Guardar" method="post" id="formAlquiler">
@@ -176,7 +176,7 @@
                     </div>
                     <div class="mb-4">
                         <label asp-for="FormAlquiler.Capacidad" class="block text-gray-700">Capacidad</label>
-                        <input type="email" id="capacidad" class="w-full border border-gray-300 rounded p-2"
+                        <input type="number" id="capacidad" class="w-full border border-gray-300 rounded p-2"
                             asp-for="FormAlquiler.Capacidad">
                     </div>
                     <div class="grid grid-cols-2 gap-4 mb-4">
@@ -187,19 +187,19 @@
                         </div>
                         <div>
                             <label asp-for="FormAlquiler.Disponible" class="block text-gray-700">Disponible</label>
-                            <input type="text" id="disponible" class="w-full border border-gray-300 rounded p-2"
-                                asp-for="FormAlquiler.Disponible">
+                            <input type="checkbox" id="disponible" asp-for="FormAlquiler.Disponible" />
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" onclick="confirmarGuardar()">Guardar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Modal para Crear/Editar Reservar Alquiler -->
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -318,7 +318,7 @@
             }
         }
 
-                                                                                                                                                            function confirmarEliminacion(idAlquiler) {
+                                                                                                                                                                        function confirmarEliminacion(idAlquiler) {
                 Swal.fire({
                     title: "¿Estás seguro?",
                     text: "¡No podrás revertir esto!",
@@ -344,7 +344,7 @@
                     }
                 });
             }
-                                                                                                                                            function setAlquilerId(alquilerId) {
+                                                                                                                                                        function setAlquilerId(alquilerId) {
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("SetAlquilerId", "AlquilerAdmin")',
