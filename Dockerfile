@@ -1,19 +1,19 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
-# Copy csproj and restore dependencies
+# Copiar csproj y restaurar dependencias
 COPY *.csproj ./
 RUN dotnet restore
     
-# Copy everything else and build
+# Copiar todo lo demás y construir
 COPY . ./
 RUN dotnet publish -c Release -o out
 
-# Build runtime image
+# Construir imagen de runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
-# Install wkhtmltopdf and its dependencies
+# Instalar wkhtmltopdf y sus dependencias
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     wkhtmltopdf \
@@ -28,16 +28,20 @@ RUN apt-get update && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Create directory for wkhtmltopdf
+# Crear directorio para wkhtmltopdf
 RUN mkdir -p /app/Rotativa/Linux
 
-# Create symbolic links to wkhtmltopdf binaries
+# Crear enlaces simbólicos a los binarios de wkhtmltopdf
 RUN ln -s /usr/bin/wkhtmltopdf /app/Rotativa/Linux/wkhtmltopdf \
     && ln -s /usr/bin/wkhtmltoimage /app/Rotativa/Linux/wkhtmltoimage
 
-# Copy app files
+# Copiar archivos de la aplicación
 COPY --from=build-env /app/out .
 
-ENV APP_NET_CORE museodescalzos.dll
+# Configurar variables de entorno
+ENV APP_NET_CORE="MuseoDescalzos.dll"
+ENV PORT=80
 
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet $APP_NET_CORE
+# Usar combinación de ENTRYPOINT y CMD para mayor claridad
+ENTRYPOINT ["dotnet"]
+CMD ["MuseoDescalzos.dll"]
