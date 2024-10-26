@@ -38,6 +38,6 @@ RUN ln -s /usr/bin/wkhtmltopdf /app/Rotativa/Linux/wkhtmltopdf \
 # Copy app files
 COPY --from=build-env /app/out .
 
-ENV APP_NET_CORE MUSEODESCALZOS.dll
+ENV APP_NET_CORE museodescalzos.dll
 
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet $APP_NET_CORE
