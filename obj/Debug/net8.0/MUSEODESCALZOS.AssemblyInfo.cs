@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MUSEODESCALZOS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd212b690dc1841ba42a2d2066f46acc70445fec")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dff7d37e65c5e97341186a7604da9c7f903bff26")]
 [assembly: System.Reflection.AssemblyProductAttribute("MUSEODESCALZOS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MUSEODESCALZOS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
