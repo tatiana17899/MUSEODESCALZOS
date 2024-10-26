@@ -112,6 +112,10 @@
                 </div>
             </div>
         </div>
+        <form asp-controller="SistemaPago" asp-action="GenerarPDF" method="post">
+            <input type="hidden" name="idCliente" value="@Model.IDCliente" />
+            <button type="submit" id="btnGenerarPDF" class="btn btn-dark btn-block">Generar PDF</button>
+        </form>
     </div>
 </div>
 
@@ -119,4 +123,5 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/js/payment.js"></script>
+
 }

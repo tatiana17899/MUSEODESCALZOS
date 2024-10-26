@@ -25,9 +25,19 @@ builder.Services.AddSession(options =>
 });
 
 var app = builder.Build();
+
 //PDF
 IWebHostEnvironment env = app.Environment;
-Rotativa.AspNetCore.RotativaConfiguration.Setup(env.ContentRootPath, "Rotativa/Windows");
+// Reemplaza la configuración de Rotativa con esto:
+if (builder.Environment.IsProduction())
+{
+    Rotativa.AspNetCore.RotativaConfiguration.Setup(env.ContentRootPath, "Rotativa/Linux");
+}
+else
+{
+    Rotativa.AspNetCore.RotativaConfiguration.Setup(env.ContentRootPath, "Rotativa/Windows");
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

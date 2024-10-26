@@ -90,10 +90,10 @@ namespace MUSEODESCALZOS.Controllers
         public async Task<IActionResult> ProcesarPago(PagoViewModel model)
         {
             var session = await CrearSesionStripe(model);
-            
+
             if (session == null)
             {
-                return BadRequest(new { message = "Error al crear la sesión de pago." }); // Devuelve un error JSON
+                return BadRequest(new { message = "Error al crear la sesión de pago." });
             }
 
             var clienteExistente = await _context.DataCliente
@@ -101,8 +101,9 @@ namespace MUSEODESCALZOS.Controllers
 
             if (clienteExistente != null)
             {
-                var confirmacionUrl = Url.Action("ConfirmacionTarjeta", new { id = clienteExistente.IDCliente });
-                return Ok(new { redirectUrl = confirmacionUrl });
+                TempData["ClienteId"] = clienteExistente.IDCliente.ToString();
+                // Aquí rediriges a Stripe
+                return Ok(new { redirectUrl = session.Url }); // Redirige a la sesión de Stripe
             }
             else
             {
@@ -115,11 +116,16 @@ namespace MUSEODESCALZOS.Controllers
                     Pais = model.Pais,
                     NumTarjeta = model.NumeroTarjeta
                 };
-                _context.DataCliente.Add(nuevoCliente);
-                await _context.SaveChangesAsync(); 
 
-                var confirmacionUrl = Url.Action("ConfirmacionTarjeta", new { id = nuevoCliente.IDCliente });
-                return Ok(new { redirectUrl = confirmacionUrl }); 
+                var clienteStripe = await CrearClienteStripe(model);
+                nuevoCliente.StripeCustomerId = clienteStripe.Id;
+
+                _context.DataCliente.Add(nuevoCliente);
+                await _context.SaveChangesAsync();
+
+                TempData["ClienteId"] = nuevoCliente.IDCliente.ToString();
+                // Aquí rediriges a Stripe
+                return Ok(new { redirectUrl = session.Url }); // Redirige a la sesión de Stripe
             }
         }
 
@@ -161,18 +167,48 @@ namespace MUSEODESCALZOS.Controllers
                 return null; 
             }
         }
+        private async Task<Customer> CrearClienteStripe(PagoViewModel model)
+        {
+            var customerOptions = new CustomerCreateOptions
+            {
+                Name = $"{model.Nombres} {model.Apellidos}",
+                Email = model.Email, // Asegúrate de que el modelo tenga un campo para el email
+                // Puedes agregar más campos según sea necesario
+            };
 
+            var customerService = new CustomerService();
+            return await customerService.CreateAsync(customerOptions);
+        }
+        public IActionResult Success()
+        {
+            if (TempData["ClienteId"] != null)
+            {
+                long clienteId = long.Parse(TempData["ClienteId"].ToString());
+
+                return RedirectToAction("ConfirmacionTarjeta", new { id = clienteId });
+            }
+
+            return RedirectToAction("Index");
+        }
 
 
         [HttpGet]
-        public IActionResult ConfirmacionTarjeta(long id)
+        public IActionResult ConfirmacionTarjeta(long? id)
         {
-            Console.WriteLine($"Buscando cliente con ID: {id}");
-            var cliente = _context.DataCliente.Find(id);
+            if (!id.HasValue)
+            {
+                id = TempData["ClienteId"] != null ? long.Parse(TempData["ClienteId"].ToString()) : (long?)null;
+            }
+
+            if (!id.HasValue)
+            {
+                return RedirectToAction("Index"); // Redirige a la vista de inicio si no se encuentra el ID
+            }
+
+            var cliente = _context.DataCliente.Find(id.Value);
             if (cliente == null)
             {
-                Console.WriteLine($"Cliente no encontrado con ID: {id}");
-                return RedirectToAction("Index"); 
+                return RedirectToAction("Index"); // Redirige si el cliente no existe
             }
 
             var eventosJson = TempData["Eventos"]?.ToString();
@@ -180,8 +216,7 @@ namespace MUSEODESCALZOS.Controllers
 
             if (eventosJson == null)
             {
-                Console.WriteLine("No se encontraron eventos en TempData.");
-                return RedirectToAction("Index"); 
+                return RedirectToAction("Index"); // Redirige si no hay eventos
             }
 
             var eventos = JsonConvert.DeserializeObject<List<EventoViewModel>>(eventosJson);
@@ -197,37 +232,41 @@ namespace MUSEODESCALZOS.Controllers
         }
 
 
+
         [HttpPost]
-        public IActionResult GenerarPDF(int idCliente)
+        public async Task<IActionResult> GenerarPDF(int idCliente)
         {
-            var cliente = _context.DataCliente.FirstOrDefault(c => c.IDCliente == idCliente);
-            var eventos = _context.DataPedidoEvento
+            var cliente = await _context.DataCliente.FirstOrDefaultAsync(c => c.IDCliente == idCliente);
+            var eventos = await _context.DataPedidoEvento
+                .Include(e => e.Evento) // Asegúrate de incluir el evento relacionado
                 .Where(p => p.IDCliente == idCliente)
-                .ToList();
+                .ToListAsync();
 
-            using (var stream = new MemoryStream())
+            if (cliente == null || eventos == null || !eventos.Any())
             {
-                var writer = new PdfWriter(stream);
-                var pdf = new PdfDocument(writer);
-                var document = new Document(pdf);
-
-                document.Add(new Paragraph("Confirmación de Pago").SetFontSize(20));
-
-                document.Add(new Paragraph($"Nombres: {cliente.Nombres}"));
-                document.Add(new Paragraph($"Apellidos: {cliente.Apellidos}"));
-                document.Add(new Paragraph($"Número de Documento: {cliente.NumDoc}"));
-
-                document.Add(new Paragraph("Eventos Comprados:").SetBold());
-
-                foreach (var evento in eventos)
-                {
-                    document.Add(new Paragraph($"{evento.Evento.Nombre} - Cantidad: {evento.Cantidad}, Total: {evento.PrecioTotal}"));
-                }
-
-                document.Close();
-                return File(stream.ToArray(), "application/pdf", "ConfirmacionPago.pdf");
+                return NotFound(); 
             }
+
+            // Crear el modelo que se pasará a la vista
+            var model = new ConfirmacionPagoViewModel
+            {
+                Cliente = cliente,
+                Eventos = eventos
+            };
+
+            // Generar el PDF a partir de la vista
+            var pdf = new ViewAsPdf("~/Views/SistemaPago/ConfirmacionPago.cshtml", model)
+            {
+                FileName = "ConfirmacionPago.pdf",
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait
+            };
+
+
+            var pdfBytes = await pdf.BuildFile(ControllerContext);
+            return File(pdfBytes, "application/pdf", "ConfirmacionPago.pdf");
         }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

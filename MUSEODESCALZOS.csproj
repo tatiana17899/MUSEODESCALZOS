@@ -13,8 +13,10 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="EPPlus" Version="7.3.1" />
     <PackageReference Include="itext7" Version="8.0.5" />
+    <PackageReference Include="itext7.bouncy-castle-fips-adapter" Version="8.0.5" />
     
     <PackageReference Include="MailKit" Version="4.7.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.8" />
@@ -35,5 +37,8 @@
     <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.2" />
 
   </ItemGroup>
-
+  <ItemGroup>
+    <None Include="Rotativa\Windows\wkhtmltopdf.exe" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Rotativa\Windows\wkhtmltoimage.exe" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
