@@ -314,6 +314,10 @@ namespace MUSEODESCALZOS.Data.Migrations
                     b.Property<string>("Pais")
                         .HasColumnType("text");
 
+                    b.Property<string>("StripeCustomerId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("TipoDoc")
                         .HasColumnType("text");
 

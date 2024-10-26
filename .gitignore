@@ -2,9 +2,3 @@
 /bin/
 /obj/
 
-# Ignorar archivos de binarios específicos
-*.dll
-*.exe
-*.pdb
-*.cache
-*.sourcelink.json

@@ -1,0 +1,19 @@
+@model MUSEODESCALZOS.ViewModel.ConfirmacionViewModel
+
+<h2>Confirmación de Pago</h2>
+
+<h3>Cliente</h3>
+<p>Nombre: @Model.Cliente.Nombres @Model.Cliente.Apellidos</p>
+<p>Documento: @Model.Cliente.NumDoc</p>
+
+<h3>Eventos</h3>
+<ul>
+    @foreach (var evento in Model.Eventos)
+    {
+        <li>@evento.Eventoo.Nombre - @evento.Fecha</li>
+    }
+</ul>
+
+<h3>Total: @Model.Total.ToString("C")</h3>
+
+<a href="@Url.Action("Index", "Home")">Regresar a Inicio</a>
