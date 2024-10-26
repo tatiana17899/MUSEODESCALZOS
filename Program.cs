@@ -83,7 +83,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction()) // Permit
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Museo Descalzos API V1");
-        c.RoutePrefix = "swagger"; //ruta: https://museodescalzos-on06.onrender.com/swagger/index.html
+        c.RoutePrefix = ""; //ruta: https://museodescalzos-on06.onrender.com/swagger/index.html
     });
     app.UseMigrationsEndPoint();
 }
