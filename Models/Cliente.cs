@@ -23,6 +23,7 @@ namespace MuseoDescalzos.Models
         public string? Titular { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public DateTime FechaRegistro { get; set; }
+        public string StripeCustomerId { get; set; }
         public string? UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual IdentityUser? User { get; set; }

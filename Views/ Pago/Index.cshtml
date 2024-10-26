@@ -1,0 +1,65 @@
+@model MUSEODESCALZOS.ViewModel.PagoViewModel
+
+@{
+    ViewData["Title"] = "Pago";
+}
+
+<h2>Pagar</h2>
+
+@if (Model != null)
+{
+    <form asp-action="ProcesarPago" method="post">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" value="@Model.Nombres @Model.Apellidos" disabled />
+        </div>
+
+        <div class="form-group">
+            <label for="total">Total a pagar:</label>
+            <input type="text" class="form-control" id="total" value="@Model.Total" disabled />
+        </div>
+
+        <div class="form-group">
+            <label for="metodoPago">Selecciona el método de pago:</label>
+            <select class="form-control" id="metodoPago" asp-for="MetodoPago">
+                <option value="Tarjeta">Tarjeta de crédito/débito</option>
+                <option value="PayPal">PayPal</option>
+            </select>
+        </div>
+
+        <!-- Datos para pago con tarjeta -->
+        <div id="pagoTarjeta" class="form-group tarjeta-info" style="display: none;">
+            <label for="numeroTarjeta">Número de tarjeta:</label>
+            <input type="text" class="form-control" id="numeroTarjeta" asp-for="NumeroTarjeta" />
+
+            <label for="nombreTarjeta">Nombre en la tarjeta:</label>
+            <input type="text" class="form-control" id="nombreTarjeta" asp-for="NombreTarjeta" />
+
+            <label for="expiracion">Fecha de expiración:</label>
+            <div class="d-flex">
+                <input type="text" class="form-control" placeholder="MM" style="width: 50px;" asp-for="ExpiracionMM" />
+                <input type="text" class="form-control ml-2" placeholder="YY" style="width: 50px;" asp-for="ExpiracionYY" />
+            </div>
+
+            <label for="cvv">CVV:</label>
+            <input type="text" class="form-control" id="cvv" asp-for="CVV" />
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Procesar pago</button>
+    </form>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#metodoPago').change(function () {
+                var metodo = $(this).val();
+                if (metodo === 'Tarjeta') {
+                    $('#pagoTarjeta').show();
+                } else {
+                    $('#pagoTarjeta').hide();
+                }
+            });
+        });
+    </script>
+}
