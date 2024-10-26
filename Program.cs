@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MUSEODESCALZOS.Data;
-
+using MUSEODESCALZOS.Models;
+using Rotativa.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("PostgressConnection") ?? throw new InvalidOperationException("Connection string 'PostgressConnection' not found.");
@@ -14,6 +15,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("StripeSettings"));
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30); // Duración de la sesión
@@ -22,6 +25,9 @@ builder.Services.AddSession(options =>
 });
 
 var app = builder.Build();
+//PDF
+IWebHostEnvironment env = app.Environment;
+Rotativa.AspNetCore.RotativaConfiguration.Setup(env.ContentRootPath, "Rotativa/Windows");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
