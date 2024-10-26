@@ -39,9 +39,9 @@ RUN ln -s /usr/bin/wkhtmltopdf /app/Rotativa/Linux/wkhtmltopdf \
 COPY --from=build-env /app/out .
 
 # Configurar variables de entorno
-ENV APP_NET_CORE="MuseoDescalzos.dll"
+ENV APP_NET_CORE="MUSEODESCALZOS.dll"
 ENV PORT=80
 
 # Usar combinación de ENTRYPOINT y CMD para mayor claridad
 ENTRYPOINT ["dotnet"]
-CMD ["MuseoDescalzos.dll"]
+CMD ["MUSEODESCALZOS.dll"]
