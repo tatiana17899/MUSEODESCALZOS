@@ -63,7 +63,7 @@ app.UseAuthorization();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Museo Descalzos API V1");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Museo Descalzos API v1");
     c.RoutePrefix = ""; 
 });
 
