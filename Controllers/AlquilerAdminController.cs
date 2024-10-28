@@ -53,9 +53,11 @@ namespace MUSEODESCALZOS.Controllers
             return View("Index", viewModel);
         }
         [HttpGet]
-        public IActionResult GetAlquilerFaById(int id)
+        public IActionResult GetAlquilerById(int id)
         {
-            var alquiler = _context.DataAlquiler.FirstOrDefault(al => al.IDAlquileres == id);
+            var alquiler = _context.DataAlquiler
+                .Include(al=> al.Imagenes) // Esto asegura que se incluyan las imágenes relacionadas
+                .FirstOrDefault(al => al.IDAlquileres == id);
             if (alquiler == null)
             {
                 return NotFound();
@@ -99,8 +101,6 @@ namespace MUSEODESCALZOS.Controllers
             return RedirectToAction("Index");
         }
 
-
-
         [HttpPost]
         public IActionResult Eliminar(int id)
         {
@@ -119,35 +119,6 @@ namespace MUSEODESCALZOS.Controllers
             ViewBag.AlquilerId = alquilerId;
             return Ok();
         }
-
-        [HttpPost]
-        public IActionResult GuardarAlquiler(AlquilerViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                // Asumiendo que tienes un servicio para guardar la información
-                Alquiler nuevoAlquiler = new Alquiler
-                {
-                    // Asignar las propiedades que vengan del ViewModel al nuevo objeto Alquiler
-                    Titulo = model.Alquiler,
-                    Hora_Disponible = model.HoraInicio, // O ajusta según tu lógica
-                    Capacidad = model.CantPersona,
-                    // Asigna otras propiedades necesarias
-                };
-
-                // Guardar en la base de datos
-                // dbContext.Alquileres.Add(nuevoAlquiler);
-                // dbContext.SaveChanges();
-
-                // Redirigir a una página de éxito o a la lista de alquileres
-                return RedirectToAction("Index");
-            }
-
-            // Si el modelo no es válido, vuelve a mostrar la vista con los errores
-            return View(model);
-        }
-
-
 
     }
 }
