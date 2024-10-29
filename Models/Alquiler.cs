@@ -20,6 +20,8 @@ namespace MuseoDescalzos.Models
         public string? Caracteristicas { get; set; }
         public DateTime Hora_Disponible { get; set; }
         public bool Disponible { get; set; }
+        [NotMapped] // Evita que se mapee a la base de datos
+        public List<IFormFile>? ImagenesFiles { get; set; }
 
         public List<Imagen_Alquiler> Imagenes { get; set; } = new List<Imagen_Alquiler>();
         public PedidoAlquiler PedidoAlquiler { get; set; } = default!;
