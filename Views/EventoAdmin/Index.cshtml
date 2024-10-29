@@ -208,17 +208,25 @@
                             // Limpia la tabla de actividades antes de agregar nuevas
                             $('#tablaActividades').empty();
 
+                            // Función para convertir hora UTC a hora local de Perú en formato 24 horas
+                            const convertirAHoraLocal = (horaUTC) => {
+                                const fechaUTC = new Date(horaUTC); // Crea un objeto Date a partir de la cadena en formato UTC
+                                fechaUTC.setHours(fechaUTC.getHours()); // Ajusta la hora a la zona horaria de Perú
+                                return fechaUTC.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit', hour12: false });
+                            };
                             // Rellena la tabla con las actividades existentes
                             data.listActividades.forEach(function (actividad) {
+                                const horaInicioLocal = convertirAHoraLocal(actividad.hora_Inicial); // Convierte hora inicial a hora local
+                                const horaFinLocal = convertirAHoraLocal(actividad.hora_Final); // Convierte hora final a hora local
+                                
                                 $('#tablaActividades').append(`
                                     <tr>
                                         <td>${actividad.actividad}</td> // Cambiado a minúsculas
-                                        <td>${actividad.hora_Inicial.substring(11, 16)}</td> // Extrae las horas (HH:mm)
-                                        <td>${actividad.hora_Final.substring(11, 16)}</td> // Extrae las horas (HH:mm)
+                                        <td>${horaInicioLocal}</td> // Hora de inicio en formato local
+                                        <td>${horaFinLocal}</td> // Hora de fin en formato local
                                         <td>${actividad.guía.nombres} ${actividad.guía.apellidos}</td> // Cambiado a minúsculas
                                         <td><button type="button" class="btn btn-danger" onclick="eliminarActividad(this)">Eliminar</button></td>
                                     </tr>
-
                                 `);
                                 // Agregar la actividad al array
                                 actividades.push({

@@ -13,9 +13,9 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
     public long IDAlquileres { get; set; }
     public string NumeroDocumento { get; set; }
     public int Cantidad { get; set; } // Supongamos que la cantidad es un entero
-    public string Fecha { get; set; } // Usar string si solo lo necesitas para mostrar
-    public string HoraInicio { get; set; }
-    public string HoraFin { get; set; }
+    public DateTime Fecha { get; set; } // Usar string si solo lo necesitas para mostrar
+    public DateTime HoraInicio { get; set; }
+    public DateTime HoraFin { get; set; }
     public decimal Precio { get; set; } // Suponiendo que el precio es decimal
 }
 }

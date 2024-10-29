@@ -104,7 +104,7 @@ namespace MUSEODESCALZOS.Controllers
                     Descripción = evento.Descripción,
                     Capacidad = evento.Capacidad,
                     Precio = evento.Precio,
-                    Fecha = evento.Fecha.ToUniversalTime(),
+                    Fecha = evento.Fecha,
                     // Omitir la propiedad que causa el ciclo
                 },
                 ListActividades = actividades.Select(a => 
@@ -112,8 +112,8 @@ namespace MUSEODESCALZOS.Controllers
                     {   
                         IDActividades = a.IDActividades,
                         Actividad = a.Actividad,
-                        Hora_Inicial = a.Hora_Inicial.ToUniversalTime(),
-                        Hora_Final = a.Hora_Final.ToUniversalTime(),
+                        Hora_Inicial = a.Hora_Inicial,
+                        Hora_Final = a.Hora_Final,
                         Guía = new Guía
                         {
                             IDGuía = a.Guía.IDGuía, // Asegúrate de que esta propiedad exista

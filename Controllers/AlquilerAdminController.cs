@@ -102,9 +102,9 @@ namespace MUSEODESCALZOS.Controllers
             IDAlquileres = reserva.IDAlquiler,
             NumeroDocumento = reserva.Cliente.NumDoc,
             Cantidad = reserva.CantPersona,
-            Fecha = reserva.Fecha.ToString("yyyy-MM-dd"),
-            HoraInicio = reserva.Hora_Inicio.ToString(@"hh\:mm"),
-            HoraFin = reserva.Hora_Fin.ToString(@"hh\:mm"),
+            Fecha = reserva.Fecha,
+            HoraInicio = reserva.Hora_Inicio,
+            HoraFin = reserva.Hora_Fin,
             Precio = reserva.PrecioTotal
         };
 

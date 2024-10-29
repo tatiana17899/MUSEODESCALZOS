@@ -138,8 +138,9 @@
                                 <td>@reserva.Alquiler?.Titulo</td>
                                 <td>@reserva.Cliente?.Nombres @reserva.Cliente?.Apellidos</td>    
                                 <td>@reserva.CantPersona</td>                           
-                                <td>@reserva.Hora_Inicio.ToString("hh:mm tt")</td>
-                                <td>@reserva.Hora_Fin.ToString("hh:mm tt")</td>
+                                <td>@reserva.Hora_Inicio.ToLocalTime().ToString("HH:mm")</td> <!-- Mostrar Hora de Inicio en formato 24h -->
+                                <td>@reserva.Hora_Fin.ToLocalTime().ToString("HH:mm")</td> <!-- Mostrar Hora de Fin en formato 24h -->
+
                                 <td>@reserva.PrecioTotal</td>
 
                                 
@@ -320,14 +321,27 @@
                     type: 'GET',
                     data: { id: idReserva },
                     success: function(data) {
+                        console.log(data)
                         // Llenamos los campos del modal con los datos obtenidos
                         $('#IDReserva').val(data.idReserva);
                         $('#spinnerAlquiler').val(data.idAlquileres); // Selecciona el alquiler correspondiente
                         $('#numeroDocumento').val(data.numeroDocumento);
                         $('#cantidad').val(data.cantidad);
                         $('#fecha').val(data.fecha.substring(0, 10)); // Formato de fecha (YYYY-MM-DD)
+                        console.log(data.horaInicio, data.horaFin); // Para ver el formato original
+            
+                        // Convertir horaInicio y horaFin de UTC a hora local peruana
+                        const convertirAHoraLocal = (horaUTC) => {
+                            const fechaUTC = new Date(horaUTC); // Crea un objeto Date a partir de la cadena en formato UTC
+                            fechaUTC.setHours(fechaUTC.getHours()); // Ajusta la hora a la zona horaria de Perú
+                            return fechaUTC.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit', hour12: false });
+                        };
+
+                        $('#horaInicio').val(convertirAHoraLocal(data.horaInicio)); 
+                        $('#horaFin').val(convertirAHoraLocal(data.horaFin)); 
+                        /*
                         $('#horaInicio').val(data.horaInicio); 
-                        $('#horaFin').val(data.horaFin); 
+                        $('#horaFin').val(data.horaFin); */
                         $('#precio').val(data.precio); 
 
                         // Cambia el título del modal para indicar que es una edición
