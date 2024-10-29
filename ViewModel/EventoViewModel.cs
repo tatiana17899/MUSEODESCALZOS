@@ -15,6 +15,9 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
         public long IDPedidoEvento { get; set; }
         public Evento? FormEvento { get; set; }
         public List<Evento>? ListEvento { get; set; }
+        public List<Guía>? ListGuia { get; set; }
+        public List<Actividades>? ListActividades { get; set; } // Nueva propiedad para actividades
+ 
         public string? Detalle { get; set; }
         public int Cantidad { get; set; }
         public int vidcliente  { get; set; }
