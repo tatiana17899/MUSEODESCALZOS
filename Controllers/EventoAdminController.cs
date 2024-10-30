@@ -29,7 +29,7 @@ namespace MUSEODESCALZOS.Controllers
             {
                 FirebaseApp.Create(new AppOptions
                 {
-                    Credential = GoogleCredential.FromFile("firebase-credentials.json")
+                    Credential = GoogleCredential.FromFile("/etc/secrets/firebase-credentials.json")
                 });
             }
         }
