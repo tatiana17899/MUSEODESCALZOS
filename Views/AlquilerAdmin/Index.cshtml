@@ -1,7 +1,6 @@
 @using MUSEO_DE_LOS_DESCALZOS.ViewModel
 @model AlquilerViewModel
 
-
 @{
     ViewData["Title"] = "Lista de Alquileres";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -24,6 +23,10 @@
         display: inline-block;
     }
 </style>
+<link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css"
+/>
 
 <div class="content flex-grow-1" id="contenido">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -37,14 +40,14 @@
             </h5>
         </div>
         <div class="card-body">
-            <!-- Botón para abrir el modal de crear nuevo alquiler-->
+            <!-- Botón para abrir el modal de crear nuevo guía -->
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"
                 id="btnCrear">
                 Crear Alquiler
             </button>
             <hr>
             <div class="container">
-                <table id="alquilerTable" class="table table-striped table-bordered" style="padding: 10px;">
+                <table id="guiaTable" class="table table-striped table-bordered" style="padding: 10px;">
                     <thead>
                         <tr>
                             <th>Titulo</th>
@@ -52,21 +55,35 @@
                             <th>Capacidad</th>
                             <th>Imagenes</th>
                             <th>Disponible</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var alquiler in Model.ListAlquiler)
                         {
                             <tr>
-                                <td>@alquiler.Titulo</td>
+                                <td>@alquiler.Titulo</td>       
                                 <td>@alquiler.Caracteristicas</td>
                                 <td>@alquiler.Capacidad</td>
-                                <td>@alquiler.Imagenes</td>
+                                <td>
+                                  @if (alquiler.Imagenes != null && alquiler.Imagenes.Count > 0)
+                                {
+                                    var imagen = alquiler.Imagenes.FirstOrDefault();
+                                    if (imagen != null && !string.IsNullOrEmpty(imagen.Rutalmagen))
+                                    {
+                                        <img src="@imagen.Rutalmagen" alt="@alquiler.Titulo" style="width:100px; height:auto;" />
+                                    }
+                                }
+                                else
+                                {
+                                    <span>No disponible</span>
+                                }
+                                </td>
                                 <td>
                                     <span class="estado-@(alquiler.Disponible ? "disponible" : "no-disponible")"></span>
                                 </td>
                                 <td>
-                                    <!-- Botón para abrir el modal de editar alquiler -->
+                                    <!-- Botón para abrir el modal de editar Alquiler -->
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#myModal" onclick="editAlquiler('@alquiler.IDAlquileres')">
                                         <i class="fa-solid fa-pencil"></i>
@@ -95,49 +112,48 @@
             </h5>
         </div>
         <div class="card-body">
-            <!-- Botón para abrir el modal de crear nueva reserva -->
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal"
-                id="btnCrear">
-                Crear nueva Reserva
+            <!-- Botón para abrir el modal de crear nuevo guía -->
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModalReservar"
+                id="btnCrearReserva">
+                Crear Reserva Alquiler
             </button>
             <hr>
-
-
             <div class="container">
-                <table id="alquilerTabletarea" class="table table-striped table-bordered">
+                <table id="guiaTabletarea" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>Alquiler</th>
                             <th>Cliente</th>
                             <th>Cantidad</th>
-                            <th>Hora Inicio</th>
+                            <th>Hora Incio</th>
                             <th>Hora Fin</th>
                             <th>Precio Total</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var alquiler in Model.ListAlquiler)
+                        @foreach (var reserva in Model.ListPedidoAlquiler)
                         {
                             <tr>
-                                <td>@alquiler.Titulo</td>
-                                <td>@Model.Cliente</td>
-                                <td>@Model.CantPersona</td>
-                                <td>@Model.HoraInicio</td>
-                                <td>@Model.HoraFin</td>
-                                <td>@Model.CantPersona</td>
+                                <td>@reserva.Alquiler?.Titulo</td>
+                                <td>@reserva.Cliente?.Nombres @reserva.Cliente?.Apellidos</td>    
+                                <td>@reserva.CantPersona</td>                           
+                                <td>@reserva.Hora_Inicio.ToLocalTime().ToString("HH:mm")</td> <!-- Mostrar Hora de Inicio en formato 24h -->
+                                <td>@reserva.Hora_Fin.ToLocalTime().ToString("HH:mm")</td> <!-- Mostrar Hora de Fin en formato 24h -->
 
+                                <td>@reserva.PrecioTotal</td>
 
-                                <!-- Botón para abrir el modal de editar Reserva Alquiler -->
+                                
                                 <td>
                                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#myModal" onclick="editAlquiler('@alquiler.IDAlquileres')">
+                                        data-bs-target="#myModalReservar" onclick="editAlquilerReserva('@reserva.IDPedidoAlq')">
                                         <i class="fa-solid fa-pencil"></i>
                                     </button>
-                                    <form asp-action="Eliminar" asp-controller="AlquilerAdmin" method="post"
+                                    <form asp-action="EliminarReserva" asp-controller="AlquilerAdmin" method="post"
                                         style="display:inline;">
-                                        <input type="hidden" name="id" value="@alquiler.IDAlquileres" />
+                                        <input type="hidden" name="id" value="@reserva.IDPedidoAlq" />
                                         <button type="button" class="btn btn-danger btn-sm"
-                                            onclick="confirmarEliminacion('@alquiler.IDAlquileres')">
+                                            onclick="confirmarEliminacionReserva('@reserva.IDPedidoAlq')">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </form>
@@ -151,43 +167,41 @@
     </div>
 </div>
 
-<!-- Modal para Crear Alquiler -->
-<div class="modal fade" id="myModalCrear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal para Crear/Editar Alquiler -->
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #1D3860; color: white;">
                 <h5 class="modal-title" id="myModalLabel">Crear Alquiler</h5>
             </div>
             <div class="modal-body">
-                <form asp-controller="AlquilerAdmin" asp-action="Guardar" method="post" id="formAlquiler">
+                <form asp-controller="AlquilerAdmin" asp-action="Guardar" method="post" id="formAlquiler" enctype="multipart/form-data">
                     <input type="hidden" asp-for="FormAlquiler.IDAlquileres" id="IDAlquileres" />
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
                             <label asp-for="FormAlquiler.Titulo" class="block text-gray-700">Titulo</label>
-                            <input type="text" id="titulo" class="w-full border border-gray-300 rounded p-2"
-                                asp-for="FormAlquiler.Titulo">
+                            <input type="text" id="titulo" class="w-full border border-gray-300 rounded p-2" asp-for="FormAlquiler.Titulo">
                         </div>
                         <div>
-                            <label asp-for="FormAlquiler.Caracteristicas"
-                                class="block text-gray-700">Caracteristicas</label>
-                            <input type="text" id="caracteristicas" class="w-full border border-gray-300 rounded p-2"
-                                asp-for="FormAlquiler.Caracteristicas">
+                            <label asp-for="FormAlquiler.Caracteristicas" class="block text-gray-700">Caracteristicas</label>
+                            <input type="text" id="caracteristicas" class="w-full border border-gray-300 rounded p-2" asp-for="FormAlquiler.Caracteristicas">
                         </div>
                     </div>
                     <div class="mb-4">
                         <label asp-for="FormAlquiler.Capacidad" class="block text-gray-700">Capacidad</label>
-                        <input type="number" id="capacidad" class="w-full border border-gray-300 rounded p-2"
-                            asp-for="FormAlquiler.Capacidad">
+                        <input type="text" id="capacidad" class="w-full border border-gray-300 rounded p-2" asp-for="FormAlquiler.Capacidad">
                     </div>
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
-                            <label asp-for="FormAlquiler.Imagenes" class="block text-gray-700">Imagenes</label>
-                            <input type="file" id="imagen" class="w-full border border-gray-300 rounded p-2"
-                                asp-for="FormAlquiler.Imagenes">
+                            <label asp-for="FormAlquiler.ImagenesFiles" class="block text-gray-700">Imagenes</label>
+                            <input type="file" id="imagen" class="w-full border border-gray-300 rounded p-2" asp-for="FormAlquiler.ImagenesFiles" multiple>
                         </div>
                         <div>
                             <label asp-for="FormAlquiler.Disponible" class="block text-gray-700">Disponible</label>
-                            <input type="checkbox" id="disponible" asp-for="FormAlquiler.Disponible" />
+                            <select asp-for="FormAlquiler.Disponible" class="w-full border border-gray-300 rounded p-2">
+                                <option value="true">Sí</option>
+                                <option value="false">No</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -195,62 +209,69 @@
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
 </div>
 
 
-<!-- Modal para Crear/Editar Reservar Alquiler -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal para Reservar/Editar Alquiler -->
+<div class="modal fade" id="myModalReservar" tabindex="-1" aria-labelledby="exampleModalLabel">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #1D3860; color: white;">
-                <h5 class="modal-title" id="myModalLabel">Crear Reseva Alquiler</h5>
+                <h5 class="modal-title" id="myModalLabel">Reservar/Editar Alquiler</h5>
             </div>
             <div class="modal-body">
-                <form asp-controller="AlquilerAdmin" asp-action="Guardar" method="post" id="formAlquiler">
-                    <input type="hidden" asp-for="FormAlquiler.IDAlquileres" id="IDAlquileres" />
+                <form asp-controller="AlquilerAdmin" asp-action="Reservar" method="post" id="formReservar">
+                    <input type="hidden" name="IDReserva" id="IDReserva" /> <!-- Asegúrate de que este campo se llene correctamente -->
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700">Alquiler</label>
+                        <select name="IDAlquileres" id="spinnerAlquiler" class="w-full border border-gray-300 rounded p-2" required>
+                            <option value="">Seleccione un Alquiler</option>
+                            @foreach (var alquiler in Model.ListAlquiler) // Asegúrate de tener esta lista
+                            {
+                                <option value="@alquiler.IDAlquileres">@alquiler.Titulo</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700">Número de Documento</label>
+                        <input type="text" name="NumeroDocumento" id="numeroDocumento" class="w-full border border-gray-300 rounded p-2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700">Cantidad</label>
+                        <input type="number" name="Cantidad" id="cantidad" class="w-full border border-gray-300 rounded p-2" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700">Fecha</label>
+                        <input type="date" name="Fecha" id="fecha" class="w-full border border-gray-300 rounded p-2" required>
+                    </div>
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
-                            <label asp-for="FormAlquiler.Titulo" class="block text-gray-700">Titulo</label>
-                            <input type="text" id="titulo" class="w-full border border-gray-300 rounded p-2"
-                                asp-for="FormAlquiler.Titulo">
+                            <label class="block text-gray-700">Hora de Inicio</label>
+                            <input type="time" name="HoraInicio" id="horaInicio" class="w-full border border-gray-300 rounded p-2" required>
                         </div>
                         <div>
-                            <label asp-for="FormAlquiler.Caracteristicas"
-                                class="block text-gray-700">Caracteristicas</label>
-                            <input type="text" id="caracteristicas" class="w-full border border-gray-300 rounded p-2"
-                                asp-for="FormAlquiler.Caracteristicas">
+                            <label class="block text-gray-700">Hora Final</label>
+                            <input type="time" name="HoraFin" id="horaFin" class="w-full border border-gray-300 rounded p-2" required>
                         </div>
                     </div>
                     <div class="mb-4">
-                        <label asp-for="FormAlquiler.Capacidad" class="block text-gray-700">Capacidad</label>
-                        <input type="email" id="capacidad" class="w-full border border-gray-300 rounded p-2"
-                            asp-for="FormAlquiler.Capacidad">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label asp-for="FormAlquiler.Imagenes" class="block text-gray-700">Imagenes</label>
-                            <input type="file" id="imagen" class="w-full border border-gray-300 rounded p-2"
-                                asp-for="FormAlquiler.Imagenes">
-                        </div>
-                        <div>
-                            <label asp-for="FormAlquiler.Disponible" class="block text-gray-700">Disponible</label>
-                            <input type="text" id="disponible" class="w-full border border-gray-300 rounded p-2"
-                                asp-for="FormAlquiler.Disponible">
-                        </div>
+                        <label class="block text-gray-700">Precio</label>
+                        <input type="text" name="Precio" id="precio" class="w-full border border-gray-300 rounded p-2" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" onclick="confirmarGuardar()">Guardar</button>
+                        <button type="submit" class="btn btn-primary">Reservar</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 
 
 @section scripts {
@@ -259,32 +280,80 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function () {
-            $('#alquilerTable').DataTable({
+            // Inicializar DataTables
+            $('#guiaTable').DataTable({
                 responsive: true,
                 autoWidth: false,
                 lengthMenu: [3, 5, 7, 9],
                 pageLength: 5
             });
 
-
-            window.editAlquiler = function (idAlquiler) {
+            // Define la función editAlquiler globalmente
+            window.editAlquiler = function(idAlquileres) {
                 $.ajax({
                     url: '@Url.Action("GetAlquilerById", "AlquilerAdmin")',
                     type: 'GET',
-                    data: { id: idAlquiler },
+                    data: { id: idAlquileres },
                     success: function (data) {
-                        $('#IDAlquiler').val(data.idAlquiler);
+
+                        $('#IDAlquileres').val(data.idAlquileres);
                         $('#titulo').val(data.titulo);
+                        //$('#descripcion').val(data.Descripcion);
                         $('#caracteristicas').val(data.caracteristicas);
                         $('#capacidad').val(data.capacidad);
                         $('#imagen').val(data.imagen);
-                        $('#disponible').val(data.disponibilidad);
+                        $('#formAlquiler select[name="FormAlquiler.Disponible"]').val(data.disponible ? "true" : "false");
                         $('#myModalLabel').text('Editar Alquiler');
                     },
                     error: function (xhr, status, error) {
                         Swal.fire({
                             title: "Error",
-                            text: "Hubo un error al obtener los datos del guía.",
+                            text: "Hubo un error al obtener los datos del Alquiler.",
+                            icon: "error"
+                        });
+                        console.log(error);
+                    }
+                });
+            }
+            window.editAlquilerReserva = function(idReserva) {
+                $.ajax({
+                    url: '@Url.Action("GetReservaById", "AlquilerAdmin")',
+                    type: 'GET',
+                    data: { id: idReserva },
+                    success: function(data) {
+                        console.log(data)
+                        // Llenamos los campos del modal con los datos obtenidos
+                        $('#IDReserva').val(data.idReserva);
+                        $('#spinnerAlquiler').val(data.idAlquileres); // Selecciona el alquiler correspondiente
+                        $('#numeroDocumento').val(data.numeroDocumento);
+                        $('#cantidad').val(data.cantidad);
+                        $('#fecha').val(data.fecha.substring(0, 10)); // Formato de fecha (YYYY-MM-DD)
+                        console.log(data.horaInicio, data.horaFin); // Para ver el formato original
+            
+                        // Convertir horaInicio y horaFin de UTC a hora local peruana
+                        const convertirAHoraLocal = (horaUTC) => {
+                            const fechaUTC = new Date(horaUTC); // Crea un objeto Date a partir de la cadena en formato UTC
+                            fechaUTC.setHours(fechaUTC.getHours()); // Ajusta la hora a la zona horaria de Perú
+                            return fechaUTC.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit', hour12: false });
+                        };
+
+                        $('#horaInicio').val(convertirAHoraLocal(data.horaInicio)); 
+                        $('#horaFin').val(convertirAHoraLocal(data.horaFin)); 
+                        /*
+                        $('#horaInicio').val(data.horaInicio); 
+                        $('#horaFin').val(data.horaFin); */
+                        $('#precio').val(data.precio); 
+
+                        // Cambia el título del modal para indicar que es una edición
+                        $('#myModalLabel').text('Editar Reserva');
+
+                        // Abre el modal
+                        $('#myModalReservar').modal('show');
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            title: "Error",
+                            text: "Hubo un error al obtener los datos de la reserva.",
                             icon: "error"
                         });
                         console.log(error);
@@ -292,68 +361,149 @@
                 });
             }
 
+
+
+            // Evento click para crear un alquiler
             $('#btnCrear').click(function () {
                 $('#IDAlquileres').val(0);
-                $('#titulos').val('');
+                $('#titulo').val('');
                 $('#caracteristicas').val('');
                 $('#capacidad').val('');
                 $('#imagen').val('');
                 $('#disponible').text('Crear Alquiler');
             });
 
-            function confirmarGuardar() {
-                Swal.fire({
-                    title: "¿Estás seguro?",
-                    text: "¡No podrás revertir esto!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Sí, guardar"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#formAlquiler').submit();
+        $('#btnCrearReserva').click(function () {
+            // Limpiar los campos del modal de reserva
+            $('#spinnerAlquiler').val(''); // Resetea el spinner de alquiler
+            $('#numeroDocumento').val(''); // Resetea el campo de número de documento
+            $('#cantidad').val(''); // Resetea el campo de cantidad
+            $('#horaInicio').val(''); // Resetea el campo de hora de inicio
+            $('#horaFin').val(''); // Resetea el campo de hora final
+            $('#precio').val(''); // Resetea el campo de precio
+
+            // Opcionalmente, puedes agregar un texto en el encabezado o en otro lugar para indicar que es una nueva reserva
+            // $('#modalHeader').text('Crear Nueva Reserva');
+        });
+
+        });
+
+        // Definir la función confirmarGuardar globalmente
+        window.confirmarGuardar = function() {
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "¡No podrás revertir esto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, guardar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#formAlquiler').submit();
+                }
+            });
+        }
+            // Manejo del evento de envío del formulario de reserva
+
+            $('#formReservar').on('submit', function (e) {
+                e.preventDefault(); // Evita el envío del formulario por defecto
+
+                // Envía el formulario con AJAX
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'), // Obtiene la URL del formulario
+                    data: $(this).serialize(), // Serializa los datos del formulario
+                    success: function (response) {
+                        // Si el guardado fue exitoso, muestra una alerta
+                        Swal.fire({
+                            title: 'Reserva guardada!',
+                            text: 'Su reserva se ha realizado con éxito.',
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then(() => {
+                            // Opcional: puedes cerrar el modal o refrescar la tabla aquí
+                            $('#myModalReservar').modal('hide');
+                            location.reload(); // Recarga la página para ver los cambios
+                        });
+                    },
+                    error: function () {
+                        // Manejo de errores
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Hubo un problema al guardar la reserva.',
+                            icon: 'error',
+                            confirmButtonText: 'Intentar de nuevo'
+                        });
                     }
                 });
-            }
+            });
+
+
+        function confirmarEliminacion(idAlquiler) {
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "¡No podrás revertir esto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var form = $('<form>', {
+                        'method': 'POST',
+                        'action': '@Url.Action("Eliminar", "AlquilerAdmin")'
+                    }).append($('<input>', {
+                        'type': 'hidden',
+                        'name': 'id',
+                        'value': idAlquiler
+                    }));
+
+                    $('body').append(form);
+                    form.submit();
+                }
+            });
         }
 
-                                                                                                                                                                        function confirmarEliminacion(idAlquiler) {
-                Swal.fire({
-                    title: "¿Estás seguro?",
-                    text: "¡No podrás revertir esto!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Sí, eliminar",
-                    cancelButtonText: "Cancelar"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        var form = $('<form>', {
-                            'method': 'POST',
-                            'action': '@Url.Action("Eliminar", "AlquilerAdmin")'
-                        }).append($('<input>', {
-                            'type': 'hidden',
-                            'name': 'id',
-                            'value': idAlquiler
-                        }));
+        function confirmarEliminacionReserva(idReserva) {
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "¡No podrás revertir esto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var form = $('<form>', {
+                        'method': 'POST',
+                        'action': '@Url.Action("EliminarReserva", "AlquilerAdmin")' // Asegúrate de tener un método para eliminar reservas
+                    }).append($('<input>', {
+                        'type': 'hidden',
+                        'name': 'id',
+                        'value': idReserva // Cambiado de idAlquiler a idReserva
+                    }));
 
-                        $('body').append(form);
-                        form.submit();
-                    }
-                });
-            }
-                                                                                                                                                        function setAlquilerId(alquilerId) {
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("SetAlquilerId", "AlquilerAdmin")',
-                    data: { IDAlquileres: alquilerId },
-                    success: function (response) {
-                        $("#alquilerId").val(alquilerId);
-                    }
-                });
-            }
+                    $('body').append(form);
+                    form.submit();
+                }
+            });
+        }
 
+
+        function setAlquilerId(alquilerId) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SetAlquilerId", "AlquilerAdmin")',
+                data: { IDAlquileres: alquilerId },
+                success: function (response) {
+                    $("#alquilerId").val(alquilerId);
+                }
+            });
+        }
     </script>
 }

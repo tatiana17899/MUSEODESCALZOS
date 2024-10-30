@@ -21,7 +21,8 @@ namespace MuseoDescalzos.Models
         public int Capacidad { get; set; }
         public string? NombreImagen { get; set; }
         public string? RutalImagen { get; set; }
-
+        [NotMapped] // Evita que se mapee a la base de datos
+        public IFormFile? ImagenFile { get; set; }
         public ICollection<PedidoEvento>? PedidoEventos { get; set; }
 
         public ICollection<Actividades>? Actividades { get; set; }
