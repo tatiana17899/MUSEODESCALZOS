@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MUSEODESCALZOS.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241026034450_clienteStripe")]
-    partial class clienteStripe
+    [Migration("20241030025302_MigracionInicialPostGresSql")]
+    partial class MigracionInicialPostGresSql
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
