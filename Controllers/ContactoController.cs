@@ -67,29 +67,26 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
             var scoreKeySecond = sortedScoresWithLabel.ToList()[1].Key;
             var scoreValueSecond = sortedScoresWithLabel.ToList()[1].Value;
 
-            /*if (scoreKeyFirst == "1")
+           if (scoreKeyFirst == "1")
             {
                 if(scoreValueFirst > 0.5)
                 {
-                    contacto.Category = "Positivo";
+                    contacto.Categoria = "Positivo";
                 }
                 else
                 {
-                    contacto.Category = "Negativo";
+                    contacto.Categoria = "Negativo";
                 }
             }else{
                 if(scoreValueFirst > 0.5)
                 {
-                    contacto.Category = "Positivo";
+                    contacto.Categoria = "Positivo";
                 }
                 else
                 {
-                    contacto.Category = "Negativo";
+                    contacto.Categoria = "Negativo";
                 }
-            }*/
-
-
-
+            }
 
 
             Console.WriteLine($"{scoreKeyFirst,-40}{scoreValueFirst,-20}");

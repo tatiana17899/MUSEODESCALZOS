@@ -9,11 +9,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MUSEODESCALZOS.Data.Migrations
+namespace MUSEODESCALZOS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241026034450_clienteStripe")]
-    partial class clienteStripe
+    [Migration("20241102001821_AñadirCategoriaAContacto")]
+    partial class AñadirCategoriaAContacto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -344,6 +344,9 @@ namespace MUSEODESCALZOS.Data.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Categoria")
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");

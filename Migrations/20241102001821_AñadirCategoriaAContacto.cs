@@ -2,26 +2,27 @@
 
 #nullable disable
 
-namespace MUSEODESCALZOS.Data.Migrations
+namespace MUSEODESCALZOS.Migrations
 {
     /// <inheritdoc />
-    public partial class clienteStripe : Migration
+    public partial class AñadirCategoriaAContacto : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "StripeCustomerId",
-                table: "tb_Cliente",
+                name: "Categoria",
+                table: "t_contacto",
                 type: "text",
-                nullable: false,
-                defaultValue: "");
+                nullable: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-           
+            migrationBuilder.DropColumn(
+                name: "Categoria",
+                table: "t_contacto");
         }
     }
 }
