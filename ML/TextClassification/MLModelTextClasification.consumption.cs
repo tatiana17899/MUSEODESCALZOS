@@ -49,7 +49,7 @@ namespace ClasificacionModelo
 
         #endregion
 
-        private static string MLNetModelPath = Path.GetFullPath(@".\ML\TextClassification\MLModelTextClasification.mlnet");
+        private static string MLNetModelPath = Path.GetFullPath("ML/TextClassification/MLModelTextClasification.mlnet");
 
         public static readonly Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(() => CreatePredictEngine(), true);
 

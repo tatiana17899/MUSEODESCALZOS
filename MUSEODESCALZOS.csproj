@@ -42,6 +42,10 @@
 
 </ItemGroup>
 
-
+<ItemGroup Label="MLModelTextClasification">
+    <None Include="ML/TextClassification/MLModelTextClasification.mlnet">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+</ItemGroup>
 
 </Project>
