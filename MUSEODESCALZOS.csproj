@@ -41,10 +41,7 @@
     <PackageReference Include="TorchSharp-cpu" Version="0.101.5" />
 
 </ItemGroup>
-<ItemGroup Label="MLModelTextClasification">
-  <None Include="MLModelTextClasification.mlnet">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </None>
-</ItemGroup>
+
+
 
 </Project>
