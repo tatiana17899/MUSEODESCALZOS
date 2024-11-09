@@ -20,6 +20,7 @@
                     <thead>
                         <tr>
                             <th>Visita</th>
+                            <th>Hora</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
@@ -27,10 +28,12 @@
                         @foreach (var visita in Model.Visitas)
                         {
                             <tr>
-                                <td>@visita.Cliente</td>
+                                <td>@visita.Cliente.Nombres</td>
+                                <td>@visita.Fecha</td>
                                 <td>
                                     <form asp-action="ActualizarVisita" method="post">
                                         <input type="hidden" name="id" value="@visita.IDGuía" />
+                                        <input type="checkbox" name="estado" value="true" @(visita.Estado ? "checked" : "") onchange="this.form.submit()" />
                                     </form>
                                 </td>
                             </tr>
@@ -50,5 +53,20 @@
                     autoWidth: false
                 });
             });
+            function submitForm(tareaId) {
+                var form = document.getElementById('form-' + tareaId);
+                var estado = form.querySelector('input[name="estado"]').checked;
+                fetch(form.action, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'id=' + tareaId + '&estado=' + estado
+                })
+                .then(response => response.text())
+                .then(data => {
+                    location.reload();
+                });
+            }
         </script>
     }

@@ -4,6 +4,60 @@
 @{
     ViewData["Title"] = "Tareas para el Guía";
 }
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 34px;
+        height: 20px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 34px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 14px;
+        width: 14px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(14px);
+    }
+
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+</style>
 <link
       rel="stylesheet"
       href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css"
@@ -11,6 +65,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <div class="container bg-light p-4">
         <h2 class="mb-4">Listado de Tareas</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="mb-0">Estado de Disponibilidad</h5>
+            <p> NOTA: Usar el switch para cambiar el estado (Disponible o No Disponible)</p>
+            <form asp-action="ActualizarDisponibilidad" method="post" class="d-inline">
+                <input type="hidden" name="disponible" value="@(Model.Disponible ? "false" : "true")" />
+                <label class="switch">
+                    <input type="checkbox" @(Model.Disponible ? "checked" : "") onchange="this.form.submit()" />
+                    <span class="slider round"></span>
+                </label>
+            </form>
+        </div>
         <div class="row mb-4">
             <div class="col-md-6 mb-3">
                 <div class="card text-center">

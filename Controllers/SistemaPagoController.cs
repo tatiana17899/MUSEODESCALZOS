@@ -79,7 +79,8 @@ namespace MUSEODESCALZOS.Controllers
                     PrecioUnitario = e.PrecioUnitario,
                     Cantidad = e.Cantidad,
                     Fecha = e.Fecha,
-                }).ToList()
+                }).ToList(),
+                pedidoEvento = eventos.FirstOrDefault()
             };
 
 

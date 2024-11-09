@@ -39,7 +39,12 @@
                         <div class="row">
                             <div class="col-3 form-group">
                                 <label for="tipoDoc">Tipo de Documento:</label>
-                                <input type="text" id="tipoDoc" name="TipoDoc" class="form-control" required />
+                                <select id="tipoDoc" name="TipoDoc" class="form-control" required>
+                                    <option value="" disabled selected>Seleccione un tipo de documento</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="Carnet Extranjero">Carnet de Extranjería</option>
+                                    <option value="Pasaporte">Pasaporte</option>
+                                </select>
                             </div>
                             <div class="col-3 form-group">
                                 <label for="numDoc">Número de Documento:</label>
@@ -47,7 +52,7 @@
                             </div>
                             <div class="col-3 form-group">
                                 <label for="amount">Monto a Pagar:</label>
-                                <input type="text" id="amount" name="Total" class="form-control" value="@Model.Total" readonly />
+                                <input type="text" id="amount" name="Total" class="form-control" value="@Model.pedidoEvento.PrecioUnitario" readonly />
                             </div>
                         </div>
                         <div class="form-group">
@@ -74,7 +79,7 @@
                             <input type="hidden" name="Eventos[@index].IDEvento" value="@evento.Eventoo.IDEvento" />
                             <input type="hidden" name="Eventos[@index].Cantidad" value="@evento.Cantidad" />
                             <input type="hidden" name="Eventos[@index].PrecioUnitario" value="@evento.PrecioUnitario" />
-                            <input type="hidden" name="Eventos[@index].PrecioTotal" value="@evento.PrecioTotal" />
+                            <input type="hidden" name="Eventos[@index].PrecioTotal" value="@evento.PrecioUnitario" />
                             
                             <div class="row item mb-3">
                                 <!-- Imagen del evento -->
@@ -87,7 +92,7 @@
                                         <b>@evento.Eventoo?.Nombre</b>
                                     </div>
                                     <div class="row">
-                                        <b>@evento.PrecioTotal.ToString("C")</b>
+                                        <b>@evento.PrecioUnitario.ToString("C")</b>
                                     </div>
                                     <div class="row">
                                         Cant: @evento.Cantidad
@@ -108,7 +113,7 @@
                 <hr>
                 <div class="row lower">
                     <div class="col text-left">Total</div>
-                    <div class="col text-right">$@Model.Total.ToString("F2")</div>
+                     <div class="col text-right">@Model.pedidoEvento.PrecioUnitario.ToString("C")</div>
                 </div>
             </div>
         </div>

@@ -237,7 +237,7 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                         worksheet.Cells[rowIndex, 5].Value = evento.Cliente?.ToString();
                         worksheet.Cells[rowIndex, 6].Value = evento.Detalle;
                         worksheet.Cells[rowIndex, 7].Value = evento.CantidadTotal;
-                        worksheet.Cells[rowIndex, 8].Value = evento.PrecioTotal;
+                        worksheet.Cells[rowIndex, 8].Value = evento.CalcularPrecioTotal();
                         worksheet.Cells[rowIndex, 9].Value = "";
                     }
 

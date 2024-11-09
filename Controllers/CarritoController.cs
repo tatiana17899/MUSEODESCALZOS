@@ -57,6 +57,10 @@ namespace MUSEODESCALZOS.Controllers
         [HttpPost]
         public async Task<IActionResult> AgregarAlCarrito(EventoViewModel model)
         {
+            Console.WriteLine($"Cantidad Adulto: {model.CantidadAdulto}");
+            Console.WriteLine($"Cantidad Adulto Mayor: {model.CantidadAdultoMayor}");
+            Console.WriteLine($"Cantidad Escolar: {model.CantidadEscolar}");
+            Console.WriteLine($"Cantidad Niños: {model.CantidadNinos}");
             // Obtener el ID del cliente actual
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var cliente = _context.DataCliente.FirstOrDefault(c => c.UserId == userId);
@@ -65,8 +69,8 @@ namespace MUSEODESCALZOS.Controllers
             {
                 return NotFound("Cliente no encontrado");
             }
+            decimal total = model.CalcularPrecioTotal(); 
 
-            // Verificar si el evento ya existe en el carrito del cliente
             var pedidoExistente = _context.DataPedidoEvento
                 .FirstOrDefault(p => p.IDEvento == model.IDEvento && p.IDCliente == cliente.IDCliente);
 
@@ -74,7 +78,7 @@ namespace MUSEODESCALZOS.Controllers
             {
                 // Si ya existe, solo actualizamos la cantidad
                 pedidoExistente.Cantidad += model.CantidadTotal; // CantidadTotal de adultos, adultos mayores y escolares
-                pedidoExistente.PrecioUnitario = model.PrecioUnitario; // Puedes ajustar los precios si es necesario
+                pedidoExistente.PrecioUnitario = total; // Puedes ajustar los precios si es necesario
                 _context.Update(pedidoExistente);
             }
             else
@@ -85,7 +89,7 @@ namespace MUSEODESCALZOS.Controllers
                     IDCliente = cliente.IDCliente,
                     IDEvento = model.IDEvento,
                     Cantidad = model.CantidadTotal,
-                    PrecioUnitario = model.PrecioUnitario,
+                    PrecioUnitario = total,
                 };
 
                 _context.DataPedidoEvento.Add(nuevoPedido);

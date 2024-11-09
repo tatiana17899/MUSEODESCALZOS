@@ -28,6 +28,7 @@ namespace MUSEODESCALZOS.ViewModel
         public string? CVV { get; set; }
 
         public string? Token { get; set; }
-
+        public PedidoEvento? pedidoEvento;
+        
     }
 }
