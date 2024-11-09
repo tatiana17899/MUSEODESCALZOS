@@ -12,16 +12,9 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MUSEODESCALZOS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:Migrations/20241102001821_AñadirCategoriaAContacto.Designer.cs
-    [Migration("20241102001821_AñadirCategoriaAContacto")]
-    partial class AñadirCategoriaAContacto
-========
-    [Migration("20241030025302_MigracionInicialPostGresSql")]
-    partial class MigracionInicialPostGresSql
->>>>>>>> 7f33b23e9b5cb7833d80f991377aa911dc69d35e:Data/Migrations/20241030025302_MigracionInicialPostGresSql.Designer.cs
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
