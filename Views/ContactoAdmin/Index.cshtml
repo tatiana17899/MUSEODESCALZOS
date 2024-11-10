@@ -1,0 +1,154 @@
+@model IEnumerable<MuseoDescalzos.Models.Contacto>
+@{
+    ViewData["Title"] = "Listado de Comentarios";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .estado-disponible {
+        width: 20px;
+        height: 20px;
+        background-color: green;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .estado-no-disponible {
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    /* Asegura que el canvas tenga un tamaño fijo */
+    #categoryChart {
+        width: 100% !important;
+        max-width: 400px; /* Ajusta el tamaño máximo deseado */
+        height: 400px !important;  /* Asegura que el gráfico no se encoja */
+        margin: 0 auto;  /* Centra el gráfico */
+    }
+</style>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css" />
+<div class="content flex-grow-1" id="contenido">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">@ViewData["Title"]</h1>
+        <hr />
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title d-flex align-items-center">
+                <i class="fa-regular fa-calendar-check"></i> Historial de Comentarios
+            </h5>
+        </div>
+        <div class="card-body">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal" id="btnCrear">
+                Crear Nuevo Guía
+            </button>
+            <hr />
+            <div class="container">
+                <table id="guiaTable" class="table table-striped table-bordered" style="padding: 10px;">
+                    <thead>
+                        <tr>
+                            <th>Nombres</th>
+                            <th>Email</th>
+                            <th>Mensaje</th>
+                            <th>Categoria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var contacto in Model)
+                        {
+                            <tr>
+                                <td>@contacto.Name</td>
+                                <td>@contacto.Email</td>
+                                <td>@contacto.Message</td>
+                                <td>@contacto.Categoria</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Card para análisis de comentarios -->
+    <div class="card mt-3">
+        <div class="card-header">
+            <h5 class="card-title d-flex align-items-center">
+                Analisis de Comentarios
+            </h5>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <!-- Canvas para el gráfico -->
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/2.1.5/js/dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Inicializar la tabla
+            $('#guiaTable').DataTable({
+                responsive: true,
+                autoWidth: false,
+                lengthMenu: [3, 5, 7, 9],
+                pageLength: 5
+            });
+
+            // Datos para la gráfica de anillo
+            const contactos = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));  // Los datos de contacto que vienen del servidor
+            console.log(contactos);
+            
+            const categorias = {
+                "Negativo": 0,
+                "Positivo": 0,
+                "Sin Categoria": 0  // Cambié el nombre de "" a "VACIO"
+            };
+
+            // Contar las categorías
+            contactos.forEach(contacto => {
+                if (contacto.Categoria == "Negativo") {
+                    categorias["Negativo"]++;
+                } else if (contacto.Categoria == "Positivo") {
+                    categorias["Positivo"]++;
+                } else {
+                    categorias["Sin Categoria"]++;
+                }
+            });
+
+            // Preparar los datos para el gráfico
+            const data = {
+                labels: ['Negativo', 'Positivo', 'Sin Categoria'],
+                datasets: [{
+                    data: [categorias["Negativo"], categorias["Positivo"], categorias["Sin Categoria"]],
+                    backgroundColor: ['rgba(255, 0, 0, 0.6)', 'rgba(0, 0, 255, 0.6)', 'rgba(169, 169, 169, 0.6)'],  // Rojo, Azul, Gris
+                    borderColor: ['rgba(255, 0, 0, 1)', 'rgba(0, 0, 255, 1)', 'rgba(169, 169, 169, 1)'],  // Borde de los segmentos
+                    borderWidth: 1
+                }]
+            };
+
+            // Configuración del gráfico
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            const categoryChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    responsive: true,
+                    cutout: '70%',  // Hace el anillo más delgado
+                    plugins: {
+                        legend: {
+                            position: 'bottom',  // Coloca la leyenda debajo del gráfico
+                        },
+                        tooltip: {
+                            enabled: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}
