@@ -1,0 +1,170 @@
+@model MUSEODESCALZOS.ViewModel.PagoVisitaViewModel
+
+@{
+    ViewData["Title"] = "Pago de Visita";
+    int index = 0;
+}
+<link rel="stylesheet" href="~/css/pagoA.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+<div class="card">
+    <div class="card-top border-bottom text-center">
+        <h4 class="text-center mb-4">Compra tu Entrada para la Visita</h4>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="left border">
+                <div class="row">
+                    <span class="header">Pagar</span>
+                    <div class="icons">
+                        <img src="https://img.icons8.com/color/48/000000/visa.png"/>
+                        <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png"/>
+                        <img src="https://img.icons8.com/color/48/000000/maestro.png"/>
+                    </div>
+                    <form id="payment-form" method="post" asp-action="ProcesarPago">
+                        <input type="hidden" name="Token" id="stripeToken" />
+                        <input type="hidden" asp-for="Total" />
+                        
+                        <div class="form-group">
+                            <label asp-for="Nombres">Nombres:</label>
+                            <input asp-for="Nombres" class="form-control" required minlength="2"/>
+                            <span asp-validation-for="Nombres" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Apellidos">Apellidos:</label>
+                            <input asp-for="Apellidos" class="form-control" required minlength="2" />
+                            <span asp-validation-for="Apellidos" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Pais">País:</label>
+                            <select asp-for="Pais" class="form-control" required>
+                                <option value="" disabled selected>Seleccione un país</option>
+                            </select>
+                            <span asp-validation-for="Pais" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-4 form-group">
+                                <label asp-for="TipoDoc">Tipo de Documento:</label>
+                                <select asp-for="TipoDoc" class="form-control" required>
+                                    <option value="" disabled selected>Seleccione</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="Carnet Extranjero">Carnet de Extranjería</option>
+                                    <option value="Pasaporte">Pasaporte</option>
+                                </select>
+                                <span asp-validation-for="TipoDoc" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="col-4 form-group">
+                                <label asp-for="NumDoc">Número de Documento:</label>
+                                <input asp-for="NumDoc" class="form-control" required minlength="2"/>
+                                <span asp-validation-for="NumDoc" class="text-danger"></span>
+                            </div>
+                            
+                            <div class="col-4 form-group">
+                                <label>Monto a Pagar:</label>
+                                <input type="text" class="form-control" value="@Model.Total.ToString("C")" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tarjeta de Crédito:</label>
+                            <div id="card-element" class="form-control"></div>
+                            <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark btn-block">Realizar Pago</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="right border">
+                <div class="header">Listado a pagar</div>
+                <div class="list-group mb-4">
+                    @if (Model.PedidosVisitas != null && Model.PedidosVisitas.Any())
+                    {
+                        foreach (var pedido in Model.PedidosVisitas)
+                        {
+                            <div class="row item mb-3">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <b>Detalle: @pedido.Detalle</b>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <span>Fecha: @pedido.Fecha.ToString("dd/MM/yyyy HH:mm")</span>
+                                        </div>
+                                        <div class="col-6">
+                                            <span>Cantidad: @pedido.Cantidad</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <span>Precio: @pedido.PrecioUnitario.ToString("C")</span>
+                                        </div>
+                                        <div class="col-6">
+                                            <b>Total: @pedido.PrecioTotal.ToString("C")</b>
+                                        </div>
+                                    </div>
+                                    @if (pedido.Guía != null)
+                                    {
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <span>Guía: @pedido.Guía.Nombres</span>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted">No hay visitas seleccionadas.</p>
+                    }
+                </div>
+
+                <hr>
+                <div class="row lower">
+                    <div class="col text-left">Total a Pagar</div>
+                    <div class="col text-right">@Model.Total.ToString("C")</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form asp-action="GenerarPDF" method="post" class="mt-3">
+    <input type="hidden" name="idCliente" value="@Model.IDCliente" />
+    <button type="submit" class="btn btn-dark btn-block">Generar PDF</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/js/payment.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('https://restcountries.com/v3.1/all')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('Pais');
+                    data.sort((a, b) => a.name.common.localeCompare(b.name.common));
+                    data.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.name.common;
+                        option.textContent = country.name.common;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error al obtener los países:', error));
+        });
+    </script>
+}
