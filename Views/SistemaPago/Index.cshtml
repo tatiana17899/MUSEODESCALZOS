@@ -26,15 +26,20 @@
                         <input type="hidden" name="Token" id="stripeToken" />
                         <div class="form-group">
                             <label for="nombres">Nombres:</label>
-                            <input type="text" id="nombres" name="Nombres" class="form-control" required />
+                            <input type="text" id="nombres" name="Nombres" class="form-control" required minlength="2"/>
+                            @Html.ValidationMessageFor(m => m.Nombres, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
                             <label for="apellidos">Apellidos:</label>
-                            <input type="text" id="apellidos" name="Apellidos" class="form-control" required />
+                            <input type="text" id="apellidos" name="Apellidos" class="form-control" required minlength="2" />
+                            @Html.ValidationMessageFor(m => m.Apellidos, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
                             <label for="pais">País:</label>
-                            <input type="text" id="pais" name="Pais" class="form-control" required />
+                            <select id="pais" name="Pais" class="form-control" required>
+                                <option value="" disabled selected>Seleccione un país</option>
+                            </select>
+                            @Html.ValidationMessageFor(m => m.Pais, "", new { @class = "text-danger" })
                         </div>
                         <div class="row">
                             <div class="col-3 form-group">
@@ -45,10 +50,12 @@
                                     <option value="Carnet Extranjero">Carnet de Extranjería</option>
                                     <option value="Pasaporte">Pasaporte</option>
                                 </select>
+                                @Html.ValidationMessageFor(m => m.TipoDoc, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-3 form-group">
                                 <label for="numDoc">Número de Documento:</label>
-                                <input type="text" id="numDoc" name="NumDoc" class="form-control" required />
+                                <input type="text" id="numDoc" name="NumDoc" class="form-control" required minlength="2"/>
+                                @Html.ValidationMessageFor(m => m.NumDoc, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-3 form-group">
                                 <label for="amount">Monto a Pagar:</label>
@@ -128,5 +135,21 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/js/payment.js"></script>
+ <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('https://restcountries.com/v3.1/all')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('pais');
+                    data.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.cca2;
+                        option.textContent = country.name.common; 
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error al obtener los países:', error));
+        });
+    </script>
 
 }

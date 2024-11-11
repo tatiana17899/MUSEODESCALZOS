@@ -43,6 +43,8 @@ namespace MUSEODESCALZOS.Services
 
             mailMessage.To.Add(toEmail); // Agregar el correo del cliente como destinatario
 
+            
+
             smtpClient.Send(mailMessage); // Enviar el correo
         }
     }

@@ -111,9 +111,9 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
             var body = @"
                 <div style='font-family: Arial, sans-serif; border: 1px solid #ddd; padding: 20px; max-width: 600px; margin: auto;'>
                     <h2 style='text-align: center; color: #2c3e50;'>MUSEO DE LOS DESCALZOS</h2>
-                    <h3 style='text-align: center; color: #16a085;'>¡FELICITACIONES SE REGISTRÓ TU COMENTARIO! <p>{contacto.Name}</p></h3>
+                    <h3 style='text-align: center; color: #16a085;'>¡FELICITACIONES SE REGISTRÓ TU COMENTARIO!</h3>
                     <div style='text-align: center; margin: 20px 0;'>
-                        <img src='~/img/imgCorreo.png' alt='Imagen Museo' style='max-width: 100%; height: auto;'/>
+                        <img src='https://i.imgur.com/55ARXd6.jpg' alt='Imagen Museo' style='max-width: 100%; height: auto;'/>
                     </div>
                 </div>
             ";
