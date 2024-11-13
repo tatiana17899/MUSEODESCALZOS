@@ -108,6 +108,8 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
             else if (formAdmin.TipVenta == "eventos")
             {
                 var eventos = _context.DataPedidoEvento
+                    .Include(p => p.Cliente) // Asegúrate de incluir el cliente
+                    .Include(p => p.Evento) // Asegúrate de incluir el evento
                     .Where(p => (!formAdmin.FechaInicio.HasValue || p.Fecha >= formAdmin.FechaInicio.Value.ToUniversalTime())
                                 && (!formAdmin.FechaFin.HasValue || p.Fecha <= formAdmin.FechaFin.Value.ToUniversalTime()))
                     .Select(p => new EventoViewModel
@@ -115,10 +117,10 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                         Id = p.IDPedidoEvento,
                         Fecha = p.Fecha,
                         Tipo = "Eventos",
-                        Monto = p.PrecioTotal,
-                        Cliente = p.Cliente,
-                        Evento = p.Evento.ToString(),
-                        Detalle = p.Detalle,
+                        Monto = p.PrecioUnitario,
+                        Cliente = p.Cliente, 
+                        Evento = p.Evento != null ? p.Evento.Nombre : "N/A", 
+                       
                     }).ToList();
 
                 ventasList.AddRange(eventos.Cast<VentaBase>());
@@ -183,6 +185,8 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
             else if (formAdmin.TipVenta == "eventos")
             {
                 var eventos = _context.DataPedidoEvento
+                    .Include(p => p.Cliente) // Asegúrate de incluir el cliente
+                    .Include(p => p.Evento) // Asegúrate de incluir el evento
                     .Where(p => (!formAdmin.FechaInicio.HasValue || p.Fecha >= formAdmin.FechaInicio.Value.ToUniversalTime())
                                 && (!formAdmin.FechaFin.HasValue || p.Fecha <= formAdmin.FechaFin.Value.ToUniversalTime()))
                     .Select(p => new EventoViewModel
@@ -190,12 +194,13 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                         Id = p.IDPedidoEvento,
                         Fecha = p.Fecha,
                         Tipo = "Eventos",
-                        Monto = p.PrecioTotal,
-                        Cliente = p.Cliente,
-                        Evento = p.Evento.ToString(),
-                        Detalle = p.Detalle,
-                        
+                        Monto = p.PrecioUnitario,
+                        Cliente = p.Cliente, 
+                        Evento = p.Evento != null ? p.Evento.Nombre : "N/A", 
+                       
                     }).ToList();
+
+                ventasList.AddRange(eventos.Cast<VentaBase>());
             }
              using (var package = new ExcelPackage()){
                 var worksheet = package.Workbook.Worksheets.Add("Ventas");
@@ -204,7 +209,6 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                 worksheet.Cells[1, 3].Value = "Tipo";
                 worksheet.Cells[1, 4].Value = "Monto";
                 worksheet.Cells[1, 5].Value = "Cliente";
-                worksheet.Cells[1, 6].Value = "Detalle";
                 worksheet.Cells[1, 7].Value = "Cantidad";
                 worksheet.Cells[1, 8].Value = "Precio Unitario";
                 worksheet.Cells[1, 9].Value = "Guía";
@@ -235,8 +239,8 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
                     else if (venta is EventoViewModel evento)
                     {
                         worksheet.Cells[rowIndex, 5].Value = evento.Cliente?.ToString();
-                        worksheet.Cells[rowIndex, 6].Value = evento.Detalle;
-                        worksheet.Cells[rowIndex, 7].Value = evento.CantidadTotal;
+                        worksheet.Cells[rowIndex, 6].Value = evento.Evento;
+                        worksheet.Cells[rowIndex, 7].Value = evento.PrecioUnitario;
                         worksheet.Cells[rowIndex, 8].Value = evento.CalcularPrecioTotal();
                         worksheet.Cells[rowIndex, 9].Value = "";
                     }

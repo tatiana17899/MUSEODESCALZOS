@@ -154,7 +154,6 @@
                         @if (Model.FormAdmin.TipVenta == "visitas")
                         {
                             <th>Cliente</th>
-                            <th>Detalle</th>
                             <th>Cantidad</th>
                             <th>Precio Unitario</th>
                             <th>Guía</th>
@@ -163,9 +162,7 @@
                         {
                             <th>Cliente</th>
                             <th>Evento</th>
-                            <th>Detalle</th>
-                            <th>Cantidad</th>
-                            <th>Precio Unitario</th>
+                            <th>Total</th>
                         }
                     </tr>
                 </thead>
@@ -189,17 +186,15 @@
                             else if (venta is VisitaViewModel visita)
                             {
                                 <td>@visita.Cliente.Nombres</td>
-                                <td>@visita.Detalle</td>
                                 <td>@visita.Cantidad</td>
                                 <td>@visita.PrecioUnitario.ToString("C")</td>
                                 <td>@visita.Guía.Nombres</td>
                             }
                             else if (venta is EventoViewModel evento)
                             {
-                                <td>@evento.Cliente.Nombres</td>
-                                <td>@evento.Evento</td>
-                                <td>@evento.Detalle</td>
-                                <td>@evento.CalcularPrecioTotal()</td>
+                                <td>@(evento.Cliente?.Nombres ?? "N/A")</td> 
+                                <td>@(evento.Evento ?? "N/A")</td> 
+                                <td>@evento.Monto.ToString("C")</td>
                             }
                         </tr>
                     }
