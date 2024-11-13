@@ -22,16 +22,18 @@ using MuseoDescalzos.Models;
 using MUSEO_DE_LOS_DESCALZOS.ViewModel;
 using Newtonsoft.Json;
 
+
 namespace MUSEODESCALZOS.Controllers
 {
-    public class SistemaPagoController : Controller
+    public class SistemaPagoVisitaController : Controller
     {
-        private readonly ILogger<SistemaPagoController> _logger;
+        private readonly ILogger<SistemaPagoVisitaController> _logger;
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
 
-        public SistemaPagoController(ILogger<SistemaPagoController> logger, ApplicationDbContext context, UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public SistemaPagoVisitaController(ILogger<SistemaPagoVisitaController> logger, ApplicationDbContext context, 
+            UserManager<IdentityUser> userManager, IConfiguration configuration)
         {
             _logger = logger;
             _context = context;
@@ -53,42 +55,40 @@ namespace MUSEODESCALZOS.Controllers
             if (cliente == null)
             {
                 ModelState.AddModelError("", "Cliente no encontrado.");
-                return View(new PagoViewModel());
+                return View(new PagoVisitaViewModel());
             }
 
-            var eventos = await _context.DataPedidoEvento
+            var pedidosVisitas = await _context.DataPedidoVisita
                 .Where(p => p.IDCliente == cliente.IDCliente)
-                .Include(e => e.Evento)
+                .Include(v => v.Cliente)
+                .Include(v => v.Guía)
                 .ToListAsync();
 
-            decimal total = eventos.Sum(evento => evento.PrecioTotal > 0 ? evento.PrecioTotal : 0);
-            var model = new PagoViewModel
+            decimal total = pedidosVisitas.Sum(p => p.PrecioTotal);
+
+            var model = new PagoVisitaViewModel
             {
                 IDCliente = cliente.IDCliente,
                 Nombres = cliente.Nombres,
                 Apellidos = cliente.Apellidos,
                 TipoDoc = cliente.TipoDoc,
                 NumDoc = cliente.NumDoc,
-                ImagenUrl = eventos.FirstOrDefault()?.Evento.RutalImagen,
                 Total = total,
-                Eventos = eventos.Select(e => new EventoViewModel
+                PedidosVisitas = pedidosVisitas,
+                Visitas = pedidosVisitas.Select(p => new ReservarVisitaViewModel
                 {
-                    IDEvento = (int)e.IDEvento,
-                    Detalle = e.Evento.Nombre,
-                    Eventoo = e.Evento,
-                    PrecioUnitario = e.PrecioUnitario,
-                    Cantidad = e.Cantidad,
-                    Fecha = e.Fecha,
-                }).ToList(),
-                pedidoEvento = eventos.FirstOrDefault()
+                    Fecha = p.Fecha,
+                    Hora = p.Fecha.ToString("HH:mm"),
+                    GuiaID = p.IDGuía,
+                    PrecioTotal = p.PrecioTotal
+                }).ToList()
             };
-
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProcesarPago(PagoViewModel model)
+        public async Task<IActionResult> ProcesarPago(PagoVisitaViewModel model)
         {
             var session = await CrearSesionStripe(model);
 
@@ -131,7 +131,8 @@ namespace MUSEODESCALZOS.Controllers
         }
 
 
-        private async Task<Session> CrearSesionStripe(PagoViewModel model)
+
+        private async Task<Session> CrearSesionStripe(PagoVisitaViewModel model)
         {
             try
             {
@@ -147,7 +148,7 @@ namespace MUSEODESCALZOS.Controllers
                                 Currency = "usd",
                                 ProductData = new SessionLineItemPriceDataProductDataOptions
                                 {
-                                    Name = "Compra de entradas",
+                                    Name = "Reserva de visitas al museo",
                                 },
                                 UnitAmount = (long)(model.Total * 100),
                             },
@@ -155,8 +156,8 @@ namespace MUSEODESCALZOS.Controllers
                         },
                     },
                     Mode = "payment",
-                    SuccessUrl = Url.Action("Success", "SistemaPago", null, Request.Scheme),
-                    CancelUrl = Url.Action("Cancel", "SistemaPago", null, Request.Scheme),
+                    SuccessUrl = Url.Action("Success", "SistemaPagoVisita", null, Request.Scheme),
+                    CancelUrl = Url.Action("Cancel", "SistemaPagoVisita", null, Request.Scheme),
                 };
 
                 var service = new SessionService();
@@ -165,115 +166,103 @@ namespace MUSEODESCALZOS.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error al crear la sesión de pago en Stripe.");
-                return null; 
+                return null;
             }
         }
-        private async Task<Customer> CrearClienteStripe(PagoViewModel model)
+
+        private async Task<Customer> CrearClienteStripe(PagoVisitaViewModel model)
         {
             var customerOptions = new CustomerCreateOptions
             {
                 Name = $"{model.Nombres} {model.Apellidos}",
-                Email = model.Email, // Asegúrate de que el modelo tenga un campo para el email
-                // Puedes agregar más campos según sea necesario
+                Email = model.Email,
             };
 
             var customerService = new CustomerService();
             return await customerService.CreateAsync(customerOptions);
         }
+
         public IActionResult Success()
         {
             if (TempData["ClienteId"] != null)
             {
                 long clienteId = long.Parse(TempData["ClienteId"].ToString());
-
                 return RedirectToAction("ConfirmacionTarjeta", new { id = clienteId });
             }
-
             return RedirectToAction("Index");
         }
 
-
         [HttpGet]
-        public IActionResult ConfirmacionTarjeta(long? id)
+        public async Task<IActionResult> ConfirmacionTarjeta(long? id)
         {
             if (!id.HasValue)
             {
-                id = TempData["ClienteId"] != null ? long.Parse(TempData["ClienteId"].ToString()) : (long?)null;
+                return RedirectToAction("Index");
             }
 
-            if (!id.HasValue)
-            {
-                return RedirectToAction("Index"); // Redirige a la vista de inicio si no se encuentra el ID
-            }
-
-            var cliente = _context.DataCliente.Find(id.Value);
+            var cliente = await _context.DataCliente.FindAsync(id.Value);
             if (cliente == null)
             {
-                return RedirectToAction("Index"); // Redirige si el cliente no existe
+                return RedirectToAction("Index");
             }
 
-            var eventosJson = TempData["Eventos"]?.ToString();
-            var total = TempData["Total"] != null ? (decimal)TempData["Total"] : 0;
+            var visitasJson = TempData["Visitas"]?.ToString();
+            var total = TempData["Total"] != null ? Convert.ToDecimal(TempData["Total"]) : 0m;
 
-            if (eventosJson == null)
+            if (string.IsNullOrEmpty(visitasJson))
             {
-                return RedirectToAction("Index"); // Redirige si no hay eventos
+                return RedirectToAction("Index");
             }
 
-            var eventos = JsonConvert.DeserializeObject<List<EventoViewModel>>(eventosJson);
-
-            var confirmacionModel = new ConfirmacionViewModel
+            var visitas = JsonConvert.DeserializeObject<List<ReservarVisitaViewModel>>(visitasJson);
+            
+            var model = new ConfirmacionVisitaViewModel
             {
                 Cliente = cliente,
-                Eventos = eventos,
+                Visitas = visitas,
                 Total = total
             };
 
-            return View(confirmacionModel);
+            return View(model);
         }
 
-
-
         [HttpPost]
-        public async Task<IActionResult> GenerarPDF(int idCliente)
+        public async Task<IActionResult> GenerarPDF(long idCliente)
         {
-            var cliente = await _context.DataCliente.FirstOrDefaultAsync(c => c.IDCliente == idCliente);
-            var eventos = await _context.DataPedidoEvento
-                .Include(e => e.Evento) // Asegúrate de incluir el evento relacionado
+            var cliente = await _context.DataCliente.FindAsync(idCliente);
+            var pedidosVisitas = await _context.DataPedidoVisita
                 .Where(p => p.IDCliente == idCliente)
                 .ToListAsync();
 
-            if (cliente == null || eventos == null || !eventos.Any())
+            if (cliente == null || !pedidosVisitas.Any())
             {
-                return NotFound(); 
+                return NotFound();
             }
 
-            // Crear el modelo que se pasará a la vista
-            var model = new ConfirmacionPagoViewModel
+            // Ya no necesitas crear una lista de ReservarVisitaViewModel
+            // porque vas a usar directamente pedidosVisitas
+
+            var model = new ConfirmacionVisitaPagoViewModel
             {
                 Cliente = cliente,
-                Eventos = eventos
+                visita = pedidosVisitas  // Asigna directamente la lista de pedidos
             };
 
-            // Generar el PDF a partir de la vista
-            var pdf = new ViewAsPdf("~/Views/SistemaPago/ConfirmacionPago.cshtml", model)
+            var pdf = new ViewAsPdf("ConfirmacionPago", model)
             {
-                FileName = "ConfirmacionPago.pdf",
+                FileName = $"ConfirmacionPago_{idCliente}.pdf",
                 PageSize = Rotativa.AspNetCore.Options.Size.A4,
                 PageOrientation = Rotativa.AspNetCore.Options.Orientation.Portrait
             };
 
-
             var pdfBytes = await pdf.BuildFile(ControllerContext);
-            return File(pdfBytes, "application/pdf", "ConfirmacionPago.pdf");
+            return File(pdfBytes, "application/pdf", pdf.FileName);
         }
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View("Error");
+            return View("Error!");
         }
     }
 }

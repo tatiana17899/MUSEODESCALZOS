@@ -60,9 +60,10 @@
         </div>
     </div>
 </div>
-@if(Model.Actividades != null && Model.Actividades.Any())
+<div class="container m-5">
+    @if(Model.Actividades != null && Model.Actividades.Any())
         {
-            <table class="table table-dark table-striped">
+            <table class="table table-dark table-striped" style="padding: 20px;">
                 <thead>
                     <tr>
                         <th>Hora Inicial</th>
@@ -88,3 +89,4 @@
         {
             <p class="text-center mt-5">No hay actividades registradas para este evento.</p>
         }
+</div>

@@ -39,7 +39,7 @@
                                     <p class="card-text font-weight-bold">Cantidad: @item.Cantidad</p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="card-text font-weight-bold">@item.PrecioTotal.ToString("C")</p>
+                                    <p class="card-text font-weight-bold">@item.PrecioUnitario.ToString("C")</p>
                                     <form asp-action="EliminarDelCarrito" method="post" style="display:inline;">
                                         <input type="hidden" name="idEvento" value="@item.Eventoo.IDEvento" />
                                          <button type="button" onclick="confirmDelete(this)" style="background-color: rgb(255, 255, 255); border: none; padding: 20px">

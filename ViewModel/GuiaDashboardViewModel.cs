@@ -12,5 +12,6 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
         public int TareasCompletadas { get; set; }
         public int TareasNoCompletadas { get; set; }
         public IEnumerable<PedidoVisita> Visitas { get; set; }
+        public bool Disponible { get; set; }
     }
 }

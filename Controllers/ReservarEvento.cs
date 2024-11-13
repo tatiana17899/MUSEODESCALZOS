@@ -35,11 +35,13 @@ namespace MUSEODESCALZOS.Controllers
                 Eventoo = evento,
                 vidcliente = 5, 
                 Cantidad = 1,
+                CantidadAdultoMayor = 2,
+                CantidadEscolar = 2,
                 PrecioUnitario = evento.Precio,
                 PrecioUnitario_adultomayor = evento.Precio * 0.70m,
                 PrecioUnitario_estudiante = evento.Precio * 0.30m
             };
-
+            
             return View(viewModel);
         }
 
@@ -74,8 +76,7 @@ namespace MUSEODESCALZOS.Controllers
                 IDEvento = evento.IDEvento,  
                 Detalle = model.Detalle,
                 Cantidad = model.CantidadTotal,
-                PrecioUnitario = model.PrecioTotal,
-                PrecioTotal = model.PrecioTotal,
+                PrecioUnitario = model.CalcularPrecioTotal(),
                 Fecha = DateTime.Now
             };
 

@@ -4,6 +4,7 @@ using MUSEODESCALZOS.Data;
 using MUSEODESCALZOS.Models;
 using Rotativa.AspNetCore;
 using Microsoft.OpenApi.Models;
+using MUSEODESCALZOS.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +63,8 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+builder.Services.AddSingleton<EmailService>();
 
 var app = builder.Build();
 

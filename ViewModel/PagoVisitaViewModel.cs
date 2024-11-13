@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using MUSEO_DE_LOS_DESCALZOS.ViewModel;
 using MuseoDescalzos.Models;
 
 namespace MUSEODESCALZOS.ViewModel
 {
-    public class PagoViewModel
+    public class PagoVisitaViewModel
     {
         public long IDCliente { get; set; }
         [Required(ErrorMessage = "Los nombres son obligatorios.")]
@@ -27,8 +26,8 @@ namespace MUSEODESCALZOS.ViewModel
         public string? Pais { get; set; }
         public decimal Total { get; set; }
         public string? MetodoPago { get; set; }
-        public List<EventoViewModel> Eventos { get; set; } = new List<EventoViewModel>();
-        public List<PedidoVisita>? Visitas { get; set; }
+        public List<ReservarVisitaViewModel> Visitas { get; set; } = new List<ReservarVisitaViewModel>(); // Mantener como está
+        public List<PedidoVisita>? PedidosVisitas { get; set; } // Renombrado aquí
         public string? ImagenUrl { get; set; }
         public string? NumeroTarjeta { get; set; }
         public string? NombreTarjeta { get; set; }
@@ -37,7 +36,6 @@ namespace MUSEODESCALZOS.ViewModel
         public string? CVV { get; set; }
 
         public string? Token { get; set; }
-        public PedidoEvento? pedidoEvento;
-        
+        public PedidoVisita? PedidoVisita { get; set; }
     }
 }

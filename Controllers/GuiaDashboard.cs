@@ -4,6 +4,7 @@ using MUSEODESCALZOS.Data;
 using MuseoDescalzos.Models;
 using MUSEO_DE_LOS_DESCALZOS.ViewModel;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace MUSEODESCALZOS.Controllers
 {
@@ -22,15 +23,24 @@ namespace MUSEODESCALZOS.Controllers
         public IActionResult Index()
         {
             var usuario = User.Identity.Name; 
+            var guia = _context.DataGuía.FirstOrDefault(g => g.Email == usuario);
+
+            if (guia == null)
+            {
+                return NotFound("Guía no encontrado");
+            }
+
             var tareas = _context.DataTareas.Where(t => t.Guía.Email == usuario).ToList();
             var tareasCompletadas = tareas.Count(t => t.Estado);
             var tareasNoCompletadas = tareas.Count(t => !t.Estado);
+            
             
             var viewModel = new GuiaDashboardViewModel
             {
                 Tareas = tareas,
                 TareasCompletadas = tareasCompletadas,
-                TareasNoCompletadas = tareasNoCompletadas
+                TareasNoCompletadas = tareasNoCompletadas,
+                Disponible = guia.Disponible
             };
             return View(viewModel);
         }
@@ -38,7 +48,15 @@ namespace MUSEODESCALZOS.Controllers
         public IActionResult Visitas()
         {
             var usuario = User.Identity.Name; 
-            var visitas = _context.DataPedidoVisita.Where(v => v.Guía.Email == usuario).ToList();
+            var guia = _context.DataGuía.FirstOrDefault(g => g.Email == usuario);
+            if (guia == null)
+            {
+                return NotFound("Guía no encontrado.");
+            }
+            var visitas = _context.DataPedidoVisita
+                .Where(v => v.IDGuía == guia.IDGuía)
+                .Include(v => v.Cliente) 
+                .ToList();
             var viewModel = new GuiaDashboardViewModel
             {
                 Visitas = visitas
@@ -59,15 +77,28 @@ namespace MUSEODESCALZOS.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public IActionResult ActualizarDisponibilidad(bool disponible)
+        {
+            var usuario = User.Identity.Name;
+            var guia = _context.DataGuía.FirstOrDefault(g => g.Email == usuario);
 
-        // Método para actualizar el estado de la visita
+            if (guia != null)
+            {
+                guia.Disponible = disponible;
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public IActionResult ActualizarVisita(long id, bool estado)
         {
             var visita = _context.DataPedidoVisita.Find(id);
             if (visita != null)
             {
-                //visita.Estado = estado;
+                visita.Estado = estado;
                 _context.SaveChanges();
             }
             return RedirectToAction("Visitas");

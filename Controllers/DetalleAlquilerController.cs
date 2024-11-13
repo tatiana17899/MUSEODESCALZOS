@@ -35,7 +35,10 @@ namespace MUSEODESCALZOS.Controllers
 
             return View(alquiler);
         }
-
+        public IActionResult Chatbot()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -55,11 +55,15 @@ namespace MUSEODESCALZOS.Controllers
 
             if (ModelState.IsValid)
             {
+                var horaSeleccionada = DateTime.ParseExact(model.Hora, "H:mm", null);
+                
+                var fechaYHora = model.Fecha.Date.Add(horaSeleccionada.TimeOfDay); 
+
                 var precioTotal = model.CalcularPrecioTotal();
                 
                 var pedidoVisita = new PedidoVisita
                 {
-                    Fecha = model.Fecha.ToUniversalTime(),
+                    Fecha = fechaYHora.ToUniversalTime(), // Almacena la fecha con la hora seleccionada
                     Cantidad = model.AdultoMayor + model.Estudiantes + model.Ninos,
                     PrecioUnitario = precioTotal / (model.AdultoMayor + model.Estudiantes + model.Ninos),
                     PrecioTotal = precioTotal,
@@ -76,6 +80,7 @@ namespace MUSEODESCALZOS.Controllers
             model.GuiaDisponibles = _context.DataGuía.Where(g => g.Disponible).ToList();
             return View("Index", model);
         }
+
 
         public IActionResult Summary(long id)
         {

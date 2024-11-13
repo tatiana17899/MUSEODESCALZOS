@@ -3,12 +3,13 @@ using System;
 using MUSEODESCALZOS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace MUSEODESCALZOS.Data.Migrations
+namespace MUSEODESCALZOS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -563,9 +564,6 @@ namespace MUSEODESCALZOS.Data.Migrations
 
                     b.Property<string>("Detalle")
                         .HasColumnType("text");
-
-                    b.Property<bool>("Estado")
-                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("timestamp with time zone");

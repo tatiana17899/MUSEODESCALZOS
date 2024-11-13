@@ -26,28 +26,40 @@
                         <input type="hidden" name="Token" id="stripeToken" />
                         <div class="form-group">
                             <label for="nombres">Nombres:</label>
-                            <input type="text" id="nombres" name="Nombres" class="form-control" required />
+                            <input type="text" id="nombres" name="Nombres" class="form-control" required minlength="2"/>
+                            @Html.ValidationMessageFor(m => m.Nombres, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
                             <label for="apellidos">Apellidos:</label>
-                            <input type="text" id="apellidos" name="Apellidos" class="form-control" required />
+                            <input type="text" id="apellidos" name="Apellidos" class="form-control" required minlength="2" />
+                            @Html.ValidationMessageFor(m => m.Apellidos, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group">
                             <label for="pais">País:</label>
-                            <input type="text" id="pais" name="Pais" class="form-control" required />
+                            <select id="pais" name="Pais" class="form-control" required>
+                                <option value="" disabled selected>Seleccione un país</option>
+                            </select>
+                            @Html.ValidationMessageFor(m => m.Pais, "", new { @class = "text-danger" })
                         </div>
                         <div class="row">
                             <div class="col-3 form-group">
                                 <label for="tipoDoc">Tipo de Documento:</label>
-                                <input type="text" id="tipoDoc" name="TipoDoc" class="form-control" required />
+                                <select id="tipoDoc" name="TipoDoc" class="form-control" required>
+                                    <option value="" disabled selected>Seleccione un tipo de documento</option>
+                                    <option value="DNI">DNI</option>
+                                    <option value="Carnet Extranjero">Carnet de Extranjería</option>
+                                    <option value="Pasaporte">Pasaporte</option>
+                                </select>
+                                @Html.ValidationMessageFor(m => m.TipoDoc, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-3 form-group">
                                 <label for="numDoc">Número de Documento:</label>
-                                <input type="text" id="numDoc" name="NumDoc" class="form-control" required />
+                                <input type="text" id="numDoc" name="NumDoc" class="form-control" required minlength="2"/>
+                                @Html.ValidationMessageFor(m => m.NumDoc, "", new { @class = "text-danger" })
                             </div>
                             <div class="col-3 form-group">
                                 <label for="amount">Monto a Pagar:</label>
-                                <input type="text" id="amount" name="Total" class="form-control" value="@Model.Total" readonly />
+                                <input type="text" id="amount" name="Total" class="form-control" value="@Model.pedidoEvento.PrecioUnitario" readonly />
                             </div>
                         </div>
                         <div class="form-group">
@@ -74,7 +86,7 @@
                             <input type="hidden" name="Eventos[@index].IDEvento" value="@evento.Eventoo.IDEvento" />
                             <input type="hidden" name="Eventos[@index].Cantidad" value="@evento.Cantidad" />
                             <input type="hidden" name="Eventos[@index].PrecioUnitario" value="@evento.PrecioUnitario" />
-                            <input type="hidden" name="Eventos[@index].PrecioTotal" value="@evento.PrecioTotal" />
+                            <input type="hidden" name="Eventos[@index].PrecioTotal" value="@evento.PrecioUnitario" />
                             
                             <div class="row item mb-3">
                                 <!-- Imagen del evento -->
@@ -87,7 +99,7 @@
                                         <b>@evento.Eventoo?.Nombre</b>
                                     </div>
                                     <div class="row">
-                                        <b>@evento.PrecioTotal.ToString("C")</b>
+                                        <b>@evento.PrecioUnitario.ToString("C")</b>
                                     </div>
                                     <div class="row">
                                         Cant: @evento.Cantidad
@@ -108,7 +120,7 @@
                 <hr>
                 <div class="row lower">
                     <div class="col text-left">Total</div>
-                    <div class="col text-right">$@Model.Total.ToString("F2")</div>
+                     <div class="col text-right">@Model.pedidoEvento.PrecioUnitario.ToString("C")</div>
                 </div>
             </div>
         </div>
@@ -123,5 +135,21 @@
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/js/payment.js"></script>
+ <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('https://restcountries.com/v3.1/all')
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('pais');
+                    data.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.cca2;
+                        option.textContent = country.name.common; 
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error al obtener los países:', error));
+        });
+    </script>
 
 }

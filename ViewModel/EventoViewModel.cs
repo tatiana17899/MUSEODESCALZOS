@@ -22,10 +22,26 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
         public int Cantidad { get; set; }
         public int vidcliente  { get; set; }
         public string? NombreEvento { get; set; }
-        public decimal PrecioUnitario { get; set; } = 0;
-        public decimal PrecioUnitario_adultomayor { get; set; } = 0;
-        public decimal PrecioUnitario_estudiante { get; set; } = 0;
-        public decimal PrecioTotal => Cantidad * PrecioUnitario;
+        public decimal PrecioUnitario { get; set; }
+        public decimal PrecioUnitario_adultomayor { get; set; } 
+        public decimal PrecioUnitario_estudiante { get; set; } 
+        public decimal CalcularPrecioTotal()
+        {
+            Console.WriteLine($"Precio Unitario: {PrecioUnitario}");
+            Console.WriteLine($"Cantidad Adulto: {CantidadAdulto}");
+            Console.WriteLine($"Cantidad Adulto Mayor: {CantidadAdultoMayor}");
+            Console.WriteLine($"Cantidad Escolar: {CantidadEscolar}");
+
+            decimal totalAdulto = CantidadAdulto * PrecioUnitario;
+            decimal totalAdultoMayor = CantidadAdultoMayor * PrecioUnitario_adultomayor;
+            decimal totalEstudiante = CantidadEscolar * PrecioUnitario_estudiante;
+
+            decimal total = totalAdulto + totalAdultoMayor + totalEstudiante;
+            Console.WriteLine($"Total Calculado: {total}");
+
+            return total;
+        }
+        
         public int CantidadAdulto { get; set; }  
         public int CantidadAdultoMayor { get; set; }
         public int CantidadEscolar { get; set; }
@@ -33,7 +49,6 @@ namespace MUSEO_DE_LOS_DESCALZOS.ViewModel
 
         public int CantidadTotal => CantidadAdulto + CantidadAdultoMayor + CantidadEscolar;
 
-      
-
+    
     }
 }

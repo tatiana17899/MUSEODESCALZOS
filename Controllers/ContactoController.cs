@@ -9,6 +9,8 @@ using MUSEO_DE_LOS_DESCALZOS.ViewModel;
 using MuseoDescalzos.Models;
 using MUSEODESCALZOS.Data;
 using ClasificacionModelo;
+using MUSEODESCALZOS.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace MUSEO_DE_LOS_DESCALZOS.Controllers
 {
@@ -17,11 +19,15 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
     {
         private readonly ILogger<ContactoController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly EmailService _emailService;
 
-        public ContactoController(ILogger<ContactoController> logger,ApplicationDbContext context)
+
+        public ContactoController(ILogger<ContactoController> logger,ApplicationDbContext context, 
+        EmailService emailService)
         {
             _logger = logger;
-             _context = context;
+            _context = context;
+            _emailService = emailService;
         }
 
         public IActionResult Index()
@@ -101,8 +107,37 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
             _context.Add(contacto);
             _context.SaveChanges();
 
-            ViewData["Message"] = "Se registro el contacto";            
+            var subject = "Nuevo Comentario del Cliente";
+            var body = @"
+                <div style='font-family: Arial, sans-serif; border: 1px solid #ddd; padding: 20px; max-width: 600px; margin: auto;'>
+                    <h2 style='text-align: center; color: #2c3e50;'>MUSEO DE LOS DESCALZOS</h2>
+                    <h3 style='text-align: center; color: #16a085;'>¡FELICITACIONES SE REGISTRÓ TU COMENTARIO!</h3>
+                    <div style='text-align: center; margin: 20px 0;'>
+                        <img src='https://i.imgur.com/55ARXd6.jpg' alt='Imagen Museo' style='max-width: 100%; height: auto;'/>
+                    </div>
+                </div>
+            ";
 
+
+            if (string.IsNullOrEmpty(viewModel.FormContacto.Email) || !new EmailAddressAttribute().IsValid(viewModel.FormContacto.Email))
+            {
+                TempData["ErrorMessage"] = "Correo electrónico del cliente no válido.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                _emailService.SendEmail(subject, body, viewModel.FormContacto.Email);
+                TempData["SuccessMessage"] = "Mensaje enviado correctamente.";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Hubo un problema al enviar el mensaje: " + ex.Message + "\n" + ex.StackTrace;
+                _logger.LogError(ex, "Error al enviar el correo");
+            }
+
+            ViewData["Message"] = "Se registro el contacto"; 
+            
             return RedirectToAction(nameof(Index));
         }
 
