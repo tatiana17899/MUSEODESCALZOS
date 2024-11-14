@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
+using OfficeOpenXml;
 
 namespace MUSEO_DE_LOS_DESCALZOS.Controllers
 {
@@ -250,7 +251,38 @@ namespace MUSEO_DE_LOS_DESCALZOS.Controllers
 
             return Ok();
         }
-        
+        public IActionResult ExportarAGuías()
+        {
+            var guias = _context.DataGuía.ToList();
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet = package.Workbook.Worksheets.Add("Guías");
+                worksheet.Cells[1, 1].Value = "ID";
+                worksheet.Cells[1, 2].Value = "Nombres";
+                worksheet.Cells[1, 3].Value = "Apellidos";
+                worksheet.Cells[1, 4].Value = "Email";
+                worksheet.Cells[1, 5].Value = "Tipo de Pago";
+                worksheet.Cells[1, 6].Value = "Sueldo";
+                worksheet.Cells[1, 7].Value = "Disponible";
+
+                for (int i = 0; i < guias.Count; i++)
+                {
+                    worksheet.Cells[i + 2, 1].Value = guias[i].IDGuía;
+                    worksheet.Cells[i + 2, 2].Value = guias[i].Nombres;
+                    worksheet.Cells[i + 2, 3].Value = guias[i].Apellidos;
+                    worksheet.Cells[i + 2, 4].Value = guias[i].Email;
+                    worksheet.Cells[i + 2, 5].Value = guias[i].TipPago;
+                    worksheet.Cells[i + 2, 6].Value = guias[i].Sueldo;
+                    worksheet.Cells[i + 2, 7].Value = guias[i].Disponible ? "Sí" : "No";
+                }
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+                var fileName = "Guías.xlsx";
+                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+            }
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

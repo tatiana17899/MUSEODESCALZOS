@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.min.css" />
 
 <div class="content flex-grow-1" id="contenido">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between mb-4">
         <h1 class="h3">@ViewData["Title"]</h1>
         <hr>
     </div>
@@ -19,6 +19,7 @@
             </h5>
         </div>
         <div class="card-body">
+                <a href="@Url.Action("ExportToExcel", "ClientesUsuarios")" class="btn btn-success"><i class="fa-sharp fa-solid fa-file-excel"></i> Exportar a Excel</a>
             <div class="container">
                 <table id="clientesTable" class="table table-striped table-bordered" style="padding: 10px;">
                     <thead>
