@@ -43,10 +43,10 @@
                 <a href="@Url.Action("Detalle", "DetalleEvento", new { IDEvento = evento.IDEvento })"
                     class="text-decoration-none">
                     <div class="card  mt-2">
-                        <img src="@evento.RutalImagen" class="card-img-top" style="color: black;">
+                        <img src="@evento.RutalImagen" class="card-img-top" style="color: black; width:277px; height:200px">
                         <div class="card-body " style="color: black;">
-                            <h5 class="card-title text-dark">@evento.Nombre</h5>
-                            <p>@evento.Descripción</p>
+                            <h5 class="card-title text-dark" style="font-size: 15px">@evento.Nombre</h5>
+                            <p style="font-size: 10px">@evento.Descripción</p>
                             <i class="bi bi-calendar"></i>@evento.Fecha
                         </div>
                     </div>

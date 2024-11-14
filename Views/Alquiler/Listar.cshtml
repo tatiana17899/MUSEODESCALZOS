@@ -29,11 +29,11 @@
                     class="text-decoration-none">
                     <div class="card h-100 border border-dark">
                         @foreach(var imagen in alquiler.Imagenes){
-                            <img src="@imagen.Rutalmagen" class="card-img-top" alt="@alquiler.Titulo">
+                            <img src="@imagen.Rutalmagen" class="card-img-top" alt="@alquiler.Titulo" style="color: black; width:277px; height:200px">
                         }                  
                         <div class="card-body">
-                            <h3 class="text-dark">@alquiler.Titulo</h3>
-                            <p class="text-dark">@alquiler.Descripcion</p>
+                            <h3 class="text-dark" style="font-size: 15px">@alquiler.Titulo</h3>
+                            <p class="text-dark" style="font-size: 10px" >@alquiler.Descripcion</p>
                             <span class="text-dark"><span class="material-symbols-outlined">
                                     schedule
                                 </span>
